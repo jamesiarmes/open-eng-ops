@@ -1,0 +1,43 @@
+require:
+  - rubocop-capybara
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "test/**/*"
+    - "vendor/**/*"
+    - "db/**/*"
+    - "bin/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "app/views/**/*"
+    - "config/environments/*"
+    - "node_modules/**/*"
+
+Naming/VariableNumber:
+  EnforcedStyle: non_integer
+  AllowedIdentifiers:
+    - has_911
+  Exclude:
+    - "spec/**/*"
+
+# TODO: Reduce to the default (5) or as close to it as reasonably possible.
+RSpec/ExampleLength:
+  Max: 40
+
+# TODO: Reduce to the default (1).
+RSpec/MultipleExpectations:
+  Max: 6
+
+# TODO: Determine if we can get this down closer to the default (5).
+RSpec/MultipleMemoizedHelpers:
+  Max: 13
+
+RSpec/NestedGroups:
+  Max: 6
+
+Style/CollectionMethods:
+  Enabled: true
