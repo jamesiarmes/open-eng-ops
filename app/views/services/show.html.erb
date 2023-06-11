@@ -1,0 +1,44 @@
+<div class="w-full">
+  <div class="responsive-container">
+    <div class="mt-12 px-4 py-5 sm:px-6">
+      <%= render @service %>
+    </div>
+
+    <div class="mb-3 ms-3">
+      <%= link_to t('.update'), edit_service_path(@service), class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <section>
+    <nav>
+      <ul class="nav nav-tabs mb-3" id="services-github-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="services-github-tab-repos" data-mdb-toggle="tab" href="#services-github-content-repos" role="tab"
+             aria-controls="services-github-content-repos" aria-selected="true"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Repositories</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="#ex-with-icons-tabs-2" role="tab"
+             aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Subscriptions</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="#ex-with-icons-tabs-3" role="tab"
+             aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-cogs fa-fw me-2"></i>Settings</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="tab-content" id="services-github-content">
+      <div class="tab-pane fade show active" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
+        <%= render 'github_repositories' %>
+      </div>
+      <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
+        Tab 2 content
+      </div>
+      <div class="tab-pane fade" id="ex-with-icons-tabs-3" role="tabpanel" aria-labelledby="ex-with-icons-tab-3">
+        Tab 3 content
+      </div>
+    </div>
+  </section>
+
+
+</div>

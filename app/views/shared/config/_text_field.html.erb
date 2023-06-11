@@ -1,0 +1,9 @@
+<div class="form-outline my-2">
+  <%= text_field_tag "service[config][#{field}]", @service.config[field],
+                     placeholder: defined?(placeholder) ? placeholder : '',
+                     class: "form-control #{form.object.errors["service[config][#{field}]"].any? ? 'invalid' : ''}",
+                     type: defined?(type) ? type : 'text',
+                     required: defined?(required) ? required : false %>
+  <%= label_tag "service[config][#{field}]", label,
+                class: "form-label #{form.object.errors["service[config][#{field}]"].any? ? 'invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
+</div>

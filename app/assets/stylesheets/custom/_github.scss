@@ -1,0 +1,21 @@
+.services-github-header-block {
+  font-size: xxx-large;
+  font-weight: bold;
+}
+
+table.github-repos {
+  td.repo-branch,
+  td.repo-created,
+  td.repo-name,
+  td.repo-pushed,
+  td.repo-updated {
+    white-space: nowrap;
+  }
+}
+
+.table-sticky {
+  thead {
+    position: sticky;
+    top: 0;
+  }
+}

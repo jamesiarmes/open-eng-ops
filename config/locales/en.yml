@@ -30,4 +30,18 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  layouts:
+    navigation:
+      home: "Home"
+      services: "Services"
+  services:
+    index:
+      name: "Name"
+      new: "New Service"
+      type: "Type"
+      config: "Config"
+    form:
+      create: "Create Service"
+      update: "Update Service"
+    show:
+      update: "Update Service"

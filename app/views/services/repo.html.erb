@@ -1,0 +1,148 @@
+<div class="m-2">
+  <h1>
+    <i class="fa-solid <%= if @repo.is_template
+                             'fa-book-bookmark'
+                           elsif @repo.fork
+                             'fa-code-fork'
+                           elsif @repo.private
+                             'fa-lock'
+                           else
+                             'fa-book-atlas'
+                           end %>"
+       title="<%= @repo.visibility.capitalize %><%= ' template' if @repo.is_template %><%= ' fork' if @repo.fork %>"></i>
+    <%= @repo.name %>
+  </h1>
+
+  <section>
+    <nav>
+      <ul class="nav nav-tabs mb-3" id="services-github-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link pe-3 ps-3 active" id="services-github-tab-summary" data-mdb-toggle="tab" href="#services-github-content-summary" role="tab"
+             aria-controls="services-github-content-summary" aria-selected="true"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Summary</a>
+        </li>
+        <% unless @repo.fork %>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link pe-3 ps-3" id="services-github-tab-health" data-mdb-toggle="tab" href="#services-github-content-health" role="tab"
+               aria-controls="services-github-tab-health" aria-selected="false"><i class="fa-solid fa-people-group fa-fw me-2"></i>Community</a>
+          </li>
+        <% end %>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link pe-3 ps-3" id="services-github-tab-stats" data-mdb-toggle="tab" href="#services-github-content-stats" role="tab"
+             aria-controls="services-github-tab-stats" aria-selected="false"><i class="fa-solid fa-chart-simple fa-fw me-2"></i>Stats</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="tab-content me-3 ms-3" id="services-github-content">
+      <div class="tab-pane fade show active" id="services-github-content-summary" role="tabpanel" aria-labelledby="services-github-tab-summary">
+        <dl class="row">
+          <dt class="col-sm-2">Full name</dt>
+          <dd class="col-sm-4"><%= link_to @repo.full_name, @repo.html_url %></dd>
+
+          <dt class="col-sm-2">Description</dt>
+          <dd class="col-sm-4"><%= @repo.description %></dd>
+
+          <dt class="col-sm-2">Created</dt>
+          <dd class="col-sm-4"><%= @repo.created_at.to_datetime.to_formatted_s(:date) %></dd>
+
+          <dt class="col-sm-2">Homepage</dt>
+          <dd class="col-sm-4"><%= @repo.homepage %></dd>
+
+          <dt class="col-sm-2">Updated</dt>
+          <dd class="col-sm-4"><%= @repo.updated_at.to_datetime.to_formatted_s(:date) %></dd>
+
+          <dt class="col-sm-2">Topics</dt>
+          <dd class="col-sm-4"><%= @repo.topics.join(', ') %></dd>
+
+          <dt class="col-sm-2">Pushed</dt>
+          <dd class="col-sm-4"><%= @repo.pushed_at.to_datetime.to_formatted_s(:date) %></dd>
+
+          <dt class="col-sm-2">Default branch</dt>
+          <dd class="col-sm-4"><%= @repo.default_branch %></dd>
+
+          <dt class="col-sm-2">Visibility</dt>
+          <dd class="col-sm-4"><%= @repo.visibility %></dd>
+        </dl>
+      </div>
+
+      <% unless @repo.fork %>
+        <div class="tab-pane fade" id="services-github-content-health" role="tabpanel" aria-labelledby="services-github-tab-health">
+          <dl class="row">
+            <dt class="col-sm-2">Score</dt>
+            <dd class="col-sm-4"><%= @health[:health_percentage] %>%</dd>
+
+            <dt class="col-sm-2">Content reports</dt>
+            <dd class="col-sm-4">
+              <div class="form-check form-switch">
+                <%= check_box_tag 'services-github-health-content-reports', '1',
+                                  @health[:content_reports_enabled], disabled: true,
+                                  role: 'switch', class: 'form-check-input' %>
+              </div>
+            </dd>
+
+            <dt class="col-sm-2">Code of Conduct</dt>
+            <dd class="col-sm-4">
+              <% if @health.files.code_of_conduct %>
+                <%= link_to @health.files.code_of_conduct.name, @health.files.code_of_conduct.html_url %>
+              <% end %>
+            </dd>
+
+            <dt class="col-sm-2">Contributing</dt>
+            <dd class="col-sm-4">
+              <% if @health.files.contributing %>
+                <%= link_to File.basename(@health.files.contributing.html_url), @health.files.contributing.html_url %>
+              <% end %>
+            </dd>
+
+            <dt class="col-sm-2">Issue template</dt>
+            <dd class="col-sm-4">
+              <% if @health.files.issue_template %>
+                <%= link_to File.basename(@health.files.issue_template.html_url), @health.files.issue_template.html_url %>
+              <% end %>
+            </dd>
+
+            <dt class="col-sm-2">Pull request template</dt>
+            <dd class="col-sm-4">
+              <% if @health.files.pull_request_template %>
+                <%= link_to File.basename(@health.files.pull_request_template.html_url), @health.files.pull_request_template.html_url %>
+              <% end %>
+            </dd>
+
+            <dt class="col-sm-2">License</dt>
+            <dd class="col-sm-4">
+              <% if @health.files.license %>
+                <%= link_to @health.files.license.name, @health.files.license.html_url %>
+              <% end %>
+            </dd>
+
+            <dt class="col-sm-2">Readme</dt>
+            <dd class="col-sm-4">
+              <% if @health.files.readme %>
+                <%= link_to File.basename(@health.files.readme.html_url), @health.files.readme.html_url %>
+              <% end %>
+            </dd>
+          </dl>
+        </div>
+      <% end %>
+
+      <div class="tab-pane fade" id="services-github-content-stats" role="tabpanel" aria-labelledby="services-github-content-stats">
+        <div class="row mb-3">
+          <div class="col-12">
+            <%= line_chart(github_repo_code_frequency_service_path, points: false,
+                           title: 'Code Frequency', legend: false) %>
+          </div>
+        </div>
+
+<!--        TODO: Top contributors. -->
+        <%#= @contributors.to_json %>
+
+        <div class="row">
+          <div class="col-12">
+            <%= line_chart(github_repo_commit_activity_service_path,
+                           label: 'Commits', title: 'Commits per week') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
