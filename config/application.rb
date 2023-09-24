@@ -23,6 +23,8 @@ module EngOps
 
     config.assets.css_compressor = nil
 
+    config.active_model.i18n_customize_full_message = true
+
     config.to_prepare do
       ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag.html_safe }
     end

@@ -26,10 +26,4 @@ class RolePolicy < ApplicationPolicy
   def update?
     admin? || has_permissions('edit_roles')
   end
-
-  private
-
-  def has_permissions(permission)
-    user.permissions.exists?(name: permission)
-  end
 end

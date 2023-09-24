@@ -15,10 +15,9 @@ class Role < ApplicationRecord
             :inclusion => { :in => Rolify.resource_types },
             :allow_nil => true
 
-  # TODO: Verify (validates only)
   validates :human_name, presence: true
   validates :name, presence: true
-  validates :name, uniqueness: { scope: [:resource_type, :resource_id], message: "Role already exists for this resource" }
+  validates :name, uniqueness: { scope: [:resource_type, :resource_id], message: 'Role already exists with this name.' }
   validate :at_least_one_permission
   scopify
 

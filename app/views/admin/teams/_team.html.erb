@@ -1,0 +1,61 @@
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow mb-4">
+          <div class="card-header bg-transparent border-0">
+            <h2 class="mb-0"><%= @team.human_name %></h2>
+            <p class="text-muted"><%= @team.description %></p>
+          </div>
+
+          <div class="card-body text-center">
+            <% if @team.logo.attached? %>
+              <img src="<%= url_for(@team.logo) %>"
+                   class="rounded-circle img-fluid avatar-lg"
+                   alt="Avatar for <%= @team.human_name %>" />
+            <% else %>
+              <i class="bi bi-people-fill rounded-circle default-avatar-lg"></i>
+            <% end %>
+          </div>
+
+          <div class="card-footer bg-transparent border-0">
+            <div class="d-flex justify-content-center mb-2">
+              <%= link_to t('.edit'), edit_admin_team_path, class: 'btn btn-primary mx-1' %>
+              <%= link_to t('.delete'), admin_team_path(@team), class: 'btn btn-danger mx-1',
+                          data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card bg-transparent shadow mb-4">
+          <div class="card-header bg-transparent border-0">
+            <h2 class="mb-0"><%= t('.users') %></h2>
+          </div>
+
+          <div class="card-body pt-0">
+            <table class="table align-middle mb-0">
+              <thead>
+              <tr>
+                <th scope="col">Name<%# t('.name') %></th>
+                <th scope="col">Email<%# t('.type') %></th>
+                <th scope="col">Created<%# t('.type') %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @team.users.each do |user| %>
+                <tr>
+                  <td><%= link_to "#{user.name} (#{user.pronouns})", admin_user_path(user) %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.created_at.to_formatted_s(:date) %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

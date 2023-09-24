@@ -42,6 +42,10 @@ class ApplicationPolicy
     user.has_role?(:admin)
   end
 
+  def has_permissions(permission)
+    user.permissions.exists?(name: permission)
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

@@ -1,0 +1,33 @@
+<%= form_with(model: @team, url: (action_name == 'new' ? admin_teams_path : admin_team_path(@team)), data: { controller: 'form' }, class: "contents #{@team.errors.empty? ? 'needs-validation' : 'was_validated'}") do |form| %>
+  <div class="container-fluid row g-4">
+    <div class="col-12">
+      <%= render 'shared/form/text_field', form: form,
+                 field: :human_name,
+                 required: true %>
+    </div>
+    <div class="col-12">
+      <%= render 'shared/form/file_field', form: form,
+                 field: :logo %>
+    </div>
+    <div class="col-12">
+      <%= render 'shared/form/text_area', form: form,
+                 field: :description %>
+    </div>
+    <div class="col-12">
+      <%= render 'shared/form/select', form: form,
+                 field: :user_ids,
+                 options: options_for_select(
+                   User.all.map { |u| [u.name, u.id]},
+                   @team.users.map(&:id)
+                 ),
+                 required: true, multiple: true %>
+    </div>
+
+    <div class="col-12">
+      <div class="inline">
+        <%= form.submit value: action_name == 'new' ? t('.create') : t('.update'), class: 'btn btn-primary' %>
+        <%= link_to t('cancel'), :back, class: 'btn btn-tertiary p-3' %>
+      </div>
+    </div>
+  </div>
+<% end %>

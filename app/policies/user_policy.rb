@@ -10,10 +10,4 @@ class UserPolicy < ApplicationPolicy
   def index?
     user.has_role?(:admin) or has_permissions('view_users')
   end
-
-  private
-
-  def has_permissions(permission)
-    user.permissions.exists?(name: permission)
-  end
 end

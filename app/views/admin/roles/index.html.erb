@@ -9,16 +9,15 @@
     <thead class="bg-light">
     <tr>
       <th scope="col"><%= t('.name') %></th>
-      <th scope="col"><%= t('.users') %></th>
       <th scope="col"><%= t('.description') %></th>
       <th scope="col"><%= t('.permissions') %></th>
+      <th scope="col"><%= t('.users') %></th>
     </tr>
     </thead>
     <tbody>
     <% @roles.order(:name).each do |role| %>
       <tr>
         <td><%= link_to role.human_name, admin_role_path(role) %></td>
-        <td class="text-center"><%= role.users.count %></td>
         <td><%= role.description %></td>
         <td>
           <% if role.name == 'admin' %>
@@ -31,6 +30,7 @@
             </ul>
           <% end %>
         </td>
+        <td class="text-center"><%= role.users.count %></td>
       </tr>
     <% end %>
     </tbody>
