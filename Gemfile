@@ -51,8 +51,9 @@ gem 'dartsass-rails'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem 'image_processing', '~> 1.2'
 
-gem 'bootstrap'
+gem 'bootstrap', '~> 5.2.0'
 gem 'font-awesome-sass', '~> 6.4'
+gem 'cssbundling-rails', '~> 1.2'
 
 
 # gem 'github_api', git: 'https://github.com/jamesiarmes/github.git', ref: 'main'
