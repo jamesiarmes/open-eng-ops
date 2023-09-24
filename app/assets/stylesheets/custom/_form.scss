@@ -1,0 +1,35 @@
+.select2-container .select2-selection {
+  .select2-search__field { resize: none; }
+  .select2-search--inline {
+    display: inline;
+    width: auto;
+  }
+  .select2-selection__rendered {
+    .select2-selection__choice {
+      @extend .badge;
+      @extend .badge-primary;
+      @extend .rounded-pill;
+
+      .select2-selection__choice__remove {
+        vertical-align: middle;
+      }
+
+
+      display: inline-block;
+      margin-bottom: 0;
+    }
+
+    display: inline;
+  }
+
+  border: none;
+}
+
+.select-outline {
+  @extend .form-outline;
+
+  .form-notch { z-index: 2; }
+
+  // Try to match line height so form controls are a consistent height.
+  //height: 26px;
+}

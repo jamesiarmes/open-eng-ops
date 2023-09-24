@@ -1,13 +1,16 @@
 <div class="form-outline my-2">
-  <%= form.text_field field, placeholder: defined?(placeholder) ? placeholder : '',
-                      class: "form-control #{form.object.errors[field].any? ? 'invalid' : ''}",
+  <%= form.text_field field, { placeholder: defined?(placeholder) ? placeholder : '',
+                      class: "form-control #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(classes) ? classes : ''}",
                       type: defined?(type) ? type : 'text',
-                      required: defined?(required) ? required : false %>
+                      disabled: defined?(disabled) ? disabled : false,
+                      autofocus: defined?(autofocus) ? autofocus : false,
+                      required: defined?(required) ? required : false }.merge(defined?(extras) ? extras : {}) %>
   <%= form.label field,
-                 class: "form-label #{form.object.errors[field].any? ? 'invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
-  <% if form.object.errors[field] %>
-    <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                 class: "form-label is-invalid #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
+
+  <% unless form.object.errors[field].empty? %>
+    <div class="invalid-feedback">
       <%= form.object.errors.full_messages_for(field).join(', ') %>
-    </span>
+    </div>
   <% end %>
 </div>

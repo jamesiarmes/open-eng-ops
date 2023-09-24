@@ -1,0 +1,30 @@
+<fieldset class="border container-fluid row g-4 my-2 ms-1 pb-4">
+  <legend class="w-auto float-none">Address</legend>
+
+  <%= form.fields_for field do |subform| %>
+    <div class="col-md-6">
+      <%= render 'shared/form/text_field', form: subform,
+                 field: :street1, placeholder: t('.placeholder'),
+                 required: true %>
+    </div>
+    <div class="col-md-6">
+      <%= render 'shared/form/text_field', form: subform,
+                 field: :street2 %>
+    </div>
+    <div class="col-md-4">
+      <%= render 'shared/form/text_field', form: subform,
+                 field: :locality,
+                 required: true %>
+    </div>
+    <div class="col-md-4">
+      <%= render 'shared/form/text_field', form: subform,
+                 field: :administrative_area,
+                 required: true, extras: { maxlength: 2, minlength: 2 } %>
+    </div>
+    <div class="col-md-4">
+      <%= render 'shared/form/text_field', form: subform,
+                 field: :postal_code,
+                 required: true, extras: { maxlength: 5, minlength: 5 } %>
+    </div>
+  <% end %>
+</fieldset>

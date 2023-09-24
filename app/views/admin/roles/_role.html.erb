@@ -1,0 +1,66 @@
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow mb-4">
+          <div class="card-header bg-transparent border-0">
+            <h2 class="mb-0"><%= @role.human_name %></h2>
+            <p class="text-muted"><%= @role.description %></p>
+          </div>
+
+          <div class="card-body pt-0">
+            <% if @role.name == 'admin' %>
+              <p class="text-center"><em><%=  t('.admin-permissions') %></em></p>
+            <% else %>
+              <ul class="list-unstyled">
+                <% @role.permissions&.each do |permission| %>
+                  <li class="py-3"><span class="bullet align-middle me-2"></span><%= permission.description %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+
+          <div class="card-footer bg-transparent border-0">
+            <div class="d-flex justify-content-center mb-2">
+              <%= link_to t('.edit'), edit_admin_role_path, class: 'btn btn-primary mx-1' %>
+
+              <% unless @role.name == 'admin' %>
+                <%= link_to t('.delete'), admin_role_path(@role), class: 'btn btn-danger mx-1',
+                            data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card bg-transparent shadow mb-4">
+          <div class="card-header bg-transparent border-0">
+            <h2 class="mb-0"><%= t('.users') %></h2>
+          </div>
+
+          <div class="card-body pt-0">
+            <table class="table align-middle mb-0">
+              <thead>
+              <tr>
+                <th scope="col">Name<%# t('.name') %></th>
+                <th scope="col">Email<%# t('.type') %></th>
+                <th scope="col">Created<%# t('.type') %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @role.users.each do |user| %>
+                <tr>
+                  <td><%= link_to "#{user.name} (#{user.pronouns})", admin_user_path(user) %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.created_at.to_formatted_s(:date) %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

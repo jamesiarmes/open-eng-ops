@@ -1,0 +1,19 @@
+<%= render 'devise/shared/unauth_layout' do %>
+  <h2>Forgotten Password</h2>
+
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |form| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="form-outline mb-3">
+      <%= render 'shared/form/text_field', form: form, type: :email,
+                 field: :email, classes: 'form-control-lg',
+                 autofocus: true, required: true %>
+    </div>
+
+    <div class="actions text-center">
+      <%= form.submit 'Request password reset', class: 'btn btn-info btn-block btn-lg' %>
+
+      <%= render "devise/shared/links" %>
+    </div>
+  <% end %>
+<% end %>

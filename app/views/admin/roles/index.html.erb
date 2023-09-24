@@ -1,0 +1,38 @@
+<div class="w-full">
+  <h1>Roles</h1>
+
+  <div class="text-end p-2">
+    <%= link_to 'New role', new_admin_role_path, class: 'btn btn-primary' %>
+  </div>
+
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+    <tr>
+      <th scope="col"><%= t('.name') %></th>
+      <th scope="col"><%= t('.users') %></th>
+      <th scope="col"><%= t('.description') %></th>
+      <th scope="col"><%= t('.permissions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @roles.order(:name).each do |role| %>
+      <tr>
+        <td><%= link_to role.human_name, admin_role_path(role) %></td>
+        <td class="text-center"><%= role.users.count %></td>
+        <td><%= role.description %></td>
+        <td>
+          <% if role.name == 'admin' %>
+            <p><em><%= t('admin.roles.role.admin-permissions') %></em></p>
+          <% else %>
+            <ul>
+              <% role.permissions.each do |permission| %>
+                <li><%= permission.description %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

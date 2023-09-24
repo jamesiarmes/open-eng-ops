@@ -1,3 +1,14 @@
 @import 'github';
+@import 'login';
+@import 'form';
 
-.select-outline { @extend .form-outline }
+.z-index-2 { z-index: 2; }
+
+.bullet {
+  display: inline-block;
+  background-color: #00a3ff;
+  border-radius: 6px;
+  width: 8px;
+  height: 4px;
+  flex-shrink: 0;
+}

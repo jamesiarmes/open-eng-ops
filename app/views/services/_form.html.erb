@@ -1,4 +1,4 @@
-<%= form_with(model: @service.becomes(Service), class: 'contents') do |form| %>
+<%= form_with(model: @service.becomes(Service), data: { controller: 'form' }, class: 'contents') do |form| %>
   <%= render 'shared/form/select', form: form,
              field: :type,
              options: options_for_select({ 'Github' => 'Services::Github' }, @service.type),
@@ -6,12 +6,8 @@
   <%= render 'shared/form/text_field', form: form,
              field: :name,
              required: true %>
-  <%# render 'shared/form/text_area', form: form,
-             field: :config,
-             placeholder: '{}' %>
 
   <fieldset class="service-config">
-    <%# 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 %>
     <%= render 'shared/config/select', form: form, label: 'Type',
                field: :type,
                options: {'Organization' => 'org', 'User' => 'user' },
@@ -31,6 +27,6 @@
   </fieldset>
 
   <div class="inline">
-    <%= form.submit value: action_name == 'new' ? t('.create') : t('.update'), class: 'button' %>
+    <%= form.submit value: action_name == 'new' ? t('.create') : t('.update'), class: 'btn btn-primary' %>
   </div>
 <% end %>

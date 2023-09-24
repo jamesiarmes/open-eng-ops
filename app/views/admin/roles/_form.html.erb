@@ -1,0 +1,32 @@
+<%= form_with(model: @role, url: (action_name == 'new' ? admin_roles_path : admin_role_path(@role)), data: { controller: 'form' }, class: "contents #{@role.errors.empty? ? 'needs-validation' : 'was_validated'}") do |form| %>
+  <div class="container-fluid row g-4">
+    <div class="col-12">
+      <%= render 'shared/form/text_field', form: form,
+                 field: :human_name, disabled: @role.name == 'admin',
+                 required: true %>
+    </div>
+    <div class="col-12">
+      <%= render 'shared/form/text_area', form: form,
+                 field: :description %>
+    </div>
+
+    <% unless @role.name == 'admin' %>
+      <div class="col-12">
+        <%= render 'shared/form/select', form: form,
+                   field: :permission_ids_input,
+                   options: grouped_options_for_select(
+                     Permission.grouped_select,
+                     @role.permissions.map(&:id)
+                   ),
+                   required: true, multiple: true %>
+      </div>
+    <% end %>
+
+    <div class="col-12">
+      <div class="inline">
+        <%= form.submit value: action_name == 'new' ? t('.create') : t('.update'), class: 'btn btn-primary' %>
+        <%= link_to t('cancel'), :back, class: 'btn btn-tertiary p-3' %>
+      </div>
+    </div>
+  </div>
+<% end %>

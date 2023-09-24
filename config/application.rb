@@ -22,5 +22,9 @@ module EngOps
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.assets.css_compressor = nil
+
+    config.to_prepare do
+      ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag.html_safe }
+    end
   end
 end
