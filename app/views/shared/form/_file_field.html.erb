@@ -1,0 +1,16 @@
+<div class="form-outline my-2">
+  <%= form.file_field field, {
+        multiple: defined?(multiple) ? multiple : false,
+        class: "form-control active #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(classes) ? classes : ''}",
+        disabled: defined?(disabled) ? disabled : false,
+        required: defined?(required) ? required : false
+      }.merge(defined?(extras) ? extras : {}) %>
+  <%= form.label field,
+                 class: "form-label is-invalid #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
+
+  <% unless form.object.errors[field].empty? %>
+    <div class="invalid-feedback">
+      <%= form.object.errors.full_messages_for(field).join(', ') %>
+    </div>
+  <% end %>
+</div>

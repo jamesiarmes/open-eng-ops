@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :email, :phone, :pronouns, :roles, address_attributes: [
+      :avatar, :name, :email, :phone, :pronouns, :roles, address_attributes: [
         :administrative_area, :country, :locality, :postal_code, :street1, :street2
       ]
     )

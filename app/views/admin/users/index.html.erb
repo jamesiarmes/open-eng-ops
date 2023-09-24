@@ -21,13 +21,28 @@
       <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= link_to "#{user.name} (#{user.pronouns})", admin_user_path(user) %></td>
+          <td>
+            <div class="d-flex align-items-center">
+              <% if user.avatar.attached? %>
+                <img src="<%= url_for(user.avatar) %>"
+                     alt="Avatar for <%= user.name %>"
+                     class="rounded-circle avatar-sm" />
+              <% else %>
+                <i class="bi bi-person-circle rounded-circle default-avatar-sm"></i>
+              <% end %>
+
+              <div class="ms-3">
+                <p class="fw-bold mb-1"><%= link_to user.name, admin_user_path(user) %></p>
+                <p class="text-muted mb-0"><%= user.pronouns %></p>
+              </div>
+            </div>
+          </td>
           <td><%= user.email %></td>
           <td><%= user.created_at.to_formatted_s(:date) %></td>
           <td>
             <ul>
               <% user.roles&.each do |role| %>
-                <li><%= role.name %></li>
+                <li><%= role.human_name %></li>
               <% end %>
             </ul>
           </td>

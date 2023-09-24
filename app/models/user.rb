@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :permissions, through: :roles
   belongs_to :address
+  has_one_attached :avatar
 
   accepts_nested_attributes_for :address, update_only: true
 

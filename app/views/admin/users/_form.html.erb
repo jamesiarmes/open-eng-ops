@@ -11,6 +11,10 @@
         required: true %>
     </div>
     <div class="col-6">
+      <%= render 'shared/form/file_field', form: form,
+        field: :avatar %>
+    </div>
+    <div class="col-6">
       <%= render 'shared/form/text_field', form: form,
                  field: :email,
                  required: true %>
