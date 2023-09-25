@@ -1,0 +1,35 @@
+<nav aria-label="<%= label %>">
+  <ul class="pagination justify-content-end m-3">
+    <% if pagination[:page] > 1  %>
+      <li class="page-item">
+        <%= link_to 'First', @pagination_params.merge(page: 1), class: 'page-link', data: { turbo_frame: frame } %>
+      </li>
+      <li class="page-item">
+        <%= link_to 'Previous', @pagination_params.merge(page: pagination[:page] - 1), class: 'page-link', data: { turbo_frame: frame } %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="page-link">First</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Previous</span>
+      </li>
+    <% end %>
+
+    <% if pagination[:page] < pagination[:total]  %>
+      <li class="page-item">
+        <%= link_to 'Next', @pagination_params.merge(page: pagination[:page] + 1), class: 'page-link', data: { turbo_frame: frame } %>
+      </li>
+      <li class="page-item">
+        <%= link_to 'Last', @pagination_params.merge(page: pagination[:total]), class: 'page-link', data: { turbo_frame: frame } %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="page-link">Next</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Last</span>
+      </li>
+    <% end %>
+  </ul>
+</nav>

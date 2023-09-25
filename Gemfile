@@ -55,10 +55,7 @@ gem 'bootstrap', '~> 5.2.0'
 gem 'font-awesome-sass', '~> 6.4'
 gem 'cssbundling-rails', '~> 1.2'
 
-
-# gem 'github_api', git: 'https://github.com/jamesiarmes/github.git', ref: 'main'
-gem 'github_api', git: 'https://github.com/jamesiarmes/github.git', ref: 'main', path: '/Users/jamesarmes/IdeaProjects/github'
-# gem 'octokit', '~> 6.1'
+gem 'octokit', '~> 7.1'
 gem 'chartkick', '~> 5.0'
 gem 'devise', '~> 4.9'
 gem 'rolify', '~> 6.0'
@@ -67,9 +64,6 @@ gem 'pundit', '~> 2.3'
 # TODO: Update these dependencies.
 gem 'phonelib', '~> 0.7.7'
 gem 'phonofy', '~> 0.1'
-
-# gem 'graphql-client', '~> 0.18'
-gem 'graphlient', '~> 0.7'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

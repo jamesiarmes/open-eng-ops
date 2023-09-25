@@ -26,10 +26,6 @@
                aria-controls="services-github-tab-health" aria-selected="false"><i class="fa-solid fa-people-group fa-fw me-2"></i>Community</a>
           </li>
         <% end %>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link pe-3 ps-3" id="services-github-tab-stats" data-mdb-toggle="tab" href="#services-github-content-stats" role="tab"
-             aria-controls="services-github-tab-stats" aria-selected="false"><i class="fa-solid fa-chart-simple fa-fw me-2"></i>Stats</a>
-        </li>
       </ul>
     </nav>
 
@@ -124,25 +120,6 @@
           </dl>
         </div>
       <% end %>
-
-      <div class="tab-pane fade" id="services-github-content-stats" role="tabpanel" aria-labelledby="services-github-content-stats">
-        <div class="row mb-3">
-          <div class="col-12">
-            <%= line_chart(github_repo_code_frequency_service_path, points: false,
-                           title: 'Code Frequency', legend: false) %>
-          </div>
-        </div>
-
-<!--        TODO: Top contributors. -->
-        <%#= @contributors.to_json %>
-
-        <div class="row">
-          <div class="col-12">
-            <%= line_chart(github_repo_commit_activity_service_path,
-                           label: 'Commits', title: 'Commits per week') %>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </div>

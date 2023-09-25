@@ -13,29 +13,26 @@
     <nav>
       <ul class="nav nav-tabs mb-3" id="services-github-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="services-github-tab-repos" data-mdb-toggle="tab" href="#services-github-content-repos" role="tab"
-             aria-controls="services-github-content-repos" aria-selected="true"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Repositories</a>
+          <a class="nav-link active" id="services-github-tab-teams" data-mdb-toggle="tab" href="#services-github-content-teams" role="tab"
+             data-turbo-frame="github-teams" aria-controls="services-github-content-teams" aria-selected="false"><i class="fas fa-people-group fa-fw me-2"></i>Teams</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="#ex-with-icons-tabs-2" role="tab"
-             aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Subscriptions</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="#ex-with-icons-tabs-3" role="tab"
-             aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-cogs fa-fw me-2"></i>Settings</a>
+          <a class="nav-link" id="services-github-tab-repos" data-mdb-toggle="tab" href="#services-github-content-repos" role="tab"
+             data-turbo-frame="github-repositories" aria-controls="services-github-content-repos" aria-selected="true"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Repositories</a>
         </li>
       </ul>
     </nav>
 
     <div class="tab-content" id="services-github-content">
-      <div class="tab-pane fade show active" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
-        <%= render 'github_repositories' %>
+      <div class="tab-pane fade show active" id="services-github-content-teams" role="tabpanel" aria-labelledby="services-github-tab-teams">
+        <%= turbo_frame_tag 'github-teams', src: github_teams_service_path(@service) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
       </div>
-      <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
-        Tab 2 content
-      </div>
-      <div class="tab-pane fade" id="ex-with-icons-tabs-3" role="tabpanel" aria-labelledby="ex-with-icons-tab-3">
-        Tab 3 content
+      <div class="tab-pane fade" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
+        <%= turbo_frame_tag 'github-repositories', src: github_repos_service_path(@service) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
       </div>
     </div>
   </section>
