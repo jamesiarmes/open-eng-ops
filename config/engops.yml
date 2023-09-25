@@ -1,0 +1,12 @@
+# Custom Classifyr configurations.
+default: &default
+  title: "Open EngOps"
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

@@ -1,6 +1,4 @@
 <div class="w-full">
-  <h1>Users</h1>
-
   <div class="text-end p-2">
     <%# TODO: Replace with new user link %>
     <%# link_to t('.new'), new_service_path, class: 'btn btn-primary' %>
@@ -10,7 +8,7 @@
 
   <% if policy(current_user).index? %>
     <table class="table align-middle mb-0 bg-white">
-      <thead class="bg-light">
+      <thead>
       <tr>
         <th scope="col">Name<%# t('.name') %></th>
         <th scope="col">Email<%# t('.type') %></th>

@@ -1,13 +1,11 @@
 <div class="w-full">
-  <h1>Teams</h1>
-
   <div class="text-end p-2">
     <%= link_to t('.new'), new_admin_team_path, class: 'btn btn-primary' %>
   </div>
 
   <% if policy(current_user).index? %>
     <table class="table align-middle mb-0 bg-white">
-      <thead class="bg-light">
+      <thead>
       <tr>
         <th scope="col">Name<%# t('.name') %></th>
         <th scope="col">Description<%# t('.type') %></th>

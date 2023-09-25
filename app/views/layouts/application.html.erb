@@ -11,7 +11,11 @@
   </head>
 
   <body>
-  <%= render 'layouts/navigation' %>
+    <header>
+      <%= render 'layouts/sidebar' %>
+      <%= render 'layouts/navigation' %>
+      <%= render 'shared/breadcrumbs' %>
+    </header>
 
     <% if alert %>
       <div class="alert alert-danger" role="alert"><%= alert %></div>

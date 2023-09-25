@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
   before_action :set_default_breadcrumbs
+  before_action :set_config
 
   def add_breadcrumb(name, path = nil)
     @breadcrumbs ||= []
@@ -17,5 +18,9 @@ class ApplicationController < ActionController::Base
                               name: controller_name.humanize,
                               path: request.path
                             }]
+  end
+
+  def set_config
+    @config = Rails.application.config&.engops ||= {}
   end
 end

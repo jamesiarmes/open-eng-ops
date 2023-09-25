@@ -25,6 +25,9 @@ module EngOps
 
     config.active_model.i18n_customize_full_message = true
 
+    # Load application configuration.
+    config.engops = config_for(:engops)
+
     config.to_prepare do
       ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag.html_safe }
     end
