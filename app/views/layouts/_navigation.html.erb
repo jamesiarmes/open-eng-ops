@@ -57,7 +57,7 @@
           data-mdb-toggle="dropdown"
           aria-expanded="false"
         >
-          <% if current_user.avatar.attached? %>
+          <% if current_user&.avatar&.attached? %>
             <img src="<%= url_for(current_user.avatar) %>"
                  class="rounded-circle avatar-xs"
                  alt="Avatar for the current user"

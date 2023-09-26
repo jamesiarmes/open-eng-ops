@@ -3,11 +3,15 @@
 module Services
   class Github < Service
     def to_partial_path
-      'services/github'
+      'github'
     end
 
     def service_type
       'GitHub'
+    end
+
+    def route_helper_prefix
+      'services_github'
     end
 
     def org

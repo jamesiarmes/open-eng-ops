@@ -15,12 +15,12 @@ Rails.application.routes.draw do
   end
 
   get 'service/index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :services, param: :id do
-    member do
-      get 'repos', action: :repos, as: :github_repos
-      get 'teams', action: :teams, as: :github_teams
-      get 'repo/:repo', action: :repo, as: :github_repo
+  resources :services, only: %i[index edit new]
+  namespace :services do
+    resources :github, param: :id do
+      get 'repos'
+      get 'teams'
+      get 'repos/:repo', action: :repo, as: 'repo'
     end
   end
 

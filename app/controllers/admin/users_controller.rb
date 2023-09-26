@@ -5,15 +5,17 @@ class Admin::UsersController < ApplicationController
   before_action :set_breadcrumbs
 
   def index
+    authorize :user
     @users = User.all
-    # authorize current_user
   end
 
   def show
+    authorize @user
     add_breadcrumb(@user.name)
   end
 
   def edit
+    authorize @user
     add_breadcrumb(@user.name, admin_user_path(@user))
     add_breadcrumb('Modify', edit_admin_user_path(@user))
 
@@ -21,7 +23,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    # authorize! :update, :data_sets
+    authorize @user
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: 'success'
     else

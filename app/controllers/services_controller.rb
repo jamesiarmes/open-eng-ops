@@ -1,4 +1,6 @@
 class ServicesController < ApplicationController
+  include ServiceHelper
+
   before_action :authenticate_user!
   before_action :set_service,
                 only: %i[show edit update destroy repo repos teams]
@@ -7,27 +9,6 @@ class ServicesController < ApplicationController
   def index
     authorize :service
     @services = Service.all
-  end
-
-  def teams
-    authorize @service, :show?
-
-    @teams = @service.teams(
-      page: params[:page] || 1,
-      per_page: params[:per_page] || 10
-    )
-    @pagination_params = pagination_params
-  end
-
-  def repos
-    authorize @service, :show?
-
-    @repos = @service.repos(
-      sort: params[:sort] || 'name',
-      page: params[:page] || 1,
-      per_page: params[:per_page] || 10
-    )
-    @pagination_params = pagination_params
   end
 
   def show
@@ -64,15 +45,6 @@ class ServicesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  def repo
-    authorize @service, :show?
-    add_breadcrumb(@service.name, service_path(@service))
-    add_breadcrumb(params[:repo], github_repo_service_path(@service, repo: params[:repo]))
-
-    @repo = @service.repo(params[:repo])
-    @health = @service.repo_health(params[:repo])
   end
 
   private

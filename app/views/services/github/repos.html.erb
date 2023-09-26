@@ -82,7 +82,7 @@
                                  'fa-book-atlas'
                                end %>"
            title="<%= repo.visibility.capitalize %><%= ' template' if repo.is_template %><%= ' fork' if repo.fork %>"></i>
-        <%= link_to repo.name, github_repo_service_path(@service, repo: repo.name), data: { turbo_frame: '_top'} %>
+        <%= link_to repo.name, services_github_repo_path(@service, repo: repo.name), data: { turbo_frame: '_top'} %>
       </td>
       <td class="repo-description"><%= repo.description %></td>
       <td class="repo-created">

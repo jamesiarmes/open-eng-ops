@@ -6,5 +6,9 @@ class Service < ApplicationRecord
   def service_type
     self.class.name.split('::').last
   end
+
+  def route_helper_prefix
+    'service'
+  end
 end
 

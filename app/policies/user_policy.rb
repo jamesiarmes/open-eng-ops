@@ -7,7 +7,23 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def create?
+    admin? || has_permissions('create_users')
+  end
+
+  def destroy?
+    admin? || has_permissions('delete_users')
+  end
+
   def index?
-    user.has_role?(:admin) or has_permissions('view_users')
+    admin? || has_permissions('index_users')
+  end
+
+  def show?
+    admin? || has_permissions('view_users')
+  end
+
+  def update?
+    admin? || has_permissions('edit_users')
   end
 end
