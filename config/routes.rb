@@ -19,8 +19,11 @@ Rails.application.routes.draw do
   namespace :services do
     resources :github, param: :id do
       get 'repos'
-      get 'teams'
       get 'repos/:repo', action: :repo, as: 'repo'
+      get 'teams'
+      get 'teams/:team', action: :team, as: 'team'
+      get 'teams/:team/children', action: :team_children, as: 'team_children'
+      get 'teams/:team/members', action: :team_members, as: 'team_members'
     end
   end
 

@@ -52,14 +52,14 @@ gem 'dartsass-rails'
 # gem 'image_processing', '~> 1.2'
 
 gem 'bootstrap', '~> 5.2.0'
-gem 'font-awesome-sass', '~> 6.4'
 gem 'cssbundling-rails', '~> 1.2'
+gem 'font-awesome-sass', '~> 6.4'
 
-gem 'octokit', '~> 7.1'
 gem 'chartkick', '~> 5.0'
 gem 'devise', '~> 4.9'
-gem 'rolify', '~> 6.0'
+gem 'octokit', '~> 7.1'
 gem 'pundit', '~> 2.3'
+gem 'rolify', '~> 6.0'
 
 # TODO: Update these dependencies.
 gem 'phonelib', '~> 0.7.7'

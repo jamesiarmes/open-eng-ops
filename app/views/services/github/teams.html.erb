@@ -19,10 +19,14 @@
                                  else 'fa-people-group'
                                  end %>"
              title="<%= team.privacy.capitalize %>"></i>
-          <%= team.name %>
+          <%= link_to team.name, services_github_team_path(@service, team: team.id), data: { turbo_frame: '_top'} %>
         </td>
         <td><%= team.description %></td>
-        <td><%= team.parent&.name %></td>
+        <td>
+          <% if team.parent %>
+            <%= link_to team.parent.name, services_github_team_path(@service, team: team.parent.id), data: { turbo_frame: '_top'} %>
+          <% end %>
+        </td>
         <td>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch"

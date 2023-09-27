@@ -1,5 +1,6 @@
 class Services::GithubController < ServicesController
-  before_action :set_service, only: %i[show edit update destroy repo repos teams]
+  before_action :set_service, only: %i[show edit update destroy repo repos team team_children team_members teams]
+  before_action :pagination_params, only: %i[show repos team team_children team_members teams]
 
   def repos
     authorize @service, :show?
@@ -9,7 +10,6 @@ class Services::GithubController < ServicesController
       page: params[:page] || 1,
       per_page: params[:per_page] || 10
     )
-    @pagination_params = pagination_params
   end
 
   def repo
@@ -21,6 +21,33 @@ class Services::GithubController < ServicesController
     @health = @service.repo_health(params[:repo])
   end
 
+  def team
+    authorize @service, :show?
+    add_breadcrumb(@service.name, services_github_path(@service))
+
+    @team = @service.team(params[:team])
+    add_breadcrumb(@team.name, services_github_team_path(@service, team: params[:team]))
+
+    @children = @service.child_teams(params[:team], page: params[:page] || 1,
+                                     per_page: params[:per_page] || 10)
+    @members = @service.team_members(params[:team], page: params[:page] || 1,
+                                     per_page: params[:per_page] || 10)
+  end
+
+  def team_children
+    authorize @service, :show?
+
+    @children = @service.child_teams(params[:team], page: params[:page] || 1,
+                                     per_page: params[:per_page] || 10)
+  end
+
+  def team_members
+    authorize @service, :show?
+
+    @members = @service.team_members(params[:team], page: params[:page] || 1,
+                                     per_page: params[:per_page] || 10)
+  end
+
   def teams
     authorize @service, :show?
 
@@ -28,7 +55,6 @@ class Services::GithubController < ServicesController
       page: params[:page] || 1,
       per_page: params[:per_page] || 10
     )
-    @pagination_params = pagination_params
   end
 
   private

@@ -61,7 +61,8 @@ class ServicesController < ApplicationController
   end
 
   def pagination_params
-    params.permit(:after, :before, :direction, :page, :per_page, :sort)
+    @pagination_params = params.permit(:after, :before, :direction, :page,
+                                       :per_page, :sort)
   end
 
   # Use callbacks to share common setup or constraints between actions.

@@ -1,0 +1,24 @@
+<%= turbo_frame_tag 'github-team-members' do %>
+<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-repos">
+  <thead>
+  <tr>
+    <th scope="col">Login</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @members[:data].each do |member| %>
+    <tr>
+      <td>
+        <img src="<%= url_for(member.avatar_url) %>"
+             alt="Avatar for <%= member.login %>"
+             class="rounded-circle avatar-sm" />
+        <%= link_to member.login, member.html_url, data: { turbo_frame: '_top'} %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= render partial: 'pagination', object: @members[:page_info],
+           locals: { label: 'Github team members pagination', frame: 'github-team-members' } %>
+<% end %>

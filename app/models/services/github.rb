@@ -70,35 +70,57 @@ module Services
       }
     end
 
-    private
+    def team(id)
+      client.team(id)
+    end
+
+    def child_teams(id, page: 1, per_page: 10)
+      {
+        data: client.child_teams(id, page:, per_page:),
+        page_info:
+      }
+    end
+
+    def team_members(id, page: 1, per_page: 10)
+      {
+        data: client.team_members(id, page:, per_page:),
+        page_info:
+      }
+    end
 
     def client
       @client ||= Octokit::Client.new(access_token: config[:token])
     end
 
+    private
+
     def page_info
       if client.last_response.rels[:next]
-        rel = :next
-        op = :-
+        info = page_rel_parsed(:next)
+        info[:page] = info[:page].to_i - 1
+      elsif client.last_response.rels[:prev]
+        info = page_rel_parsed(:prev)
+        info[:page] = info[:page].to_i + 1
       else
-        rel = :prev
-        op = :+
+        info = { page: 1 }
       end
 
-      info = Rack::Utils.parse_query(URI(
-        client.last_response.rels[rel].href
-      ).query).symbolize_keys
-      info[:page] = info[:page].to_i.send(op, 1)
-
-      info[:total] = if client.last_response.rels[:last]
-                       Rack::Utils.parse_query(URI(
-                         client.last_response.rels[:last].href
-                       ).query)['page'].to_i
-                     else
-                       info[:page]
-                     end
-
+      info[:total] = page_total_pages(info)
       info
+    end
+
+    def page_rel_parsed(rel)
+      Rack::Utils.parse_query(URI(
+                                client.last_response.rels[rel].href
+                              ).query).symbolize_keys
+    end
+
+    def page_total_pages(info)
+      if client.last_response.rels[:last]
+        page_rel_parsed(:last)[:page].to_i
+      else
+        info[:page] || 1
+      end
     end
   end
 end

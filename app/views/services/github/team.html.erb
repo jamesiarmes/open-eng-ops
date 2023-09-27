@@ -1,0 +1,70 @@
+<div class="m-2">
+  <h1>
+    <i class="fa-solid <%= case @team.privacy
+                           when 'closed' then 'fa-door-closed'
+                           when 'secret' then 'fa-user-secret'
+                           else 'fa-people-group'
+                           end %>"
+       title="<%= @team.privacy.capitalize %>"></i>
+    <%= @team.name %>
+  </h1>
+
+  <section>
+    <nav>
+      <ul class="nav nav-tabs mb-3" id="services-github-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link pe-3 ps-3 active" id="services-github-tab-summary" data-mdb-toggle="tab" href="#services-github-content-summary" role="tab"
+             aria-controls="services-github-content-summary" aria-selected="true"><i class="fa-solid fa-user-group fa-fw me-2"></i>Summary</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link pe-3 ps-3" id="services-github-tab-children" data-mdb-toggle="tab" href="#services-github-content-members" role="tab"
+             aria-controls="services-github-content-members" aria-selected="true"><i class="fa-solid fa-users-rectangle fa-fw me-2"></i>Members</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link pe-3 ps-3" id="services-github-tab-children" data-mdb-toggle="tab" href="#services-github-content-children" role="tab"
+             aria-controls="services-github-content-children" aria-selected="true"><i class="fa-solid fa-children fa-fw me-2"></i>Children</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="tab-content me-3 ms-3" id="services-github-content">
+      <div class="tab-pane fade show active" id="services-github-content-summary" role="tabpanel" aria-labelledby="services-github-tab-summary">
+        <dl class="row">
+          <dt class="col-sm-2">Name</dt>
+          <dd class="col-sm-4"><%= link_to @team.name, @team.html_url %></dd>
+
+          <dt class="col-sm-2">Description</dt>
+          <dd class="col-sm-4"><%= @team.description %></dd>
+
+          <dt class="col-sm-2">Created</dt>
+          <dd class="col-sm-4"><%= @team.created_at.to_datetime.to_formatted_s(:date) %></dd>
+
+          <dt class="col-sm-2">Parent</dt>
+          <dd class="col-sm-4">
+            <% if @team.parent %>
+              <%= link_to @team.parent.name, services_github_team_path(@service, @team.parent.id) %>
+            <% end %>
+          </dd>
+
+          <dt class="col-sm-2">Updated</dt>
+          <dd class="col-sm-4"><%= @team.updated_at.to_datetime.to_formatted_s(:date) %></dd>
+
+          <dt class="col-sm-2">Privacy</dt>
+          <dd class="col-sm-4"><%= @team.privacy.capitalize %></dd>
+        </dl>
+      </div>
+
+      <div class="tab-pane fade show" id="services-github-content-members" role="tabpanel" aria-labelledby="services-github-tab-members">
+        <%= turbo_frame_tag 'github-team-members', loading: :lazy, src: services_github_team_members_path(@service, team: @team.id) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+
+      <div class="tab-pane fade show" id="services-github-content-children" role="tabpanel" aria-labelledby="services-github-tab-children">
+        <%= turbo_frame_tag 'github-team-children', loading: :lazy, src: services_github_team_children_path(@service, team: @team.id) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</div>
