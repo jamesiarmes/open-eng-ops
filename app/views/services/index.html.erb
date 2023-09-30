@@ -7,8 +7,6 @@
     <thead>
       <tr>
         <th scope="col"><%= t('.name') %></th>
-        <th scope="col"><%= t('.type') %></th>
-        <th scope="col"><%= t('.config') %></th>
       </tr>
     </thead>
     <tbody>
@@ -16,20 +14,13 @@
         <tr>
           <td>
             <div class="d-flex align-items-center">
-              <img
-                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                alt=""
-                style="width: 45px; height: 45px"
-                class="rounded-circle"
-                />
+              <%= service.service_avatar(size: :sm) %>
               <div class="ms-3">
-                <p class="fw-bold mb-1"><%= link_to service.name, service_path(service) %></p>
-                <p class="text-muted mb-0">john.doe@gmail.com</p>
+                <p class="fw-bold mb-1"><%= link_to service.service_title, service_path(service) %></p>
+                <p class="text-muted mb-0"><%= service.service_subtitle %></p>
               </div>
             </div>
           </td>
-          <td><%= service.service_type %></td>
-          <td><%= service.config %></td>
         </tr>
       <% end %>
     </tbody>

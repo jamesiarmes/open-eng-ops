@@ -21,6 +21,15 @@ module Services
       'services_github'
     end
 
+    def service_avatar(size: :sm)
+      "<i class=\"fa-brands fa-github fa-fw default-avatar-#{size}\" " \
+        "title=\"#{service_type}\"></i>".html_safe
+    end
+
+    def service_subtitle
+      config[:type] == 'org' ? config[:org] : config[:user]
+    end
+
     def org
       return nil unless config[:type] == 'org'
 
