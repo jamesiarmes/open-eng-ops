@@ -12,6 +12,7 @@ AllCops:
     - "db/**/*"
     - "bin/**/*"
     - "log/**/*"
+    - "out/**/*"
     - "tmp/**/*"
     - "app/views/**/*"
     - "config/environments/*"

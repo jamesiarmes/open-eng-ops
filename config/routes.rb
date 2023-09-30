@@ -11,11 +11,15 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :roles
-    resources :teams
+    resources :teams, param: :id do
+      namespace :github, module: 'teams/github' do
+        resources :teams
+      end
+    end
   end
 
   get 'service/index'
-  resources :services, only: %i[index edit new]
+  resources :services, only: %i[index edit new create]
   namespace :services do
     resources :github, param: :id do
       get 'repos'

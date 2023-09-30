@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :set_default_breadcrumbs
   before_action :set_config
 
+  private
+
   def add_breadcrumb(name, path = nil)
     @breadcrumbs ||= []
     @breadcrumbs << { name:, path: }
@@ -22,5 +24,10 @@ class ApplicationController < ActionController::Base
 
   def set_config
     @config = Rails.application.config&.engops ||= {}
+  end
+
+  def ensure_frame_response
+    return unless Rails.env.development?
+    redirect_to root_path unless turbo_frame_request?
   end
 end

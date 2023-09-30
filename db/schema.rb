@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_24_192656) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_26_035319) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_24_192656) do
     t.jsonb "config"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "services_github_team_to_teams", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "service_id"
+    t.integer "github_team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_services_github_team_to_teams_on_service_id"
+    t.index ["team_id"], name: "index_services_github_team_to_teams_on_team_id"
   end
 
   create_table "team_members", force: :cascade do |t|

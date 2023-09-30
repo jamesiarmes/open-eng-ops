@@ -1,0 +1,21 @@
+<%= turbo_frame_tag 'modal' do %>
+<div class="modal fade" id="exampleModal" data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add GitHub Team</h5>
+        <button type="button" class="btn-close" aria-label="Close" data-action="turbo-modal#hideModal"></button>
+      </div>
+
+      <div class="modal-body">
+        <%= render 'form', relation: @relation %>
+      </div>
+
+      <div class="modal-footer">
+        <%= submit_tag t('.create'), class: 'btn btn-primary', form: 'team-github-team' %>
+        <%= link_to t('.cancel'), admin_team_path(@relation.team_id), class: 'button-cancel', data: { action: 'turbo-modal#hideModal' } %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

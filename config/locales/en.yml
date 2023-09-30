@@ -86,6 +86,17 @@ en:
         success: "Team was successfully created."
       destroy:
         success: "Team was successfully deleted."
+      github:
+        teams:
+          create:
+            success: "GitHub Team added"
+          destroy:
+            success: "GitHub Team sucesfully removed."
+          index:
+            confirm-delete: "Are you sure you want to remove this GitHub team? Current team membership will be unaffected."
+            delete: "Remove GitHub Team"
+          new:
+            create: "Add GitHub Team"
       form:
         create: "Create Team"
         cancel: "Cancel"

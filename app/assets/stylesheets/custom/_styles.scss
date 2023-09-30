@@ -20,3 +20,8 @@
 .default-avatar-xs { font-size: 25px; }
 .default-avatar-sm { font-size: 45px; }
 .default-avatar-lg { font-size: 150px; }
+
+
+@import 'mdb-ui-kit/src/scss/free/variables';
+
+.card-header a { color: var(--bs-card-cap-color); }

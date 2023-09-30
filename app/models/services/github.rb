@@ -2,6 +2,13 @@
 
 module Services
   class Github < Service
+    has_many :services_github_team_to_teams, class_name: 'Services::Github::TeamToTeam',
+                                             dependent: :destroy, foreign_key: :service_id
+
+    def self.table_name_prefix
+      'services_github_'
+    end
+
     def to_partial_path
       'github'
     end
