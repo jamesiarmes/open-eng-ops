@@ -53,6 +53,15 @@
           <% end %>
         </div>
       </div>
+
+      <div class="tab-pane fade" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
+        <%= turbo_frame_tag 'github-repositories', loading: :lazy, src: services_github_repos_path(@service) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="services-github-content-packages" role="tabpanel" aria-labelledby="services-github-tab-packages">
+        <%= render 'packages' %>
+      </div>
     </section>
   <% end %>
 </div>

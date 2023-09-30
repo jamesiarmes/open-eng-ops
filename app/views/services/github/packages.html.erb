@@ -1,0 +1,50 @@
+<!--TODO: Add filters-->
+<%= turbo_frame_tag "github-packages-#{params[:type] || 'container'}" do %>
+<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-packages">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Repository</th>
+    <th scope="col">Created</th>
+    <th scope="col">Updated</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @packages[:data].each do |package| %>
+    <tr>
+      <td>
+        <i class="fa-solid <%= case package.visibility
+                               when 'public' then 'fa-box-open'
+                               when 'private' then 'fa-box'
+                               else 'fa-cube'
+                               end %>"
+           title="<%= package.visibility.capitalize %>"></i>
+        <% if package.name[0..package.repository.name.length] == "#{package.repository.name}/" %>
+          <%= package.name[(package.repository.name.length + 1)..] %>
+        <% else %>
+          <%= package.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to package.repository.name,
+                    services_github_repo_path(@service, repo: package.repository.name),
+                    data: { turbo_frame: '_top'} %>
+      </td>
+      <td>
+          <span title="<%= package.created_at.to_datetime.to_formatted_s(:db) %>">
+            <%= package.created_at.to_datetime.to_formatted_s(:date) %>
+          </span>
+      </td>
+      <td>
+          <span title="<%= package.updated_at.to_datetime.to_formatted_s(:db) %>">
+            <%= package.updated_at.to_datetime.to_formatted_s(:date) %>
+          </span>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= render partial: 'pagination', object: @packages[:page_info],
+           locals: { label: 'Github packages pagination', frame: 'github-packages' } %>
+<% end %>

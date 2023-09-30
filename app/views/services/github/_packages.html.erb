@@ -1,0 +1,82 @@
+<div class="row w-100">
+  <div class="col-2">
+    <!-- Tab navs -->
+    <div class="nav flex-column nav-tabs" id="packages-tabs"
+         role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="packages-tab-containers" data-mdb-toggle="tab"
+         href="#packages-containers" role="tab" aria-controls="v-tabs-messages"
+         aria-selected="true" data-turbo-frame="github-packages-containers">
+        <i class="fa-solid fa-server fa-fw"></i> Containers
+      </a>
+      <a class="nav-link" id="packages-tab-npm" data-mdb-toggle="tab"
+         href="#packages-npm" role="tab" aria-controls="v-tabs-home"
+         data-turbo-frame="github-packages-npm">
+        <i class="fa-brands fa-npm fa-fw"></i> Node.js
+      </a>
+      <a class="nav-link" id="packages-tab-maven" data-mdb-toggle="tab"
+         href="#packages-maven" role="tab" aria-controls="v-tabs-profile"
+         data-turbo-frame="github-packages-maven">
+        <i class="fa-brands fa-java fa-fw"></i> Maven
+      </a>
+      <a class="nav-link" id="packages-tab-ruby" data-mdb-toggle="tab"
+         href="#packages-ruby" role="tab" aria-controls="v-tabs-messages"
+         data-turbo-frame="github-packages-rubygems">
+        <i class="fa-solid fa-gem fa-fw"></i> Ruby Gems
+      </a>
+      <a class="nav-link" id="packages-tab-docker" data-mdb-toggle="tab"
+         href="#packages-docker" role="tab" aria-controls="v-tabs-messages"
+         data-turbo-frame="github-packages-docker">
+        <i class="fa-brands fa-docker fa-fw"></i> Docker
+      </a>
+      <a class="nav-link" id="packages-tab-nuget" data-mdb-toggle="tab"
+         href="#packages-nuget" role="tab" aria-controls="v-tabs-messages"
+        data-turbo-frame="github-packages-nuget">
+        <i class="fa-brands fa-microsoft fa-fw"></i> NuGet
+      </a>
+    </div>
+    <!-- Tab navs -->
+  </div>
+
+  <div class="col-10">
+    <!-- Tab content -->
+    <div class="tab-content" id="packages-content">
+      <div class="tab-pane fade show active" id="packages-containers" role="tabpanel"
+           aria-labelledby="packages-tab-containers">
+        <%= turbo_frame_tag 'github-packages-container', loading: :lazy, src: services_github_packages_path(@service, type: :container) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="packages-npm" role="tabpanel"
+           aria-labelledby="packages-tab-npm">
+        <%= turbo_frame_tag 'github-packages-npm', loading: :lazy, src: services_github_packages_path(@service, type: :npm) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="packages-maven" role="tabpanel"
+           aria-labelledby="packages-tab-maven">
+        <%= turbo_frame_tag 'github-packages-maven', loading: :lazy, src: services_github_packages_path(@service, type: :maven) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="packages-ruby" role="tabpanel"
+           aria-labelledby="packages-tab-ruby">
+        <%= turbo_frame_tag 'github-packages-rubygems', loading: :lazy, src: services_github_packages_path(@service, type: :rubygems) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="packages-docker" role="tabpanel"
+           aria-labelledby="packages-tab-docker">
+        <%= turbo_frame_tag 'github-packages-docker', loading: :lazy, src: services_github_packages_path(@service, type: :docker) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="packages-nuget" role="tabpanel"
+           aria-labelledby="packages-tab-nuget">
+        <%= turbo_frame_tag 'github-packages-nuget', loading: :lazy, src: services_github_packages_path(@service, type: :nuget) do %>
+          <%= render 'shared/spinner' %>
+        <% end %>
+      </div>
+    </div>
+    <!-- Tab content -->
+  </div>
+</div>

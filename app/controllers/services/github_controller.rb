@@ -1,6 +1,6 @@
 class Services::GithubController < ServicesController
-  before_action :set_service, only: %i[show edit update destroy repo repos team team_children team_members teams]
-  before_action :pagination_params, only: %i[show repos team team_children team_members teams]
+  before_action :set_service, only: %i[show edit update destroy repo repos packages team team_children team_members teams]
+  before_action :pagination_params, only: %i[show repos packages team team_children team_members teams]
 
   def auth; end
 
@@ -56,6 +56,16 @@ class Services::GithubController < ServicesController
     @teams = @service.teams(
       page: params[:page] || 1,
       per_page: params[:per_page] || 10
+    )
+  end
+
+  def packages
+    authorize @service, :show?
+
+    @packages = @service.packages(
+      page: params[:page] || 1,
+      per_page: params[:per_page] || 10,
+      type: params[:type] || :container,
     )
   end
 

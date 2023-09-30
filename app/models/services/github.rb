@@ -102,6 +102,13 @@ class Services::Github < Service
     client.update_organization_membership(config[:org], user: username, role:)
   end
 
+  def packages(page: 1, per_page: 10, type: :container)
+    {
+      data: client.org_packages(config[:org], page:, per_page:, package_type: type),
+      page_info:
+    }
+  end
+
   # @return [Octokit::Client]
   def client
     @client ||= Octokit::Client.new(access_token: auth_token)

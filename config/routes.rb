@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :github, param: :id do
       get 'repos'
       get 'repos/:repo', action: :repo, as: 'repo'
+      get 'packages', action: :packages
       get 'teams'
       get 'teams/:team', action: :team, as: 'team'
       get 'teams/:team/children', action: :team_children, as: 'team_children'
