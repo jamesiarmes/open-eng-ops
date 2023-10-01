@@ -1,0 +1,13 @@
+<div class="form-check form-switch my-2">
+  <%= form.check_box field, class: 'form-check-input',
+                     disabled: defined?(disabled) ? disabled : false %>
+
+  <%= form.label field,
+                 class: "form-check-label #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
+
+  <% unless form.object.errors[field].empty? %>
+    <div class="invalid-feedback">
+      <%= form.object.errors.full_messages_for(field).join(', ') %>
+    </div>
+  <% end %>
+</div>

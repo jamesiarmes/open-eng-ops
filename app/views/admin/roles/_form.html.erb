@@ -1,9 +1,13 @@
 <%= form_with(model: @role, url: (action_name == 'new' ? admin_roles_path : admin_role_path(@role)), data: { controller: 'form' }, class: "contents #{@role.errors.empty? ? 'needs-validation' : 'was_validated'}") do |form| %>
   <div class="container-fluid row g-4">
-    <div class="col-12">
+    <div class="col-6">
       <%= render 'shared/form/text_field', form: form,
                  field: :human_name, disabled: @role.name == 'admin',
                  required: true %>
+    </div>
+    <div class="col-6">
+      <%= render 'shared/form/checkbox', form: form,
+                 field: :default, disabled: @role.name == 'admin' %>
     </div>
     <div class="col-12">
       <%= render 'shared/form/text_area', form: form,

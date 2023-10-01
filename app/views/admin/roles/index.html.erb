@@ -10,6 +10,7 @@
       <th scope="col"><%= t('.description') %></th>
       <th scope="col"><%= t('.permissions') %></th>
       <th scope="col"><%= t('.users') %></th>
+      <th scope="col"><%= t('.default') %></th>
     </tr>
     </thead>
     <tbody>
@@ -29,6 +30,12 @@
           <% end %>
         </td>
         <td class="text-center"><%= role.users.count %></td>
+        <td class="text-center">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch"
+                   <%= 'checked' if role.default %> disabled />
+          </div>
+        </td>
       </tr>
     <% end %>
     </tbody>

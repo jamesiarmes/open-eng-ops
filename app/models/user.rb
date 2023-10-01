@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :pronouns, presence: true
 
-  before_validation :assign_user_default_role
+  before_validation :assign_user_default_role, on: [:create]
 
   def formatted_phone
     parsed_phone = Phonelib.parse(phone)
@@ -37,12 +37,8 @@ class User < ApplicationRecord
   private
 
   def assign_user_default_role
-    admin_role = Role.find_or_create_by(name: 'admin') do |role|
-      role.permissions = Permission.all
-    end
+    return unless roles.empty?
 
-    # TODO: Invitation validation.
-    # add_role(:admin) if admin_role.persisted? && !invited_by.present?
-    add_role(:admin) if admin_role.persisted?
+    self.role_ids = Role.select(:id).where(default: true).map(&:id)
   end
 end

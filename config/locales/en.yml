@@ -53,11 +53,16 @@ en:
           street1: "Street"
           street2: "Apt., suite, etc."
         role:
+          default: "Default role"
           human_name: "Name"
           permission_ids_input: "Permissions"
         team:
           human_name: "Name"
           user_ids: "Uers"
+
+  common:
+    cancel: "Cancel"
+
   admin:
     roles:
       form:
@@ -81,6 +86,7 @@ en:
         delete: "Delete"
         permissions: "Permissions"
         users: "Users assigned"
+        default: "Default"
     teams:
       create:
         success: "Team was successfully created."
