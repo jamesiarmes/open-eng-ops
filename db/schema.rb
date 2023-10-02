@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_02_022221) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_024247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,6 +102,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_022221) do
     t.index ["team_id"], name: "index_services_github_team_to_teams_on_team_id"
   end
 
+  create_table "services_github_user_configs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_services_github_user_configs_on_user_id"
+  end
+
   create_table "team_members", force: :cascade do |t|
     t.bigint "team_id"
     t.bigint "user_id"
@@ -166,5 +174,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_022221) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "services_github_user_configs", "users"
   add_foreign_key "users", "addresses"
 end

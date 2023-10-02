@@ -12,6 +12,7 @@ class UserController < ApplicationController
     add_breadcrumb('Modify', edit_user_path(@user))
 
     @user.build_address unless @user.address
+    @user.build_services_github_user_config unless @user.services_github_user_config
   end
 
   def update
@@ -31,9 +32,12 @@ class UserController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :id, :avatar, :name, :email, :phone, :pronouns, :password, role_ids: [], address_attributes: [
-        :administrative_area, :country, :locality, :postal_code, :street1, :street2
-      ]
+      :id, :avatar, :name, :email, :phone, :pronouns, :password, role_ids: [],
+      address_attributes: [
+        :administrative_area, :country, :locality, :postal_code, :street1,
+        :street2
+      ],
+      services_github_user_config_attributes: [:username]
     )
   end
 end

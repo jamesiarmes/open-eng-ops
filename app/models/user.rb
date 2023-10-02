@@ -3,11 +3,14 @@ class User < ApplicationRecord
   rolify
 
   has_many :permissions, through: :roles
-  belongs_to :address, optional: true
+  has_one :services_github_user_config, class_name: 'Services::Github::UserConfig',
+                                       dependent: :destroy
+  belongs_to :address, optional: true, dependent: :destroy
   has_one_attached :avatar
   has_and_belongs_to_many :teams, join_table: :team_members
 
   accepts_nested_attributes_for :address, update_only: true
+  accepts_nested_attributes_for :services_github_user_config, update_only: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

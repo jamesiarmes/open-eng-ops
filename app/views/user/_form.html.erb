@@ -27,7 +27,7 @@
     </div>
     <% if current_user.id == @user.id %>
       <div class="col-6">
-        <%= render 'shared/form/password', form: form,
+        <%#= render 'shared/form/password', form: form,
                    type: :password,
                    field: :password %>
       </div>
@@ -36,6 +36,18 @@
       <%= render 'shared/form/address', form: form,
         field: :address,
         required: false %>
+    </div>
+
+<!--    TODO: Make this more dynamic. Somehow.-->
+    <div class="col-6">
+      <fieldset class="border container-fluid row g-4 my-2 ms-1 pb-4">
+        <legend class="w-auto float-none"><i class="fa-brands fa-github"></i> GitHub</legend>
+
+        <%= form.fields_for :services_github_user_config do |subform| %>
+          <%= render 'shared/form/text_field', form: subform,
+                     field: :username %>
+        <% end %>
+      </fieldset>
     </div>
 
     <div class="col-12">
