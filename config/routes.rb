@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users/registrations' }, skip: [:sessions]
+  devise_for :users, controllers: { registrations: 'users/registrations' }, skip: [:sessions, :invitations]
+
   as :user do
     get 'login', to: 'devise/sessions#new', as: :new_user_session
     post 'login', to: 'devise/sessions#create', as: :user_session
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
+
+    get 'admin/users/invitations', to: 'admin/users/invitations#new'
+    post 'admin/users/invitations', to: 'admin/users/invitations#create'
+    get 'user/invitation/:id/accept', to: 'admin/users/invitations#edit', as: :user_invitation_accept
+    patch 'user/invitation/:id', to: 'admin/users/invitations#update', as: :user_invitation
   end
 
   namespace :admin do

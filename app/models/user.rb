@@ -3,7 +3,7 @@ class User < ApplicationRecord
   rolify
 
   has_many :permissions, through: :roles
-  belongs_to :address
+  belongs_to :address, optional: true
   has_one_attached :avatar
   has_and_belongs_to_many :teams, join_table: :team_members
 
@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable, :trackable
 
   validates :email, presence: true

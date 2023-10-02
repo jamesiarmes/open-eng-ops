@@ -1,9 +1,6 @@
 <div class="w-full">
   <div class="text-end p-2">
-    <%# TODO: Replace with new user link %>
-    <%# link_to t('.new'), new_service_path, class: 'btn btn-primary' %>
-    <a href="#" class="btn btn-primary">New user</a>
-    <%# link_to "Invite New User", new_user_invitation_path %>
+    <%= link_to t('.new'), admin_users_invitations_path, class: "btn btn-primary", data: { turbo_frame: 'modal' } %>
   </div>
 
   <% if policy(current_user).index? %>

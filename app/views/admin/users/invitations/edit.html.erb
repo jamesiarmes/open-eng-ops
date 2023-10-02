@@ -1,0 +1,14 @@
+<div class="w-full">
+  <div class="responsive-container">
+    <div class="my-12 px-4 py-5 sm:px-6">
+      <div class="header">
+        <%= render 'form' %>
+      </div>
+
+      <footer class="footer">
+        <%= submit_tag t('devise.invitations.edit.submit_button'), class: 'btn btn-primary', form: 'user-invitation' %>
+        <%= link_to t('common.cancel'), destroy_user_session_path, class: 'button-cancel', data: { action: 'turbo-modal#hideModal' } %>
+      </footer>
+    </div>
+  </div>
+</div>

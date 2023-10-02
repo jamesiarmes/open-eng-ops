@@ -21,7 +21,7 @@ class Admin::Teams::Github::TeamsController < ApplicationController
     @relation = Services::Github::TeamToTeam.new(relation_params)
 
     if @relation.save
-      redirect_to admin_team_github_teams_path(team_id: @relation.team_id), notice: t('.success')
+      render turbo_stream: turbo_visit(admin_team_github_teams_path(team_id: @relation.team_id), frame: 'team-github-teams')
     else
       render :new, status: :unprocessable_entity
     end
