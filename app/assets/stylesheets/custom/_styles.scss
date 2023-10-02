@@ -21,6 +21,11 @@
 .default-avatar-sm { font-size: 45px; }
 .default-avatar-lg { font-size: 150px; }
 
+.dropdown-menu-right {
+  right: 0 !important;
+  left: auto !important;
+}
+
 
 @import 'mdb-ui-kit/src/scss/free/variables';
 

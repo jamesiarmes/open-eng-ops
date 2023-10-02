@@ -6,7 +6,7 @@
         required: defined?(required) ? required : false
       }.merge(defined?(extras) ? extras : {}) %>
   <%= form.label field,
-                 class: "form-label is-invalid #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
+                 class: "form-label #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(required) ? 'required' : ''}" %>
 
   <% unless form.object.errors[field].empty? %>
     <div class="invalid-feedback">

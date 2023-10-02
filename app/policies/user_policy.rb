@@ -20,10 +20,16 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    admin? || has_permissions('view_users')
+    admin? || current_user? || has_permissions('view_users')
   end
 
   def update?
-    admin? || has_permissions('edit_users')
+    admin? || current_user? || has_permissions('edit_users')
+  end
+
+  private
+
+  def current_user?
+    user.id == record&.id
   end
 end

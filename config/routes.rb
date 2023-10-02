@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :user, param: :id
+
   # Defines the root path route ("/")
   root "services#index"
 end

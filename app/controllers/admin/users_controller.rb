@@ -1,7 +1,6 @@
-class Admin::UsersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_user, only: %i[show edit update]
-  before_action :set_roles, only: %i[edit update]
+class Admin::UsersController < UserController
+  before_action :set_user, only: %i[edit show update destroy]
+  before_action :set_roles, only: %i[edit update destroy]
   before_action :set_breadcrumbs
 
   def index
@@ -31,22 +30,21 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @user
+
+    if User.all.count > 1
+      @user.destroy
+      redirect_to admin_users_path, notice: t('.success')
+    else
+      redirect_to admin_user_path(@user), status: :forbidden, alert: t('.last')
+    end
+  end
+
   private
 
   def set_roles
     @roles = Role.all
-  end
-
-  def set_user
-    @user = User.find(params['id'])
-  end
-
-  def user_params
-    params.require(:user).permit(
-      :avatar, :name, :email, :phone, :pronouns, :roles, address_attributes: [
-        :administrative_area, :country, :locality, :postal_code, :street1, :street2
-      ]
-    )
   end
 
   def set_breadcrumbs

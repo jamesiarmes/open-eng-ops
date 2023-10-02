@@ -8,22 +8,22 @@ class ServicePolicy < ApplicationPolicy
   end
 
   def create?
-    admin? || has_permissions('create_roles')
+    admin? || has_permissions('create_services')
   end
 
   def destroy?
-    admin? || has_permissions('delete_roles')
+    admin? || has_permissions('delete_services')
   end
 
   def index?
-    admin? || has_permissions('index_roles')
+    admin? || has_permissions('list_services')
   end
 
   def show?
-    admin? || has_permissions('view_roles')
+    admin? || has_permissions('view_services')
   end
 
   def update?
-    admin? || has_permissions('edit_roles')
+    admin? || has_permissions('edit_services')
   end
 end

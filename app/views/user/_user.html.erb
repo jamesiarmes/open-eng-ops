@@ -17,13 +17,13 @@
             <p class="text-muted mb-4"><%= @user.address&.combined_locality %></p>
 
             <div class="d-flex justify-content-center mb-2">
-              <%= link_to t('.edit'), edit_admin_user_path, class: 'btn btn-primary mx-1' %>
-              <%# TODO: Create delete route. %>
+              <% if policy(@user).edit? %>
+                <%= link_to t('.edit'), edit_user_path, class: 'btn btn-primary mx-1' %>
+              <% end %>
 
               <% if policy(@user).destroy? %>
-                <%= link_to t('.delete'), admin_user_path(@user),
-                            class: 'btn btn-danger mx-1',
-                            data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } %>
+                <%# TODO: Create delete route. %>
+                <%= link_to t('.delete'),  user_path, class: 'btn btn-danger mx-1' %>
               <% end %>
             </div>
           </div>

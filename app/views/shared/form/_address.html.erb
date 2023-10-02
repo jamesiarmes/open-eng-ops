@@ -2,10 +2,11 @@
   <legend class="w-auto float-none">Address</legend>
 
   <%= form.fields_for field do |subform| %>
+    <% required = defined?(required) ? required : false %>
     <div class="col-md-6">
       <%= render 'shared/form/text_field', form: subform,
                  field: :street1, placeholder: t('.placeholder'),
-                 required: true %>
+                 required: required %>
     </div>
     <div class="col-md-6">
       <%= render 'shared/form/text_field', form: subform,
@@ -14,17 +15,17 @@
     <div class="col-md-4">
       <%= render 'shared/form/text_field', form: subform,
                  field: :locality,
-                 required: true %>
+                 required: required %>
     </div>
     <div class="col-md-4">
       <%= render 'shared/form/text_field', form: subform,
                  field: :administrative_area,
-                 required: true, extras: { maxlength: 2, minlength: 2 } %>
+                 required: required, extras: { maxlength: 2, minlength: 2 } %>
     </div>
     <div class="col-md-4">
       <%= render 'shared/form/text_field', form: subform,
                  field: :postal_code,
-                 required: true, extras: { maxlength: 5, minlength: 5 } %>
+                 required: required, extras: { maxlength: 5, minlength: 5 } %>
     </div>
   <% end %>
 </fieldset>
