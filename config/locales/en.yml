@@ -58,7 +58,7 @@ en:
           permission_ids_input: "Permissions"
         team:
           human_name: "Name"
-          user_ids: "Uers"
+          user_ids: "Users"
 
   common:
     cancel: "Cancel"

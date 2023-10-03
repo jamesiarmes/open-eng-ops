@@ -39,7 +39,7 @@ module Services
     def user
       return nil unless config[:type] == 'user'
 
-      @use ||= client.user(config[:user])
+      @user ||= client.user(config[:user])
     end
 
     def owner
@@ -102,6 +102,26 @@ module Services
         data: client.team_members(id, page:, per_page:),
         page_info:
       }
+    end
+
+    def team_member?(team_id, username)
+      client.team_member?(team_id, username)
+    end
+
+    def add_team_member(team_id, username)
+      client.add_team_membership(team_id, username)
+    end
+
+    def remove_team_member(team_id, username)
+      client.remove_team_membership(team_id, username)
+    end
+
+    def organization_member?(username)
+      client.organization_member?(config[:org], username)
+    end
+
+    def update_organization_membership(username, role: :member)
+      client.update_organization_membership(config[:org], user: username, role:)
     end
 
     def client
