@@ -21,6 +21,13 @@ class Admin::TeamsController < ApplicationController
     @team = Team.new
   end
 
+  # GET /admin/teams/1/edit
+  def edit
+    authorize @team
+    add_breadcrumb(@team.human_name, admin_team_path(@team))
+    add_breadcrumb('Modify', edit_admin_team_path(@team))
+  end
+
   # POST /admin/teams
   def create
     authorize :team
@@ -30,13 +37,6 @@ class Admin::TeamsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  # GET /admin/teams/1/edit
-  def edit
-    authorize @team
-    add_breadcrumb(@team.human_name, admin_team_path(@team))
-    add_breadcrumb('Modify', edit_admin_team_path(@team))
   end
 
   # PATCH/PUT /admin/teams/1

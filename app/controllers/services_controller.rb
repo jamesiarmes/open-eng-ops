@@ -2,8 +2,7 @@ class ServicesController < ApplicationController
   include ServiceHelper
 
   before_action :authenticate_user!
-  before_action :set_service,
-                only: %i[show edit update destroy repo repos teams]
+  before_action :set_service, only: %i[show edit update destroy]
   before_action :set_types, only: %i[new edit]
   before_action :set_breadcrumbs
 
@@ -42,10 +41,17 @@ class ServicesController < ApplicationController
   def update
     authorize @service
     if @service.update(service_params)
-      redirect_to service_path(@service), notice: t('.success')
+      redirect_to service_path(@service), notice: t('services.update.success')
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    authorize @service
+
+    @service.destroy
+    redirect_to services_path, notice: t('services.destroy.success')
   end
 
   def service_config
