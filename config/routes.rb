@@ -25,7 +25,10 @@ Rails.application.routes.draw do
   end
 
   get 'service/index'
-  resources :services, only: %i[index edit new create]
+  resources :services, only: %i[index edit new create] do
+    get 'config', action: :service_config, on: :new
+  end
+
   namespace :services do
     resources :github, param: :id do
       get 'repos'

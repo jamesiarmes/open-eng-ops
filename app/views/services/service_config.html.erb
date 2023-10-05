@@ -1,0 +1,13 @@
+<%= turbo_frame_tag 'service-config' do %>
+  <%= fields_for(@service) do |form| %>
+    <% if @service&.type %>
+      <%= render "/services/#{@service.to_partial_path}/config", form: form %>
+    <% else %>
+      <fieldset class="border container-fluid row g-4 my-2 ms-1 pb-4">
+        <legend class="w-auto float-none"><i class="fa-solid fa-cloud"></i> Service Configuration</legend>
+
+        <p><em>Select a service type to load its configuration.</em></p>
+      </fieldset>
+    <% end %>
+  <% end %>
+<% end %>

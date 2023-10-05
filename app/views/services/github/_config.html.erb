@@ -1,0 +1,20 @@
+<fieldset class="border container-fluid row g-4 my-2 ms-1 pb-4">
+  <legend class="w-auto float-none"><i class="fa-brands fa-github"></i> GitHub Configuration</legend>
+
+  <%= render 'shared/config/select', form: form, label: 'Type',
+             field: :type,
+             options: {'Organization' => 'org', 'User' => 'user' },
+             default: 'org',
+             required: true %>
+  <%= render 'shared/config/text_field', form: form, label: 'Organization',
+             field: :org,
+             # required: true
+             required: false %>
+  <%= render 'shared/config/text_field', form: form, label: 'User',
+             field: :user,
+             # required: true
+             required: false %>
+  <%= render 'shared/config/text_field', form: form, label: 'API token',
+             field: :token,
+             required: true %>
+</fieldset>

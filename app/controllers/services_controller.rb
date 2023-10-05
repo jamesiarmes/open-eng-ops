@@ -4,6 +4,7 @@ class ServicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_service,
                 only: %i[show edit update destroy repo repos teams]
+  before_action :set_types, only: %i[new edit]
   before_action :set_breadcrumbs
 
   def index
@@ -21,6 +22,12 @@ class ServicesController < ApplicationController
     @service = Service.new
   end
 
+  def edit
+    authorize @service
+    add_breadcrumb(@service.name, service_path(@service))
+    add_breadcrumb('Modify', edit_service_path(@service))
+  end
+
   def create
     authorize :service
     @service = Service.new(service_params)
@@ -32,12 +39,6 @@ class ServicesController < ApplicationController
     end
   end
 
-  def edit
-    authorize @service
-    add_breadcrumb(@service.name, service_path(@service))
-    add_breadcrumb('Modify', edit_service_path(@service))
-  end
-
   def update
     authorize @service
     if @service.update(service_params)
@@ -45,6 +46,11 @@ class ServicesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def service_config
+    authorize :service, :new?
+    @service = Service.new(type: params[:type])
   end
 
   private
@@ -68,6 +74,10 @@ class ServicesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_service
     @service = Service.find_by_id(params[:id])
+  end
+
+  def set_types
+    @types = service_type_options
   end
 
   def set_breadcrumbs

@@ -6,6 +6,7 @@
         data: defined?(data_elements) ? data_elements : {},
         class: "#{form.object.errors[field].any? ? 'invalid' : ''} form-control form-select select select-input",
         required: defined?(required) ? required : false,
+        disabled: defined?(disabled) ? disabled : false,
         multiple: defined?(multiple) ? 'multiple' : false
       } %>
   <%= form.label field,
