@@ -140,6 +140,8 @@ en:
       home: "Home"
       services: "Services"
   services:
+    create:
+      success: "Service successfully created"
     index:
       name: "Name"
       new: "New Service"

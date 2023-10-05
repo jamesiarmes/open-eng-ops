@@ -1,4 +1,10 @@
 module ServiceHelper
+  def service_factory(params)
+    return Service.new(params) if params[:type].blank?
+
+    params[:type].constantize.new(params)
+  end
+
   def service_path(service, options = {})
     send("#{service.route_helper_prefix}_path", service, options)
   end

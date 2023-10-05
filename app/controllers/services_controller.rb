@@ -30,7 +30,7 @@ class ServicesController < ApplicationController
 
   def create
     authorize :service
-    @service = Service.new(service_params)
+    @service = service_factory(service_params)
 
     if @service.save
       redirect_to services_path(@service), notice: t('.success')
