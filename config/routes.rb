@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       get 'teams/:team/children', action: :team_children, as: 'team_children'
       get 'teams/:team/members', action: :team_members, as: 'team_members'
     end
+
+    resources :sample
   end
 
   resources :user, param: :id
