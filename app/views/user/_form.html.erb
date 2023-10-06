@@ -25,30 +25,27 @@
                  field: :phone,
                  required: true %>
     </div>
-    <% if current_user.id == @user.id %>
+
+    <% if policy(@user).current_user? %>
+<!--      TODO: Allow the current user to change their password.-->
       <div class="col-6">
         <%#= render 'shared/form/password', form: form,
                    type: :password,
                    field: :password %>
       </div>
     <% end %>
+
     <div class="col-12">
       <%= render 'shared/form/address', form: form,
         field: :address,
         required: false %>
     </div>
 
-<!--    TODO: Make this more dynamic. Somehow.-->
-    <div class="col-6">
-      <fieldset class="border container-fluid row g-4 my-2 ms-1 pb-4">
-        <legend class="w-auto float-none"><i class="fa-brands fa-github"></i> GitHub</legend>
-
-        <%= form.fields_for :services_github_user_config do |subform| %>
-          <%= render 'shared/form/text_field', form: subform,
-                     field: :username %>
-        <% end %>
-      </fieldset>
-    </div>
+    <% @service_types.each do |type| %>
+      <% if lookup_context.find_all("services/#{type.partial_path}/user/_form").any? %>
+        <%= render "services/#{type.partial_path}/user/form", form: form %>
+      <% end %>
+    <% end %>
 
     <div class="col-12">
       <div class="inline">

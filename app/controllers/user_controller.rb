@@ -1,6 +1,9 @@
 class UserController < ApplicationController
+  include ServiceHelper
+
   before_action :authenticate_user!
   before_action :set_user, only: %i[edit show update]
+  before_action :set_enabled_service_types, only: %i[show edit]
 
   def show
     authorize @user
@@ -28,6 +31,10 @@ class UserController < ApplicationController
 
   def set_user
     @user = User.find(params['id'])
+  end
+
+  def set_enabled_service_types
+    @service_types = enabled_service_types
   end
 
   def user_params

@@ -27,8 +27,6 @@ class UserPolicy < ApplicationPolicy
     admin? || current_user? || has_permissions('edit_users')
   end
 
-  private
-
   def current_user?
     user.id == record&.id
   end
