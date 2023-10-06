@@ -5,7 +5,7 @@ class Services::Github::RemoveUserFromTeamJob < ApplicationJob
   queue_as :default
 
   # @param config [Services::Github::UserConfig]
-  # @param relation [Services::Github::TeamToTeam]
+  # @param relation [Services::Github::TeamConfig]
   #
   # @todo When should we remove the user from the organization?
   def perform(config:, relation:)

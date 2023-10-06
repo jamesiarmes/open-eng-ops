@@ -5,7 +5,7 @@ class Services::Github::AddUserToTeamJob < ApplicationJob
   queue_as :default
 
   # @param config [Services::Github::UserConfig]
-  # @param relation [Services::Github::TeamToTeam]
+  # @param relation [Services::Github::TeamConfig]
   def perform(config:, relation:)
     return unless config.username
 

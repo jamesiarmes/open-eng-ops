@@ -1,24 +1,24 @@
 class Admin::Teams::Github::TeamsController < ApplicationController
-  POLICY_CLASS = Services::Github::TeamToTeamPolicy
+  POLICY_CLASS = Services::Github::TeamConfigPolicy
 
   before_action :ensure_frame_response
   before_action :set_relation, only: [:destroy]
   before_action :set_team, only: [:index]
 
   def index
-    authorize :team_to_teams, policy_class: POLICY_CLASS
+    authorize :team_configs, policy_class: POLICY_CLASS
 
-    @relations = @team.services_github_team_to_teams
+    @relations = @team.services_github_team_configs
   end
 
   def new
-    authorize :team_to_teams, policy_class: POLICY_CLASS
-    @relation = Services::Github::TeamToTeam.new(team_id: params[:team_id])
+    authorize :team_configs, policy_class: POLICY_CLASS
+    @relation = Services::Github::TeamConfig.new(team_id: params[:team_id])
   end
 
   def create
-    authorize :team_to_teams, policy_class: POLICY_CLASS
-    @relation = Services::Github::TeamToTeam.new(relation_params)
+    authorize :team_configs, policy_class: POLICY_CLASS
+    @relation = Services::Github::TeamConfig.new(relation_params)
 
     if @relation.save
       render turbo_stream: turbo_visit(admin_team_github_teams_path(team_id: @relation.team_id), frame: 'team-github-teams')
@@ -38,13 +38,13 @@ class Admin::Teams::Github::TeamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def relation_params
-    params.require(:services_github_team_to_team).permit(
+    params.require(:services_github_team_config).permit(
       :github_team_id, :id, :service_id, :team_id
     )
   end
 
   def set_relation
-    @relation = Services::Github::TeamToTeam.find(params[:id])
+    @relation = Services::Github::TeamConfig.find(params[:id])
   end
 
   def set_team

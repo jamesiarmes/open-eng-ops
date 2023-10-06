@@ -9,7 +9,7 @@ ActiveSupport::Notifications.subscribe(/team/) do |*args|
   config = event.payload[:user].services_github_user_config
   next unless config&.username
 
-  relations = event.payload[:team].services_github_team_to_teams
+  relations = event.payload[:team].services_github_team_configs
   next unless relations.count.positive?
 
   relations.each do |relation|

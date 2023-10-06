@@ -1,9 +1,9 @@
-class Services::Github::TeamToTeam < ApplicationRecord
+class Services::Github::TeamConfig < ApplicationRecord
   belongs_to :team
   belongs_to :service
 
   def self.table_name
-    'services_github_team_to_teams'
+    'services_github_team_configs'
   end
 
   def github_team

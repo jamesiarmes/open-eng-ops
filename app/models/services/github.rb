@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Services::Github < Service
-  has_many :services_github_team_to_teams, class_name: 'Services::Github::TeamToTeam',
+  has_many :services_github_team_configs, :class_name => 'Services::Github::TeamConfig',
                                            dependent: :destroy, foreign_key: :service_id
 
   def self.table_name_prefix
