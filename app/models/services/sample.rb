@@ -3,6 +3,10 @@ class Services::Sample < Service
     'Sample'
   end
 
+  def self.partial_path
+    'sample'
+  end
+
   def to_partial_path
     'sample'
   end

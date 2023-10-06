@@ -1,15 +1,20 @@
 <%= turbo_frame_tag 'team-github-teams' do %>
 <ul class="list-group list-group-flush rounded-3 list-group-light">
-  <% @relations.each do |rel| %>
-    <li class="list-group-item d-flex justify-content-between align-items-center px-3 border-0 rounded-3 list-group-item-dark mb-2 mx-2">
-      <div>
-        <i class="fa-brands fa-github fa-fw me-2"></i>
-        <%= rel.github_team.name %>
-      </div>
-      <%= link_to admin_team_github_team_path(id: rel.id, team_id: rel.team_id), data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } do %>
-        <i class="fa-solid fa-minus fa-fw me-2 text-danger" title="<%= t('.delete') %>"></i>
-      <% end %>
-    </li>
+  <% if @relations.count.positive? %>
+    <% @relations.each do |rel| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-3 border-0 rounded-3 list-group-item-dark mb-2 mx-2">
+        <div>
+          <i class="fa-brands fa-github fa-fw me-2"></i>
+          <%= rel.github_team.name %>
+        </div>
+        <%= link_to admin_team_github_team_path(id: rel.id, team_id: rel.team_id), data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } do %>
+          <i class="fa-solid fa-minus fa-fw me-2 text-danger" title="<%= t('.delete') %>"></i>
+        <% end %>
+      </li>
+    <% end %>
+  <% else %>
+    <p class="m-5 text-center"><em>Add GitHub teams to have your team members automatically added and
+      subsequently removed when they leave the team.</em></p>
   <% end %>
 </ul>
 <% end %>

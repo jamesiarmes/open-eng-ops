@@ -1,4 +1,6 @@
 class Admin::TeamsController < ApplicationController
+  include ServiceHelper
+
   before_action :authenticate_user!
   before_action :set_team, only: %i[show edit update destroy]
   before_action :set_breadcrumbs
@@ -13,6 +15,8 @@ class Admin::TeamsController < ApplicationController
   def show
     authorize @team
     add_breadcrumb(@team.human_name)
+
+    @service_types = enabled_service_types
   end
 
   # GET /admin/teams/new

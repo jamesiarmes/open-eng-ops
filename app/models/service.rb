@@ -11,6 +11,12 @@ class Service < ApplicationRecord
     'service'
   end
 
+  def to_partial_path
+    return self.class.partial_path if defined?(self.class.partial_path)
+
+    super
+  end
+
   # The title for this service.
   def service_title
     name

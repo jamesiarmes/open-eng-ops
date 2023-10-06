@@ -16,4 +16,8 @@ module ServiceHelper
       [service_type.service_type, service_type]
     end
   end
+
+  def enabled_service_types
+    Service.order(:type).distinct.pluck(:type).map(&:constantize)
+  end
 end

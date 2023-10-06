@@ -8,12 +8,12 @@ class Services::Github < Service
     'services_github_'
   end
 
-  def to_partial_path
-    'github'
-  end
-
   def self.service_type
     'GitHub'
+  end
+
+  def self.partial_path
+    'github'
   end
 
   def route_helper_prefix
