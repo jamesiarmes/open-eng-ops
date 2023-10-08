@@ -2,7 +2,7 @@
 
 # Base model for services.
 class Service < ApplicationRecord
-  serialize :config, ::JsonbSerializers
+  serialize :config, coder: ::JsonbSerializers
 
   has_one :identity, dependent: :destroy
 
