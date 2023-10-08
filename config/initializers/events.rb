@@ -13,7 +13,14 @@ ActiveSupport::Notifications.subscribe(/team/) do |*args|
   next unless relations.count.positive?
 
   relations.each do |relation|
+    payload = {
+      config:,
+      service: relation.service,
+      github_team_id: relation.github_team_id
+    }
+    payload[:team_id] = relation.team_id if event.name == 'team.member_removed'
+
     job = event.name == 'team.member_added' ? 'AddUserToTeamJob' : 'RemoveUserFromTeamJob'
-    Object.const_get("Services::Github::#{job}").perform_later config:, relation:
+    Object.const_get("Services::Github::#{job}").perform_later **payload
   end
 end

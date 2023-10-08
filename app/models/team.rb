@@ -8,6 +8,12 @@ class Team < ApplicationRecord
   has_many :services_github_team_configs, class_name: 'Services::Github::TeamConfig',
                                           dependent: :destroy
 
+  scope :with_github_team, lambda { |team|
+    joins(:services_github_team_configs)
+      .merge(Services::Github::TeamConfig.where(github_team_id: team))
+      .uniq
+  }
+
   validates :human_name, presence: true
   validates :name, presence: true
   validates :name, uniqueness: { message: 'Team already exists with his name.' }

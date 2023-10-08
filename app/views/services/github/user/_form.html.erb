@@ -2,6 +2,7 @@
   <fieldset class="border container-fluid row g-4 my-2 ms-1 pb-4">
     <legend class="w-auto float-none"><i class="fa-brands fa-github"></i> GitHub</legend>
 
+    <!-- TODO: Implement OAuth -->
     <%= form.fields_for :services_github_user_config do |subform| %>
       <%= render 'shared/form/text_field', form: subform,
                  field: :username %>
