@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+# Base model for services.
 class Service < ApplicationRecord
   serialize :config, ::JsonbSerializers
+
+  has_one :identity, dependent: :destroy
 
   def service_type
     self.class.name.split('::').last
@@ -30,6 +33,10 @@ class Service < ApplicationRecord
   def service_avatar(size: :sm)
     "<i class=\"fa-solid fa-cloud fa-fw default-avatar-#{size}\" " \
     "title=\"#{service_type}\"></i>".html_safe
+  end
+
+  def identified?
+    identity.present?
   end
 end
 

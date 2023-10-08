@@ -64,6 +64,10 @@ en:
     cancel: "Cancel"
     delete: "Delete"
 
+  identity:
+    failure: "Faled to set identity"
+    success: "Successfully set identity"
+
   admin:
     roles:
       form:

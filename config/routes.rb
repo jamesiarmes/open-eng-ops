@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     patch 'user/invitation/:id', to: 'admin/users/invitations#update', as: :user_invitation
   end
 
+  get '/auth/:provider/callback', to: 'identity#create'
+
   namespace :admin do
     resources :users
     resources :roles
@@ -30,6 +32,10 @@ Rails.application.routes.draw do
   end
 
   namespace :services do
+    namespace :github do
+      get 'auth'
+    end
+
     resources :github, param: :id do
       get 'repos'
       get 'repos/:repo', action: :repo, as: 'repo'

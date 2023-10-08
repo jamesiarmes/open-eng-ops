@@ -5,7 +5,8 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config and vendored dependencies.
-/.bundle
+.bundle
+node_modules
 vendor
 
 # Ignore all logfiles and tempfiles.
@@ -34,9 +35,8 @@ vendor
 # Ignore IDE configs
 .idea
 *.iml
+.env
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /out/*
-
-/node_modules

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Services::Github < Service
-  has_many :services_github_team_configs, :class_name => 'Services::Github::TeamConfig',
-                                           dependent: :destroy, foreign_key: :service_id
+  has_many :services_github_team_configs, class_name: 'Services::Github::TeamConfig',
+                                          dependent: :destroy, foreign_key: :service_id
 
   def self.table_name_prefix
     'services_github_'
@@ -22,36 +22,21 @@ class Services::Github < Service
 
   def service_avatar(size: :sm)
     "<i class=\"fa-brands fa-github fa-fw default-avatar-#{size}\" " \
-      "title=\"#{service_type}\"></i>".html_safe
+    "title=\"#{service_type}\"></i>".html_safe
   end
 
   def service_subtitle
-    config[:type] == 'org' ? config[:org] : config[:user]
+    config[:org]
   end
 
   def org
-    return nil unless config[:type] == 'org'
-
     @org ||= client.organization(config[:org])
   end
-
-  def user
-    return nil unless config[:type] == 'user'
-
-    @user ||= client.user(config[:user])
-  end
-
-  def owner
-    @owner ||= org || user
-  end
-
-  def owner_param
-    { config[:type].to_sym => config[config[:type].to_sym] }
-  end
+  alias :owner :org
 
   def repo(name)
     client.repo({
-                  owner: config[:type] == 'org' ? config[:org] : config[:user],
+                  owner: config[:org],
                   repo: name
                 })
   end
@@ -60,25 +45,19 @@ class Services::Github < Service
     return nil if repo(name).fork
 
     client.community_profile({
-                               owner: config[:type] == 'org' ? config[:org] : config[:user],
+                               owner: config[:org],
                                repo: name
                              })
   end
 
   def repos(direction: 'asc', page: 1, per_page: 10, sort: 'name')
     {
-      data: if config[:type] == 'org'
-              client.org_repos(config[:org], direction:, page:, per_page:, sort:)
-            else
-              client.repositories(user: config[:user], direction:, page:, per_page:, sort:)
-            end,
+      data: client.org_repos(config[:org], direction:, page:, per_page:, sort:),
       page_info:
     }
   end
 
   def teams(page: 1, per_page: 10)
-    return { data: [], page_info: {} } unless config[:type] == 'org'
-
     {
       data: client.org_teams(config[:org], page:, per_page:),
       page_info:
@@ -124,10 +103,18 @@ class Services::Github < Service
   end
 
   def client
-    @client ||= Octokit::Client.new(access_token: config[:token])
+    @client ||= Octokit::Client.new(access_token: auth_token)
   end
 
-    private
+  def auth_type
+    config[:auth_type]
+  end
+
+  private
+
+  def auth_token
+    auth_type == 'oauth' ? identity.token : config[:token]
+  end
 
   def page_info
     if client.last_response.rels[:next]

@@ -1,7 +1,13 @@
 <div class="w-full">
   <div class="responsive-container">
     <div class="mt-12 px-4 py-5 sm:px-6">
-      <%= render @service %>
+      <% if @service.config[:auth_type] == 'oauth' && !@service.identified? %>
+        <p><em>Please <%= link_to 'authorize', services_github_auth_path(user_id: current_user.id, service_id: @service.id), data: { turbo_frame: 'modal' } %></em></p>
+      <% elsif @service.config[:auth_type].nil? %>
+        <p><em>Please <%= link_to 'update', edit_service_path(@service) %> this service to set an authorization type.</em></p>
+      <% else %>
+        <%= render @service %>
+      <% end %>
     </div>
 
     <div class="mb-3 ms-3">
@@ -16,37 +22,37 @@
     </div>
   </div>
 
-  <section>
-    <nav>
-      <ul class="nav nav-tabs mb-3" id="services-github-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="services-github-tab-teams" data-mdb-toggle="tab" href="#services-github-content-teams" role="tab"
-             data-turbo-frame="github-teams" aria-controls="services-github-content-teams" aria-selected="true"><i class="fas fa-people-group fa-fw me-2"></i>Teams</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="services-github-tab-repos" data-mdb-toggle="tab" href="#services-github-content-repos" role="tab"
-             data-turbo-frame="github-repositories" aria-controls="services-github-content-repos"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Repositories</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="services-github-tab-packages" data-mdb-toggle="tab" href="#services-github-content-packages" role="tab"
-             aria-controls="services-github-content-packages"><i class="fa-solid fa-boxes-stacked fa-fw me-2"></i>Packages</a>
-        </li>
-      </ul>
-    </nav>
+  <% if @service.config[:auth_type] != 'oauth' || @service.identified? %>
+    <section>
+      <nav>
+        <ul class="nav nav-tabs mb-3" id="services-github-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="services-github-tab-teams" data-mdb-toggle="tab" href="#services-github-content-teams" role="tab"
+               data-turbo-frame="github-teams" aria-controls="services-github-content-teams" aria-selected="true"><i class="fas fa-people-group fa-fw me-2"></i>Teams</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="services-github-tab-repos" data-mdb-toggle="tab" href="#services-github-content-repos" role="tab"
+               data-turbo-frame="github-repositories" aria-controls="services-github-content-repos"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Repositories</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="services-github-tab-packages" data-mdb-toggle="tab" href="#services-github-content-packages" role="tab"
+               aria-controls="services-github-content-packages"><i class="fa-solid fa-boxes-stacked fa-fw me-2"></i>Packages</a>
+          </li>
+        </ul>
+      </nav>
 
-    <div class="tab-content" id="services-github-content">
-      <div class="tab-pane fade show active" id="services-github-content-teams" role="tabpanel" aria-labelledby="services-github-tab-teams">
-        <%= turbo_frame_tag 'github-teams', loading: :lazy, src: services_github_teams_path(@service) do %>
-          <%= render 'shared/spinner' %>
-        <% end %>
+      <div class="tab-content" id="services-github-content">
+        <div class="tab-pane fade show active" id="services-github-content-teams" role="tabpanel" aria-labelledby="services-github-tab-teams">
+          <%= turbo_frame_tag 'github-teams', loading: :lazy, src: services_github_teams_path(@service) do %>
+            <%= render 'shared/spinner' %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
+          <%= turbo_frame_tag 'github-repositories', loading: :lazy, src: services_github_repos_path(@service) do %>
+            <%= render 'shared/spinner' %>
+          <% end %>
+        </div>
       </div>
-      <div class="tab-pane fade" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
-        <%= turbo_frame_tag 'github-repositories', loading: :lazy, src: services_github_repos_path(@service) do %>
-          <%= render 'shared/spinner' %>
-        <% end %>
-      </div>
-    </div>
-  </section>
-
-
+    </section>
+  <% end %>
 </div>
