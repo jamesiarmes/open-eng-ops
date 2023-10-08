@@ -8,7 +8,7 @@
         </div>
 
         <div class="modal-body">
-          <%= form_tag(auth_path(:github, user_id: 1, service_id: 7), method: 'post', data: { turbo: false }) do %>
+          <%= form_tag(auth_path(:github, user_id: params[:user_id], service_id: params[:service_id]), method: 'post', data: { turbo: false }) do %>
             <button type='submit'>Login with GitHub</button>
           <% end %>
         </div>

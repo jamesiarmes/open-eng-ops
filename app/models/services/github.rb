@@ -102,6 +102,7 @@ class Services::Github < Service
     client.update_organization_membership(config[:org], user: username, role:)
   end
 
+  # @return [Octokit::Client]
   def client
     @client ||= Octokit::Client.new(access_token: auth_token)
   end
