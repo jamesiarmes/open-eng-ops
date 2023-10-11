@@ -35,8 +35,12 @@
                data-turbo-frame="github-repositories" aria-controls="services-github-content-repos"><i class="fa-brands fa-git-alt fa-fw me-2"></i>Repositories</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="services-github-tab-packages" data-mdb-toggle="tab" href="#services-github-content-packages" role="tab"
-               aria-controls="services-github-content-packages"><i class="fa-solid fa-boxes-stacked fa-fw me-2"></i>Packages</a>
+            <a class="nav-link" id="services-github-tab-members" data-mdb-toggle="tab" href="#services-github-content-members" role="tab"
+               aria-controls="services-github-content-members"><i class="fa-solid fa-users-rectangle fa-fw me-2"></i>Members</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="services-github-tab-collaborators" data-mdb-toggle="tab" href="#services-github-content-collaborators" role="tab"
+               aria-controls="services-github-content-collaborators"><i class="fa-solid fa-handshake fa-fw me-2"></i>Collaborators</a>
           </li>
         </ul>
       </nav>
@@ -49,6 +53,16 @@
         </div>
         <div class="tab-pane fade" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
           <%= turbo_frame_tag 'github-repositories', loading: :lazy, src: services_github_repos_path(@service) do %>
+            <%= render 'shared/spinner' %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="services-github-content-members" role="tabpanel" aria-labelledby="services-github-tab-members">
+          <%= turbo_frame_tag 'github-members', loading: :lazy, src: services_github_members_path(@service) do %>
+            <%= render 'shared/spinner' %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="services-github-content-collaborators" role="tabpanel" aria-labelledby="services-github-tab-collaborators">
+          <%= turbo_frame_tag 'github-collaborators', loading: :lazy, src: services_github_collaborators_path(@service) do %>
             <%= render 'shared/spinner' %>
           <% end %>
         </div>

@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     end
 
     resources :github, param: :id do
+      get 'collaborators'
+      get 'members'
       get 'repos'
       get 'repos/:repo', action: :repo, as: 'repo'
       get 'teams'

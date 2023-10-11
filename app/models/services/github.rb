@@ -32,7 +32,21 @@ class Services::Github < Service
   def org
     @org ||= client.organization(config[:org])
   end
-  alias :owner :org
+  alias owner org
+
+  def org_collaborators(page: 1, per_page: 10)
+    {
+      data: client.outside_collaborators(config[:org], page:, per_page:),
+      page_info:
+    }
+  end
+
+  def org_members(page: 1, per_page: 10)
+    {
+      data: client.organization_members(config[:org], page:, per_page:),
+      page_info:
+    }
+  end
 
   def repo(name)
     client.repo({

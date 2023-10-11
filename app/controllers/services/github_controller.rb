@@ -1,8 +1,26 @@
 class Services::GithubController < ServicesController
-  before_action :set_service, only: %i[show edit update destroy repo repos team team_children team_members teams]
-  before_action :pagination_params, only: %i[show repos team team_children team_members teams]
+  before_action :set_service, except: %i[new create]
+  before_action :pagination_params, only: %i[show collaborators members repos team team_children team_members teams]
 
   def auth; end
+
+  def collaborators
+    authorize @service, :show?
+
+    @collaborators = @service.org_collaborators(
+      page: params[:page] || 1,
+      per_page: params[:per_page] || 10
+    )
+  end
+
+  def members
+    authorize @service, :show?
+
+    @members = @service.org_members(
+      page: params[:page] || 1,
+      per_page: params[:per_page] || 10
+    )
+  end
 
   def repos
     authorize @service, :show?
