@@ -1,0 +1,3 @@
+run_all_checks: true
+combine_locations: false
+min_confidence: 1

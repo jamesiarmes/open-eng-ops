@@ -1,8 +1,8 @@
-name: Branch Checks
+name: Main Checks
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:

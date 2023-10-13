@@ -69,6 +69,7 @@ gem 'phonelib', '~> 0.7.7'
 gem 'phonofy', '~> 0.1'
 
 group :development, :test do
+  gem 'brakeman', '~> 6.0'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.8'
