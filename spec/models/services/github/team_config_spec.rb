@@ -6,4 +6,5 @@ RSpec.describe Services::Github::TeamConfig do
   let(:services_github_team_config) { build(:services_github_team_config) }
 
   include_examples 'valid factory', :services_github_team_config
+  include_examples 'associations', :services_github_team_config, %i[service team]
 end

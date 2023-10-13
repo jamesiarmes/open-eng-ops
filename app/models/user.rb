@@ -2,6 +2,7 @@ class User < ApplicationRecord
   phonofy :phone
   rolify
 
+  has_many :identities
   has_many :permissions, through: :roles
   has_one :services_github_user_config, class_name: 'Services::Github::UserConfig',
                                         dependent: :destroy

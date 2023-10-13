@@ -6,4 +6,5 @@ RSpec.describe Address do
   let(:address) { build(:address) }
 
   include_examples 'valid factory', :address
+  include_examples 'associations', :address, [:user]
 end

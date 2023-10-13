@@ -6,4 +6,5 @@ RSpec.describe Permission do
   let(:permission) { build(:permission) }
 
   include_examples 'valid factory', :permission
+  include_examples 'associations', :permission, [:roles]
 end
