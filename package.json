@@ -13,7 +13,7 @@
     "@fortawesome/fontawesome-free": "~6.4",
     "mdb-ui-kit": "^6.4",
     "nodemon": "^3.0.1",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
     "sass": "^1.66.1",
     "select2": "~4.0",
