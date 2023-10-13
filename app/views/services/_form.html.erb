@@ -1,11 +1,13 @@
-<%= form_with(model: @service, data: { controller: 'form services' }, class: 'contents') do |form| %>
-  <div data-action="form:select.changed->services#handleChange">
-    <%= render 'shared/form/select', form: form,
-               field: :type,
-               options: options_for_select(@types, @service.type),
-               disabled: action_name != 'new',
-               required: true %>
-  </div>
+<%= form_with(model: @service, data: {
+                controller: 'form services',
+                action: 'form:select.changed->services#handleChange'
+              },
+              class: 'contents') do |form| %>
+  <%= render 'shared/form/select', form: form,
+             field: :type,
+             options: options_for_select(@types, @service.type),
+             disabled: action_name != 'new',
+             required: true %>
   <%= render 'shared/form/text_field', form: form,
              field: :name,
              required: true %>
