@@ -7,10 +7,6 @@ class Services::Sample < Service
     'sample'
   end
 
-  def to_partial_path
-    'sample'
-  end
-
   def route_helper_prefix
     'services_sample'
   end

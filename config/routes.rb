@@ -47,6 +47,15 @@ Rails.application.routes.draw do
       get 'teams/:team/members', action: :team_members, as: 'team_members'
     end
 
+    namespace :google_workspace, path: 'google-workspace' do
+      get 'auth'
+    end
+
+    resources :google_workspace, path: 'google-workspace', param: :id do
+      get 'groups'
+      get 'users'
+    end
+
     resources :sample
   end
 

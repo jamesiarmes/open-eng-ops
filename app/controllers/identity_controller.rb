@@ -17,7 +17,8 @@ class IdentityController < ApplicationController
       user_id: request_params['user_id'],
       service_id: request_params['service_id'],
       uid: user_info.uid,
-      token: user_info.credentials.token
+      token: user_info.credentials.token,
+      refresh_token: user_info.credentials.refresh_token
     )
 
     result = identity ? { notice: t('.success') } : { alert: t('.failure') }

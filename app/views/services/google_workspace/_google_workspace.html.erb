@@ -1,0 +1,69 @@
+<div class="header">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-4">
+        <div class="card shadow mb-4">
+          <div class="card-body text-center">
+            <i class="fab fa-google default-avatar-lg"></i>
+
+            <h5 class="mt-3"><%= @service.customer.postal_address.organization_name %></h5>
+            <p class="text-muted mb-3"><%= @service.customer.customer_domain %></p>
+
+            <div class="d-flex justify-content-center mb-2">
+              <% if policy(@service).edit? %>
+                <%= link_to t('.update'), edit_service_path(@service), class: 'btn btn-primary' %>
+              <% end %>
+
+              <% if policy(@service).destroy? %>
+                <%= link_to t('common.delete'), service_path(@service), class: 'btn btn-danger',
+                            data: { turbo_method: :delete, turbo_confirm: t('services.show.confirm-delete') } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8">
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="mb-0"><%= t('.name') %></p>
+              </div>
+              <div class="col-9">
+                <p class="text-muted mb-0"><%= @service.customer.postal_address.organization_name %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-3">
+                <p class="mb-0"><%= t('.domain') %></p>
+              </div>
+              <div class="col-9">
+                <p class="text-muted mb-0"><%= @service.customer.customer_domain %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-3">
+                <p class="mb-0"><%= t('.contact') %></p>
+              </div>
+              <div class="col-9">
+                <p class="text-muted mb-0"><%= @service.customer.postal_address.contact_name %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-3">
+                <p class="mb-0"><%= t('.created') %></p>
+              </div>
+              <div class="col-9">
+                <p class="text-muted mb-0"><%= @service.customer.customer_creation_time.to_formatted_s(:long_ordinal) %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

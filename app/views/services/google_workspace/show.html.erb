@@ -1,0 +1,41 @@
+<div class="w-full">
+  <div class="responsive-container">
+    <div class="mt-12 px-4 py-5 sm:px-6">
+      <% if @service.identified? %>
+        <%= render @service %>
+      <% else %>
+        <p><em>Please <%= link_to 'authorize', services_google_workspace_auth_path(user_id: current_user.id, service_id: @service.id), data: { turbo_frame: 'modal' } %></em></p>
+      <% end %>
+    </div>
+
+    <% if @service.identified? %>
+      <section>
+        <nav>
+          <ul class="nav nav-tabs mb-3" id="services-google-workspace-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="services-google-workspace-tab-users" data-mdb-toggle="tab" href="#services-google-workspace-content-users" role="tab"
+                 data-turbo-frame="google-workspace-users" aria-controls="services-github-workspace-content-users" aria-selected="true"><i class="fas fa-users-rectangle fa-fw me-2"></i>Users</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="services-google-workspace-tab-groups" data-mdb-toggle="tab" href="#services-google-workspace-content-groups" role="tab"
+                 data-turbo-frame="google-workspace-groups" aria-controls="services-github-workspace-content-groups" aria-selected="true"><i class="fas fa-people-group fa-fw me-2"></i>Groups</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="tab-content" id="services-google-workspace-content">
+          <div class="tab-pane fade show active" id="services-google-workspace-content-users" role="tabpanel" aria-labelledby="services-github-workspace-tab-users">
+            <%= turbo_frame_tag 'google-workspace-users', loading: :lazy, src: services_google_workspace_users_path(@service) do %>
+              <%= render 'shared/spinner' %>
+            <% end %>
+          </div>
+          <div class="tab-pane fade show" id="services-google-workspace-content-groups" role="tabpanel" aria-labelledby="services-github-workspace-tab-groups">
+            <%= turbo_frame_tag 'google-workspace-groups', loading: :lazy, src: services_google_workspace_groups_path(@service) do %>
+              <%= render 'shared/spinner' %>
+            <% end %>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>
