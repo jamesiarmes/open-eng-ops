@@ -9,17 +9,6 @@
         <%= render @service %>
       <% end %>
     </div>
-
-    <div class="mb-3 ms-3">
-      <% if policy(@service).edit? %>
-        <%= link_to t('.update'), edit_service_path(@service), class: 'btn btn-primary' %>
-      <% end %>
-
-      <% if policy(@service).destroy? %>
-        <%= link_to t('common.delete'), service_path(@service), class: 'btn btn-danger',
-                    data: { turbo_method: :delete, turbo_confirm: t('services.show.confirm-delete') } %>
-      <% end %>
-    </div>
   </div>
 
   <% if @service.config[:auth_type] != 'oauth' || @service.identified? %>
