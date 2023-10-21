@@ -12,8 +12,8 @@
 
   <body>
     <header>
-      <%= render 'layouts/sidebar' %>
-      <%= render 'layouts/navigation' %>
+      <%= render SidebarComponent.new(current_user: current_user) %>
+      <%= render NavigationBarComponent.new(current_user: current_user) %>
       <%= render 'shared/breadcrumbs' %>
     </header>
 

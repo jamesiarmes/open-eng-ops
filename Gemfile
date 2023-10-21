@@ -66,6 +66,7 @@ gem 'omniauth-google-oauth2', '~> 1.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'pundit', '~> 2.3'
 gem 'rolify', '~> 6.0'
+gem 'view_component', '~> 3.6'
 
 # TODO: Update these dependencies.
 gem 'phonelib', '~> 0.7.7'
