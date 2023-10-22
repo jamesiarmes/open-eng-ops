@@ -1,0 +1,7 @@
+<li class="breadcrumb-item"<%= ' aria-current="page"'.html_safe if last? %>>
+  <% if path && !last? %>
+    <%= link_to name, path %>
+  <% else %>
+    <span class="<%= 'text-muted' if last? %>"><%= name %></span>
+  <% end %>
+</li>

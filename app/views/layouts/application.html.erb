@@ -28,7 +28,13 @@
       <% end %>
 
       <%= render Navbar::Component.new(current_user: current_user) %>
-      <%= render 'shared/breadcrumbs' %>
+
+      <%= render Breadcrumb::Component.new do |trail| %>
+        <% @breadcrumbs ||= @default_breadcrumbs %>
+        <% @breadcrumbs.each do |crumb| %>
+          <% trail.with_item(name: crumb[:name], path: crumb[:path]) %>
+        <% end %>
+      <% end %>
     </header>
 
     <% if alert %>
