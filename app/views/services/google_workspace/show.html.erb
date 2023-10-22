@@ -26,12 +26,12 @@
         <div class="tab-content" id="services-google-workspace-content">
           <div class="tab-pane fade show active" id="services-google-workspace-content-users" role="tabpanel" aria-labelledby="services-github-workspace-tab-users">
             <%= turbo_frame_tag 'google-workspace-users', loading: :lazy, src: services_google_workspace_users_path(@service) do %>
-              <%= render 'shared/spinner' %>
+              <%= render Spinner::Component.new %>
             <% end %>
           </div>
           <div class="tab-pane fade show" id="services-google-workspace-content-groups" role="tabpanel" aria-labelledby="services-github-workspace-tab-groups">
             <%= turbo_frame_tag 'google-workspace-groups', loading: :lazy, src: services_google_workspace_groups_path(@service) do %>
-              <%= render 'shared/spinner' %>
+              <%= render Spinner::Component.new %>
             <% end %>
           </div>
         </div>

@@ -10,7 +10,7 @@
 
     <div class="card-body p-0">
       <%= turbo_frame_tag 'team-github-teams', loading: :lazy, src: admin_team_github_teams_path(team_id: @team.id) do %>
-        <%= render 'shared/spinner' %>
+        <%= render Spinner::Component.new %>
       <% end %>
     </div>
   </div>

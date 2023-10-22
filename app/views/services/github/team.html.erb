@@ -56,13 +56,13 @@
 
       <div class="tab-pane fade show" id="services-github-content-members" role="tabpanel" aria-labelledby="services-github-tab-members">
         <%= turbo_frame_tag 'github-team-members', loading: :lazy, src: services_github_team_members_path(@service, team: @team.id) do %>
-          <%= render 'shared/spinner' %>
+          <%= render Spinner::Component.new %>
         <% end %>
       </div>
 
       <div class="tab-pane fade show" id="services-github-content-children" role="tabpanel" aria-labelledby="services-github-tab-children">
         <%= turbo_frame_tag 'github-team-children', loading: :lazy, src: services_github_team_children_path(@service, team: @team.id) do %>
-          <%= render 'shared/spinner' %>
+          <%= render Spinner::Component.new %>
         <% end %>
       </div>
     </div>

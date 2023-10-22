@@ -37,22 +37,22 @@
       <div class="tab-content" id="services-github-content">
         <div class="tab-pane fade show active" id="services-github-content-teams" role="tabpanel" aria-labelledby="services-github-tab-teams">
           <%= turbo_frame_tag 'github-teams', loading: :lazy, src: services_github_teams_path(@service) do %>
-            <%= render 'shared/spinner' %>
+            <%= render Spinner::Component.new %>
           <% end %>
         </div>
         <div class="tab-pane fade" id="services-github-content-repos" role="tabpanel" aria-labelledby="services-github-tab-repos">
           <%= turbo_frame_tag 'github-repositories', loading: :lazy, src: services_github_repos_path(@service) do %>
-            <%= render 'shared/spinner' %>
+            <%= render Spinner::Component.new %>
           <% end %>
         </div>
         <div class="tab-pane fade" id="services-github-content-members" role="tabpanel" aria-labelledby="services-github-tab-members">
           <%= turbo_frame_tag 'github-members', loading: :lazy, src: services_github_members_path(@service) do %>
-            <%= render 'shared/spinner' %>
+            <%= render Spinner::Component.new %>
           <% end %>
         </div>
         <div class="tab-pane fade" id="services-github-content-collaborators" role="tabpanel" aria-labelledby="services-github-tab-collaborators">
           <%= turbo_frame_tag 'github-collaborators', loading: :lazy, src: services_github_collaborators_path(@service) do %>
-            <%= render 'shared/spinner' %>
+            <%= render Spinner::Component.new %>
           <% end %>
         </div>
       </div>
