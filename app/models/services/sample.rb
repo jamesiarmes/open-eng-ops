@@ -11,8 +11,7 @@ class Services::Sample < Service
     'services_sample'
   end
 
-  def service_avatar(size: :sm)
-    "<i class=\"fa-solid fa-vial fa-fw default-avatar-#{size}\" " \
-      "title=\"#{service_type}\"></i>".html_safe
+  def service_avatar_classes
+    'fas fa-vial'
   end
 end

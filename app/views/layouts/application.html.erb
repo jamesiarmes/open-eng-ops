@@ -14,7 +14,12 @@
     <header>
       <%= render SidebarComponent.new(current_user: current_user) do |sidebar| %>
         <%= sidebar.with_item(path: root_path, icon: 'fas fa-home', title: 'Home') %>
-        <%= sidebar.with_item(path: services_path, icon: 'fas fa-cloud', title: 'Services') %>
+        <%= sidebar.with_item(path: '#main-sidebar-services', icon: 'fas fa-cloud', title: 'Services') do |item| %>
+          <% @all_services.each do |service| %>
+            <%= item.with_item(path: service_path(service), title: service.name, icon: service.service_avatar_classes) %>
+          <% end %>
+        <% end %>
+
         <%= sidebar.with_item(path: '#main-sidebar-admin', icon: 'fas fa-screwdriver-wrench', title: 'Admin') do |item| %>
           <%= item.with_item(path: admin_users_path, icon: 'fas fa-person-half-dress', title: 'Users') %>
           <%= item.with_item(path: admin_teams_path, icon: 'fas fa-people-group', title: 'Teams') %>

@@ -20,9 +20,8 @@ class Services::Github < Service
     'services_github'
   end
 
-  def service_avatar(size: :sm)
-    "<i class=\"fa-brands fa-github fa-fw default-avatar-#{size}\" " \
-    "title=\"#{service_type}\"></i>".html_safe
+  def service_avatar_classes
+    'fab fa-github'
   end
 
   def service_subtitle

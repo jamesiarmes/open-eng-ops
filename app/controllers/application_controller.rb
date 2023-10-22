@@ -5,8 +5,13 @@ class ApplicationController < ActionController::Base
 
   before_action :set_default_breadcrumbs
   before_action :set_config
+  before_action :all_services
 
   private
+
+  def all_services
+    @all_services ||= Service.all
+  end
 
   def add_breadcrumb(name, path = nil)
     @breadcrumbs ||= []

@@ -14,9 +14,8 @@ class Services::GoogleWorkspace < Service
     'services_google_workspace'
   end
 
-  def service_avatar(size: :sm)
-    "<i class=\"fa-brands fa-google fa-fw default-avatar-#{size}\" " \
-      "title=\"#{service_type}\"></i>".html_safe
+  def service_avatar_classes
+    'fab fa-google'
   end
 
   def customer

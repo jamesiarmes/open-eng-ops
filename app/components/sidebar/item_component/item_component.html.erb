@@ -3,9 +3,9 @@
 <% end %>
 
 <% if items %>
-  <ul id="main-sidebar-admin" class="collapse show list-group list-group-flush ps-3">
+  <ul id="<%= content_id %>" class="collapse list-group list-group-flush ps-3<%= ' show' if active? %>">
     <% items.each do |item| %>
-      <li class="list-group-item py-1 <%= 'active' if item.active? %>">
+      <li class="list-group-item py-1 text-truncate<%= ' active' if item.active? %>" title="<%= item.title %>">
         <%= item %>
       </li>
     <% end %>

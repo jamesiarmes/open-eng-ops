@@ -8,7 +8,7 @@ class ServicesController < ApplicationController
 
   def index
     authorize :service
-    @services = Service.all
+    @services = all_services
   end
 
   def show

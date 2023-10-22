@@ -4,6 +4,8 @@
 class Sidebar::ItemComponent < ApplicationComponent
   renders_many :items, Sidebar::ChildItemComponent
 
+  attr_reader :title
+
   def initialize(path:, icon:, title:)
     @path = path
     @icon = icon
@@ -13,33 +15,43 @@ class Sidebar::ItemComponent < ApplicationComponent
   end
 
   def active?
-    current_page?(path)
+    current_page?(path) || items.any?(&:active?)
+  end
+
+  def parent?
+    items.present?
   end
 
   private
 
-  attr_reader :icon, :path, :title
+  attr_reader :icon, :path
 
   def classes
-    "list-group-item list-group-item-action py-2 ripple#{' active' if active?}"
+    "list-group-item list-group-item-action py-2 ripple#{' active' if active? && !parent?}"
+  end
+
+  def content_id
+    path.sub(/^#/, '')
   end
 
   def link_attributes
-    attributes = {
+    parent_attributes.deep_merge(
       class: classes,
       aria: { current: active? }
-    }
+    )
+  end
 
-    return attributes if items.blank?
+  def parent_attributes
+    return {} unless parent?
 
     {
       aria: {
-        expanded: true,
-        controls: path
+        expanded: active?,
+        controls: content_id
       },
       data: {
         mdb_toggle: 'collapse'
       }
-    }.merge(attributes)
+    }
   end
 end
