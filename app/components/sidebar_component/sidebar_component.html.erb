@@ -1,40 +1,9 @@
 <nav id="main-sidebar" class="collapse d-lg-block sidebar bg-white">
   <div class="position-sticky">
     <div class="list-group list-group-flush mx-3 mt-4">
-      <%= link_to root_path, class: 'list-group-item list-group-item-action py-2 ripple' do %>
-        <i class="fa-solid fa-house fa-fw me-3"></i><span>Home</span>
+      <% items.each do |item| %>
+        <%= item %>
       <% end %>
-
-      <%= link_to services_path, class: 'list-group-item list-group-item-action py-2 ripple' do %>
-        <i class="fa-solid fa-cloud fa-fw me-3"></i><span>Services</span>
-      <% end %>
-
-      <!-- Admin menu -->
-      <a class="list-group-item list-group-item-action py-2 ripple"
-         aria-current="true"
-         data-mdb-toggle="collapse"
-         href="#main-sidebar-admin"
-         aria-expanded="true"
-         aria-controls="main-sidebar-admin">
-        <i class="fa-solid fa-screwdriver-wrench fa-fw me-3"></i><span>Admin</span>
-      </a>
-
-      <!-- Admin menu content -->
-      <ul id="main-sidebar-admin" class="collapse show list-group list-group-flush ps-3">
-        <li class="list-group-item py-1">
-          <i class="fa-solid fa-people-group fa-fw me-3"></i>
-          <%= link_to 'Teams', admin_teams_path, class: 'text-reset' %>
-        </li>
-        <li class="list-group-item py-1">
-          <i class="fa-solid fa-person-half-dress fa-fw me-3"></i>
-          <%= link_to 'Users', admin_users_path, class: 'text-reset' %>
-        </li>
-        <li class="list-group-item py-1">
-          <i class="fa-solid fa-unlock-keyhole fa-fw me-3"></i>
-          <%= link_to 'Roles', admin_roles_path, class: 'text-reset' %>
-        </li>
-      </ul>
-      <!-- Admin menu -->
     </div>
   </div>
 </nav>

@@ -1,0 +1,13 @@
+<%= link_to path, **link_attributes do %>
+  <i class="<%= icon %> fa-fw me-3"></i><span><%= title %></span>
+<% end %>
+
+<% if items %>
+  <ul id="main-sidebar-admin" class="collapse show list-group list-group-flush ps-3">
+    <% items.each do |item| %>
+      <li class="list-group-item py-1 <%= 'active' if item.active? %>">
+        <%= item %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
