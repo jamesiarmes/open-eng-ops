@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-# Views component for rendering the sidebar menu.
-class SidebarComponent < ApplicationComponent
-  renders_many :items, Sidebar::ItemComponent
-
+# Views component for rendering the navigation bar.
+class Navbar::Component < ApplicationComponent
   def initialize(current_user:)
     @current_user = current_user
 

@@ -12,7 +12,7 @@
 
   <body>
     <header>
-      <%= render SidebarComponent.new(current_user: current_user) do |sidebar| %>
+      <%= render Sidebar::Component.new(current_user: current_user) do |sidebar| %>
         <%= sidebar.with_item(path: root_path, icon: 'fas fa-home', title: 'Home') %>
         <%= sidebar.with_item(path: '#main-sidebar-services', icon: 'fas fa-cloud', title: 'Services') do |item| %>
           <% @all_services.each do |service| %>
@@ -27,7 +27,7 @@
         <% end %>
       <% end %>
 
-      <%= render NavigationBarComponent.new(current_user: current_user) %>
+      <%= render Navbar::Component.new(current_user: current_user) %>
       <%= render 'shared/breadcrumbs' %>
     </header>
 

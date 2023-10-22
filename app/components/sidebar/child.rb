@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # Views component for rendering child menu items in the sidebar.
-class Sidebar::ChildItemComponent < Sidebar::ItemComponent
-  renders_many :items, Sidebar::ChildItemComponent
+class Sidebar::Child < Sidebar::Item
+  renders_many :items, Sidebar::Child
 
   private
 

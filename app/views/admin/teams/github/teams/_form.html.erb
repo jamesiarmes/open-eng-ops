@@ -4,7 +4,7 @@
   <%= render 'shared/form/select', form: form,
              field: :service_id,
              options: options_for_select(
-               Service.all.map { |s| [s.name, s.id]},
+               Service.where(type: 'Services::Github').map { |s| [s.name, s.id]},
                @relation.service&.id
              ),
              required: true %>
