@@ -4,26 +4,22 @@
   </div>
 
   <% if policy(current_user).index? %>
-    <table class="table align-middle mb-0 bg-white">
-      <thead>
-      <tr>
-        <th scope="col">Name<%# t('.name') %></th>
-        <th scope="col">Email<%# t('.type') %></th>
-        <th scope="col">Created<%# t('.type') %></th>
-        <th scope="col">Roles<%# t('.config') %></th>
-      </tr>
-      </thead>
-      <tbody>
+    <%= render Table::Component.new do |table| %>
+      <% table.with_header(title: 'Name') %>
+      <% table.with_header(title: 'Email') %>
+      <% table.with_header(title: 'Created') %>
+      <% table.with_header(title: 'Roles') %>
+
       <% @users.each do |user| %>
-        <tr>
-          <td>
+        <% table.with_row do |row| %>
+          <% row.with_column do %>
             <div class="d-flex align-items-center">
               <% if user.avatar.attached? %>
                 <img src="<%= url_for(user.avatar) %>"
                      alt="Avatar for <%= user.name %>"
                      class="rounded-circle avatar-sm" />
               <% else %>
-                <i class="bi bi-person-circle rounded-circle default-avatar-sm"></i>
+                <%= render Icon::Component.new(icon: 'circle-user', classes: 'default-avatar-sm') %>
               <% end %>
 
               <div class="ms-3">
@@ -31,20 +27,25 @@
                 <p class="text-muted mb-0"><%= user.pronouns %></p>
               </div>
             </div>
-          </td>
-          <td><%= user.email %></td>
-          <td><%= user.created_at.to_formatted_s(:date) %></td>
-          <td>
+          <% end %>
+
+          <% row.with_column.with_content(user.email) %>
+          <% row.with_column do %>
+            <span title="<%= user.created_at.to_datetime.to_formatted_s(:db) %>">
+              <%= user.created_at.to_datetime.to_formatted_s(:date) %>
+            </span>
+          <% end %>
+
+          <% row.with_column do %>
             <ul>
               <% user.roles&.each do |role| %>
                 <li><%= role.human_name %></li>
               <% end %>
             </ul>
-          </td>
-        </tr>
+          <% end %>
+        <% end %>
       <% end %>
-      </tbody>
-    </table>
+    <% end %>
   <% else %>
     <p>You're not authorised to view this page</p>
   <% end %>

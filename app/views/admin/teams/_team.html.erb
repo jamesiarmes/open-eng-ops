@@ -33,24 +33,26 @@
           </div>
 
           <div class="card-body pt-0">
-            <table class="table align-middle mb-0">
-              <thead>
-              <tr>
-                <th scope="col">Name<%# t('.name') %></th>
-                <th scope="col">Email<%# t('.type') %></th>
-                <th scope="col">Created<%# t('.type') %></th>
-              </tr>
-              </thead>
-              <tbody>
+            <%= render Table::Component.new do |table| %>
+              <% table.with_header(title: 'Name') %>
+              <% table.with_header(title: 'Email') %>
+              <% table.with_header(title: 'Created') %>
+
               <% @team.users.each do |user| %>
-                <tr>
-                  <td><%= link_to "#{user.name} (#{user.pronouns})", admin_user_path(user) %></td>
-                  <td><%= user.email %></td>
-                  <td><%= user.created_at.to_formatted_s(:date) %></td>
-                </tr>
+                <% table.with_row do |row| %>
+                  <% row.with_column do %>
+                    <%= link_to "#{user.name} (#{user.pronouns})", admin_user_path(user) %>
+                  <% end %>
+
+                  <% row.with_column.with_content(user.email) %>
+                  <% row.with_column do %>
+                    <span title="<%= user.created_at.to_datetime.to_formatted_s(:db) %>">
+                      <%= user.created_at.to_datetime.to_formatted_s(:date) %>
+                    </span>
+                  <% end %>
+                <% end %>
               <% end %>
-              </tbody>
-            </table>
+            <% end %>
           </div>
         </div>
       </div>

@@ -1,24 +1,17 @@
 <%= turbo_frame_tag 'github-collaborators' do %>
-<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-repos">
-  <thead>
-  <tr>
-    <th scope="col">Login</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @collaborators[:data].each do |collaborator| %>
-    <tr>
-      <td>
-        <img src="<%= url_for(collaborator.avatar_url) %>"
-             alt="Avatar for <%= collaborator.login %>"
-             class="rounded-circle avatar-sm" />
-        <%= link_to collaborator.login, collaborator.html_url, data: { turbo_frame: '_top'} %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+  <%= render Table::Component.new do |table| %>
+    <%= table.with_header(title: 'Login') %>
 
-<%= render partial: 'pagination', object: @collaborators[:page_info],
-           locals: { label: 'Github organization members pagination', frame: 'github-members' } %>
+    <% @collaborators[:data].each do |collaborator| %>
+      <%= table.with_row do |row| %>
+        <%= row.with_column do %>
+          <%= image_tag collaborator.avatar_url, class: 'rounded-circle avatar-sm', alt: "Avatar for #{collaborator.login}" %>
+          <%= link_to collaborator.login, collaborator.html_url, data: { turbo_frame: '_top' } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render partial: 'pagination', object: @collaborators[:page_info],
+             locals: { label: 'Github organization members pagination', frame: 'github-members' } %>
 <% end %>

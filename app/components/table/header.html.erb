@@ -1,0 +1,9 @@
+<th scope="col" class="<%= classes %>">
+  <% if link? %>
+    <%= link_to **link_params do %>
+      <%= icon if icon? %><%= title %>
+    <% end %>
+  <% else %>
+    <%= icon if icon? %><%= title %>
+  <% end %>
+</th>

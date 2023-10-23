@@ -3,26 +3,21 @@
     <%= link_to t('.new'), new_service_path, class: 'btn btn-primary' %>
   </div>
 
-  <table class="table align-middle mb-0 bg-white">
-    <thead>
-      <tr>
-        <th scope="col"><%= t('.name') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @services.each do |service| %>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <%= service.service_avatar(size: :sm) %>
-              <div class="ms-3">
-                <p class="fw-bold mb-1"><%= link_to service.service_title, service_path(service) %></p>
-                <p class="text-muted mb-0"><%= service.service_subtitle %></p>
-              </div>
+  <%= render Table::Component.new do |table| %>
+    <% table.with_header(title: t('.name')) %>
+
+    <% @services.each do |service| %>
+      <% table.with_row do |row| %>
+        <% row.with_column do %>
+          <div class="d-flex align-items-center">
+            <%= service.service_avatar(size: :sm) %>
+            <div class="ms-3">
+              <p class="fw-bold mb-1"><%= link_to service.service_title, service_path(service) %></p>
+              <p class="text-muted mb-0"><%= service.service_subtitle %></p>
             </div>
-          </td>
-        </tr>
+          </div>
+        <% end %>
       <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  <% end %>
 </div>

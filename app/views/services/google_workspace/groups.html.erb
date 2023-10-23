@@ -1,26 +1,21 @@
 <%= turbo_frame_tag 'google-workspace-groups' do %>
-<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-repos">
-  <thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Email</th>
-    <th scope="col">Description</th>
-    <th scope="col"># Members</th>
-  </tr>
-  </thead>
-  <tbody>
-    <% @groups[:data].each do |group| %>
-      <tr>
-        <td><%= group.name %></td>
-        <td><%= group.email %></td>
-        <td><%= group.description %></td>
-        <td><%= group.direct_members_count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%= render Table::Component.new do |table| %>
+    <% table.with_header(title: 'Name') %>
+    <% table.with_header(title: 'Email') %>
+    <% table.with_header(title: 'Description') %>
+    <% table.with_header(title: '# Members') %>
 
-<%= render partial: 'pagination', object: @groups[:page_info],
-           locals: { label: 'Google Workspace groups pagination',
-                     frame: 'google-workspace-groups' } %>
+    <% @groups[:data].each do |group| %>
+      <% table.with_row do |row| %>
+        <% row.with_column.with_content(group.name) %>
+        <% row.with_column.with_content(group.email) %>
+        <% row.with_column.with_content(group.description) %>
+        <% row.with_column.with_content(group.direct_members_count) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render partial: 'pagination', object: @groups[:page_info],
+             locals: { label: 'Google Workspace groups pagination',
+                       frame: 'google-workspace-groups' } %>
 <% end %>

@@ -1,18 +1,14 @@
 <!--TODO: Add filters-->
 <%= turbo_frame_tag 'github-teams' do %>
-<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-repos">
-  <thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Description</th>
-    <th scope="col">Parent</th>
-    <th scope="col">Notifications</th>
-  </tr>
-  </thead>
-  <tbody>
+  <%= render Table::Component.new do |table| %>
+    <%= table.with_header(title: 'Name') %>
+    <%= table.with_header(title: 'Description') %>
+    <%= table.with_header(title: 'Parent') %>
+    <%= table.with_header(title: 'Notifications') %>
+
     <% @teams[:data].each do |team| %>
-      <tr>
-        <td>
+      <%= table.with_row do |row| %>
+        <%= row.with_column do %>
           <i class="fa-solid <%= case team.privacy
                                  when 'closed' then 'fa-door-closed'
                                  when 'secret' then 'fa-user-secret'
@@ -20,25 +16,26 @@
                                  end %>"
              title="<%= team.privacy.capitalize %>"></i>
           <%= link_to team.name, services_github_team_path(@service, team: team.id), data: { turbo_frame: '_top'} %>
-        </td>
-        <td><%= team.description %></td>
-        <td>
+        <% end %>
+
+        <%= row.with_column.with_content(team.description || '') %>
+        <%= row.with_column do %>
           <% if team.parent %>
             <%= link_to team.parent.name, services_github_team_path(@service, team: team.parent.id), data: { turbo_frame: '_top'} %>
           <% end %>
-        </td>
-        <td>
+        <% end %>
+
+        <%= row.with_column do %>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch"
                    <% if team.notification_setting == 'notifications_enabled' %> checked <% end %>
                    disabled />
           </div>
-        </td>
-      </tr>
+        <% end %>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
 
-<%= render partial: 'pagination', object: @teams[:page_info],
-           locals: { label: 'Github teams pagination', frame: 'github-teams' } %>
+  <%= render partial: 'pagination', object: @teams[:page_info],
+             locals: { label: 'Github teams pagination', frame: 'github-teams' } %>
 <% end %>

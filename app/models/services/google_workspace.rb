@@ -35,8 +35,13 @@ class Services::GoogleWorkspace < Service
   end
 
   def users
+    response = client.list_users(customer: 'my_customer')
+
     {
-      data: client.list_users(customer: 'my_customer')&.users || []
+      data: response&.users || [],
+      page_info: {
+        next_page: response&.next_page_token || nil
+      }
     }
   end
 

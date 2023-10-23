@@ -1,39 +1,35 @@
 <%= turbo_frame_tag 'github-team-children' do %>
-<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-repos">
-  <thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Description</th>
-    <th scope="col">Parent</th>
-    <th scope="col">Notifications</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @children[:data].each do |team| %>
-    <tr>
-      <td>
-        <i class="fa-solid <%= case team.privacy
-                               when 'closed' then 'fa-door-closed'
-                               when 'secret' then 'fa-user-secret'
-                               else 'fa-people-group'
-                               end %>"
-           title="<%= team.privacy.capitalize %>"></i>
-        <%= link_to team.name, services_github_team_path(@service, team: team.id), data: { turbo_frame: '_top'} %>
-      </td>
-      <td><%= team.description %></td>
-      <td><%= team.parent&.name %></td>
-      <td>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch"
-                 <% if team.notification_setting == 'notifications_enabled' %> checked <% end %>
-                 disabled />
-        </div>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+  <%= render Table::Component.new do |table| %>
+    <%= table.with_header(title: 'Name') %>
+    <%= table.with_header(title: 'Description') %>
+    <%= table.with_header(title: 'Parent') %>
+    <%= table.with_header(title: 'Notifications') %>
 
-<%= render partial: 'pagination', object: @children[:page_info],
-           locals: { label: 'Github team children pagination', frame: 'github-team-children' } %>
+    <% @children[:data].each do |child| %>
+      <%= table.with_row do |row| %>
+        <%= row.with_column do %>
+          <i class="fa-solid <%= case child.privacy
+                                 when 'closed' then 'fa-door-closed'
+                                 when 'secret' then 'fa-user-secret'
+                                 else 'fa-people-group'
+                                 end %>"
+             title="<%= child.privacy.capitalize %>"></i>
+          <%= link_to child.name, services_github_team_path(@service, team: child.id), data: { turbo_frame: '_top'} %>
+        <% end %>
+
+        <%= row.with_column.with_content(child.description) %>
+        <%= row.with_column.with_content(child.parent&.name) %>
+        <%= row.with_column do %>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch"
+                   <% if child.notification_setting == 'notifications_enabled' %> checked <% end %>
+                   disabled />
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render partial: 'pagination', object: @children[:page_info],
+             locals: { label: 'Github team children pagination', frame: 'github-team-children' } %>
 <% end %>

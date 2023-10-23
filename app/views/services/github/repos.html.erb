@@ -1,122 +1,112 @@
-<!--TODO: Add filters-->
 <%= turbo_frame_tag 'github-repositories' do %>
-<table data-mdb-fixed-header="true" class="table table-hover table-striped table-sticky align-middle mb-0 bg-white github-repos">
-  <thead>
-  <tr>
-    <th scope="col"><i title="Language" class="fa-solid fa-laptop-code"></i></th>
-    <th scope="col"><%= link_to 'Name', :sort => 'name' %></th>
-    <th scope="col">Description</th>
-    <th scope="col"><%= link_to 'Created', :sort => 'created_at' %></th>
-    <th scope="col"><%= link_to 'Updated', :sort => 'updated_at' %></th>
-    <th scope="col"><%= link_to 'Pushed', :sort => 'pushed_at' %></th>
-    <th scope="col" class="text-center">
-      <%= link_to sort: 'stargazers', direction: 'desc' do %>
-        <i class="fa-solid fa-star" title="Stargazers"></i>
-      <% end %>
-    </th>
-    <th scope="col" class="text-center"><i class="fa-solid fa-eye" title="Watchers"></i></th>
-    <th scope="col" class="text-center"><i class="fa-solid fa-code-fork" title="Forks"></i></th>
-    <th scope="col" class="text-center"><i class="fa-solid fa-bug" title="Issues"></i></th>
-    <th scope="col">License</th>
-    <th scope="col">Branch</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @repos[:data].each do |repo| %>
-    <tr>
-      <td class="repo-language">
-        <% case language = repo.language&.downcase %>
-        <% when 'c#' %>
-          <i class="fa-brands fa-microsoft" title="<%= language %>"></i>
-        <% when 'c++' %>
-          <i class="fa-solid fa-c" title="<%= language %>"></i>
-        <% when 'cartocss' %>
-          <i class="fa-solid fa-globe" title="<%= language %>"></i>
-        <% when 'coffeescript' %>
-          <i class="fa-solid fa-mug-hot" title="<%= language %>"></i>
-        <% when 'css' %>
-          <i class="fa-brands fa-css3" title="<%= language %>"></i>
-        <% when 'dockerfile' %>
-          <i class="fa-brands fa-docker" title="<%= language %>"></i>
-        <% when 'go' %>
-          <i class="fa-brands fa-golang" title="<%= language %>"></i>
-        <% when 'groovy' %>
-          <i class="fa-solid fa-star" title="<%= language %>"></i>
-        <% when 'html' %>
-          <i class="fa-brands fa-html5" title="<%= language %>"></i>
-        <% when 'java' %>
-          <i class="fa-brands fa-java" title="<%= language %>"></i>
-        <% when 'javascript' %>
-          <i class="fa-brands fa-js" title="<%= language %>"></i>
-        <% when 'jupyter notebook' %>
-          <i class="fa-solid fa-flask" title="<%= language %>"></i>
-        <% when 'objective-c' %>
-          <i class="fa-brands fa-apple" title="<%= language %>"></i>
-        <% when 'php' %>
-          <i class="fa-brands fa-php" title="<%= language %>"></i>
-        <% when 'plpgsql' %>
-          <i class="fa-solid fa-database" title="<%= language %>"></i>
-        <% when 'hcl', 'puppet' %>
-          <i class="fa-solid fa-gears" title="<%= language %>"></i>
-        <% when 'python' %>
-          <i class="fa-brands fa-python" title="<%= language %>"></i>
-        <% when 'ruby' %>
-          <i class="fa-solid fa-gem" title="<%= language %>"></i>
-        <% when 'scss' %>
-          <i class="fa-brands fa-sass" title="<%= language %>"></i>
-        <% when 'shell' %>
-          <i class="fa-solid fa-terminal" title="<%= language %>"></i>
-        <% else %>
-          <%# ActionScript %>
-          <i class="fa-solid fa-code" title="<%= language || 'Other' %>"><%= language %></i>
+  <%= render Table::Component.new do |table| %>
+    <% table.with_header(align: :center).with_icon(title: 'Language', icon: 'laptop-code') %>
+    <% table.with_header(title: 'Name', sort: 'name') %>
+    <% table.with_header(title: 'Description') %>
+    <% table.with_header(title: 'Created', sort: 'created_at') %>
+    <% table.with_header(title: 'Updated', sort: 'updated_at') %>
+    <% table.with_header(title: 'Pushed', sort: 'pushed_at') %>
+    <% table.with_header(sort: 'stargazers', align: :center).with_icon(title: 'Stargazers', icon: 'star') %>
+    <% table.with_header(align: :center).with_icon(title: 'Watchers', icon: 'eye') %>
+    <% table.with_header(align: :center).with_icon(title: 'Forks', icon: 'code-fork') %>
+    <% table.with_header(align: :center).with_icon(title: 'Issues', icon: 'bug') %>
+    <% table.with_header(title: 'License') %>
+    <% table.with_header(title: 'Branch') %>
+
+    <% @repos[:data].each do |repo| %>
+      <% table.with_row do |row| %>
+        <% row.with_column do %>
+          <% case language = repo.language&.downcase %>
+          <% when 'c#' %>
+            <i class="fa-brands fa-microsoft" title="<%= language %>"></i>
+          <% when 'c++' %>
+            <i class="fa-solid fa-c" title="<%= language %>"></i>
+          <% when 'cartocss' %>
+            <i class="fa-solid fa-globe" title="<%= language %>"></i>
+          <% when 'coffeescript' %>
+            <i class="fa-solid fa-mug-hot" title="<%= language %>"></i>
+          <% when 'css' %>
+            <i class="fa-brands fa-css3" title="<%= language %>"></i>
+          <% when 'dockerfile' %>
+            <i class="fa-brands fa-docker" title="<%= language %>"></i>
+          <% when 'go' %>
+            <i class="fa-brands fa-golang" title="<%= language %>"></i>
+          <% when 'groovy' %>
+            <i class="fa-solid fa-star" title="<%= language %>"></i>
+          <% when 'html' %>
+            <i class="fa-brands fa-html5" title="<%= language %>"></i>
+          <% when 'java' %>
+            <i class="fa-brands fa-java" title="<%= language %>"></i>
+          <% when 'javascript' %>
+            <i class="fa-brands fa-js" title="<%= language %>"></i>
+          <% when 'jupyter notebook' %>
+            <i class="fa-solid fa-flask" title="<%= language %>"></i>
+          <% when 'objective-c' %>
+            <i class="fa-brands fa-apple" title="<%= language %>"></i>
+          <% when 'php' %>
+            <i class="fa-brands fa-php" title="<%= language %>"></i>
+          <% when 'plpgsql' %>
+            <i class="fa-solid fa-database" title="<%= language %>"></i>
+          <% when 'hcl', 'puppet' %>
+            <i class="fa-solid fa-gears" title="<%= language %>"></i>
+          <% when 'python' %>
+            <i class="fa-brands fa-python" title="<%= language %>"></i>
+          <% when 'ruby' %>
+            <i class="fa-solid fa-gem" title="<%= language %>"></i>
+          <% when 'scss' %>
+            <i class="fa-brands fa-sass" title="<%= language %>"></i>
+          <% when 'shell' %>
+            <i class="fa-solid fa-terminal" title="<%= language %>"></i>
+          <% else %>
+            <%# ActionScript %>
+            <i class="fa-solid fa-code" title="<%= language || 'Other' %>"><%= language %></i>
+          <% end %>
         <% end %>
-      </td>
-      <td class="repo-name">
-        <i class="fa-solid <%= if repo.is_template
-                                 'fa-book-bookmark'
-                               elsif repo.fork
-                                 'fa-code-fork'
-                               elsif repo.private
-                                 'fa-lock'
-                               else
-                                 'fa-book-atlas'
-                               end %>"
-           title="<%= repo.visibility.capitalize %><%= ' template' if repo.is_template %><%= ' fork' if repo.fork %>"></i>
-        <%= link_to repo.name, services_github_repo_path(@service, repo: repo.name), data: { turbo_frame: '_top'} %>
-      </td>
-      <td class="repo-description"><%= repo.description %></td>
-      <td class="repo-created">
+
+        <% row.with_column do %>
+          <i class="fa-solid <%= if repo.is_template
+                                   'fa-book-bookmark'
+                                 elsif repo.fork
+                                   'fa-code-fork'
+                                 elsif repo.private
+                                   'fa-lock'
+                                 else
+                                   'fa-book-atlas'
+                                 end %>"
+             title="<%= repo.visibility.capitalize %><%= ' template' if repo.is_template %><%= ' fork' if repo.fork %>"></i>
+          <%= link_to repo.name, services_github_repo_path(@service, repo: repo.name), data: { turbo_frame: '_top'} %>
+        <% end %>
+
+        <% row.with_column.with_content(repo.description || '') %>
+        <% row.with_column do %>
           <span title="<%= repo.created_at.to_datetime.to_formatted_s(:db) %>">
             <%= repo.created_at.to_datetime.to_formatted_s(:date) %>
           </span>
-      </td>
-      <td class="repo-updated">
+        <% end %>
+        <% row.with_column do %>
           <span title="<%= repo.updated_at.to_datetime.to_formatted_s(:db) %>">
             <%= repo.updated_at.to_datetime.to_formatted_s(:date) %>
           </span>
-      </td>
-      <td class="repo-pushed">
-        <% if repo.pushed_at %>
+        <% end %>
+        <% row.with_column do %>
+          <% unless repo.pushed_at.nil? %>
             <span title="<%= repo.pushed_at.to_datetime.to_formatted_s(:db) %>">
               <%= repo.pushed_at.to_datetime.to_formatted_s(:date) %>
             </span>
+          <% end %>
         <% end %>
-      </td>
-      <td class="repo-stargazers text-center"><%= repo.stargazers_count %></td>
-      <td class="repo-watchers text-center"><%= repo.watchers %></td>
-      <td class="repo-forks text-center"><%= repo.forks_count %></td>
-      <td class="repo-issues text-center"><%= repo.open_issues %></td>
-      <td class="repo-license">
-        <% if repo.license %>
-          <%= repo.license.name %>
-        <% end %>
-      </td>
-      <td class="repo-branch"><%= repo.default_branch %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
 
-<%= render partial: 'pagination', object: @repos[:page_info],
-           locals: { label: 'Github repository pagination', frame: 'github-repositories' } %>
+
+        <% row.with_column.with_content(repo.stargazers_count) %>
+        <% row.with_column.with_content(repo.watchers) %>
+        <% row.with_column.with_content(repo.forks_count) %>
+        <% row.with_column.with_content(repo.open_issues) %>
+        <% row.with_column.with_content(repo.license&.name || '') %>
+        <% row.with_column.with_content(repo.default_branch) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render partial: 'pagination', object: @repos[:page_info],
+             locals: { label: 'Github repository pagination', frame: 'github-repositories' } %>
 <% end %>

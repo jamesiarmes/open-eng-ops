@@ -4,40 +4,41 @@
   </div>
 
   <% if policy(current_user).index? %>
-    <table class="table align-middle mb-0 bg-white">
-      <thead>
-      <tr>
-        <th scope="col">Name<%# t('.name') %></th>
-        <th scope="col">Description<%# t('.type') %></th>
-        <th scope="col">Created<%# t('.type') %></th>
-        <th scope="col"># Users<%# t('.config') %></th>
-      </tr>
-      </thead>
-      <tbody>
+    <%= render Table::Component.new do |table| %>
+      <% table.with_header(title: 'Name') %>
+      <% table.with_header(title: 'Description') %>
+      <% table.with_header(title: 'Created') %>
+      <% table.with_header(title: '# Users') %>
+
       <% @teams.each do |team| %>
-        <tr>
-          <td>
+        <% table.with_row do |row| %>
+          <% row.with_column do%>
             <div class="d-flex align-items-center">
               <% if team.logo.attached? %>
                 <img src="<%= url_for(team.logo) %>"
                      alt="Avatar for <%= team.human_name %>"
                      class="rounded-circle avatar-sm" />
               <% else %>
-                <i class="bi bi-people-fill rounded-circle default-avatar-sm"></i>
+                <%= render Icon::Component.new(icon: 'user-group', classes: 'default-avatar-sm') %>
               <% end %>
 
               <div class="ms-3">
                 <p class="fw-bold mb-1"><%= link_to team.human_name, admin_team_path(team) %></p>
               </div>
             </div>
-          </td>
-          <td><%= team.description %></td>
-          <td><%= team.created_at.to_formatted_s(:date) %></td>
-          <td><%= team.users.count %></td>
-        </tr>
+          <% end %>
+
+          <% row.with_column.with_content(team.description) %>
+          <% row.with_column do %>
+            <span title="<%= team.created_at.to_datetime.to_formatted_s(:db) %>">
+              <%= team.created_at.to_datetime.to_formatted_s(:date) %>
+            </span>
+          <% end %>
+
+          <% row.with_column.with_content(team.users.count) %>
+        <% end %>
       <% end %>
-      </tbody>
-    </table>
+    <% end %>
   <% else %>
     <p>You're not authorised to view this page</p>
   <% end %>
