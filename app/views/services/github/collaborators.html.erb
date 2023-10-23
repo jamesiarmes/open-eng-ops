@@ -12,6 +12,11 @@
     <% end %>
   <% end %>
 
-  <%= render partial: 'pagination', object: @collaborators[:page_info],
-             locals: { label: 'Github organization members pagination', frame: 'github-members' } %>
+  <%= render Pagination::Component.new(label: 'GitHub organization collaborators', frame: 'github-collaborators') do |pager| %>
+    <% pager.with_first(title: 'First', page: 1, path: @pagination_params) %>
+    <% pager.with_previous(title: 'Previous', page: (@collaborators[:page_info][:page] - 1),path: @pagination_params) %>
+    <% pager.with_next(title: 'Next', page: (@collaborators[:page_info][:page] + 1), path: @pagination_params,
+                       disabled: (@collaborators[:page_info][:page] >= @collaborators[:page_info][:total])) %>
+    <% pager.with_last(title: 'Last', page: @collaborators[:page_info][:total], path: @pagination_params) %>
+  <% end %>
 <% end %>

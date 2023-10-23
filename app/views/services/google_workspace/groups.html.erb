@@ -15,7 +15,9 @@
     <% end %>
   <% end %>
 
-  <%= render partial: 'pagination', object: @groups[:page_info],
-             locals: { label: 'Google Workspace groups pagination',
-                       frame: 'google-workspace-groups' } %>
+  <%= render Pagination::Component.new(label: 'Google Workspace groups', frame: 'google-workspace-groups') do |pager| %>
+    <% pager.with_first(title: 'First', page: nil, path: @pagination_params) %>
+    <% pager.with_next(title: 'Next', page: @groups[:page_info][:next_page], path: @pagination_params,
+                       disabled: @groups[:page_info][:next_page].blank?) %>
+  <% end %>
 <% end %>

@@ -1,4 +1,3 @@
-<!--TODO: Add filters-->
 <%= turbo_frame_tag 'github-teams' do %>
   <%= render Table::Component.new do |table| %>
     <%= table.with_header(title: 'Name') %>
@@ -36,6 +35,11 @@
     <% end %>
   <% end %>
 
-  <%= render partial: 'pagination', object: @teams[:page_info],
-             locals: { label: 'Github teams pagination', frame: 'github-teams' } %>
+  <%= render Pagination::Component.new(label: 'GitHub teams', frame: 'github-teams') do |pager| %>
+    <% pager.with_first(title: 'First', page: 1, path: @pagination_params) %>
+    <% pager.with_previous(title: 'Previous', page: (@teams[:page_info][:page] - 1),path: @pagination_params) %>
+    <% pager.with_next(title: 'Next', page: (@teams[:page_info][:page] + 1), path: @pagination_params,
+                       disabled: (@teams[:page_info][:page] >= @teams[:page_info][:total])) %>
+    <% pager.with_last(title: 'Last', page: @teams[:page_info][:total], path: @pagination_params) %>
+  <% end %>
 <% end %>

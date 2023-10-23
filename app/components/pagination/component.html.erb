@@ -1,0 +1,19 @@
+<nav aria-label="Pagination for <%= label %>">
+  <ul class="pagination justify-content-end m-3">
+    <% if first? %>
+      <%= first %>
+    <% end %>
+
+    <% if previous? %>
+      <%= previous %>
+    <% end %>
+
+    <% if next? %>
+      <%= self.next %>
+    <% end %>
+
+    <% if last? %>
+      <%= last %>
+    <% end %>
+  </ul>
+</nav>

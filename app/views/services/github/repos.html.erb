@@ -107,6 +107,11 @@
     <% end %>
   <% end %>
 
-  <%= render partial: 'pagination', object: @repos[:page_info],
-             locals: { label: 'Github repository pagination', frame: 'github-repositories' } %>
+  <%= render Pagination::Component.new(label: 'GitHub repositories', frame: 'github-repositories') do |pager| %>
+    <% pager.with_first(title: 'First', page: 1, path: @pagination_params) %>
+    <% pager.with_previous(title: 'Previous', page: (@repos[:page_info][:page] - 1),path: @pagination_params) %>
+    <% pager.with_next(title: 'Next', page: (@repos[:page_info][:page] + 1), path: @pagination_params,
+                       disabled: (@repos[:page_info][:page] >= @repos[:page_info][:total])) %>
+    <% pager.with_last(title: 'Last', page: @repos[:page_info][:total], path: @pagination_params) %>
+  <% end %>
 <% end %>

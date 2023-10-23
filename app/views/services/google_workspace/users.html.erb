@@ -46,7 +46,9 @@
     <% end %>
   <% end %>
 
-  <%= render partial: 'pagination', object: @users[:page_info],
-             locals: { label: 'Google Workspace users pagination',
-                       frame: 'google-workspace-users' } %>
+  <%= render Pagination::Component.new(label: 'Google Workspace users', frame: 'google-workspace-users') do |pager| %>
+    <% pager.with_first(title: 'First', page: nil, path: @pagination_params) %>
+    <% pager.with_next(title: 'Next', page: @users[:page_info][:next_page], path: @pagination_params,
+                       disabled: @users[:page_info][:next_page].blank?) %>
+  <% end %>
 <% end %>

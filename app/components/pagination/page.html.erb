@@ -1,0 +1,7 @@
+<li class="page-item<%= ' disabled' if disabled? %>">
+  <% if disabled? %>
+    <span class="page-link"><%= title %></span>
+  <% else %>
+    <%= link_to title, path, class: 'page-link', data: { turbo_frame: frame } %>
+  <% end %>
+</li>
