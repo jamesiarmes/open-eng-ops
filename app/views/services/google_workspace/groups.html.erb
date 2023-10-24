@@ -13,11 +13,11 @@
         <% row.with_column.with_content(group.direct_members_count) %>
       <% end %>
     <% end %>
-  <% end %>
 
-  <%= render Pagination::Component.new(label: 'Google Workspace groups', frame: 'google-workspace-groups') do |pager| %>
-    <% pager.with_first(title: 'First', page: nil, path: @pagination_params) %>
-    <% pager.with_next(title: 'Next', page: @groups[:page_info][:next_page], path: @pagination_params,
-                       disabled: @groups[:page_info][:next_page].blank?) %>
+    <% table.with_pagination(label: 'Google Workspace groups', frame: 'google-workspace-groups') do |pager| %>
+      <% pager.with_first(title: 'First', page: nil, path: @pagination_params) %>
+      <% pager.with_next(title: 'Next', page: @groups[:page_info][:next_page], path: @pagination_params,
+                         disabled: @groups[:page_info][:next_page].blank?) %>
+    <% end %>
   <% end %>
 <% end %>

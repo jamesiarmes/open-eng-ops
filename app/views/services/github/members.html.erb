@@ -19,13 +19,13 @@
         <% end %>
       <% end %>
     <% end %>
-  <% end %>
 
-  <%= render Pagination::Component.new(label: 'GitHub organization members', frame: 'github-members') do |pager| %>
-    <% pager.with_first(title: 'First', page: 1, path: @pagination_params) %>
-    <% pager.with_previous(title: 'Previous', page: (@members[:page_info][:page] - 1),path: @pagination_params) %>
-    <% pager.with_next(title: 'Next', page: (@members[:page_info][:page] + 1), path: @pagination_params,
-                       disabled: (@members[:page_info][:page] >= @members[:page_info][:total])) %>
-    <% pager.with_last(title: 'Last', page: @members[:page_info][:total], path: @pagination_params) %>
+    <% table.with_pagination(label: 'GitHub organization members', frame: 'github-members') do |pager| %>
+      <% pager.with_first(title: 'First', page: 1, path: @pagination_params) %>
+      <% pager.with_previous(title: 'Previous', page: (@members[:page_info][:page] - 1),path: @pagination_params) %>
+      <% pager.with_next(title: 'Next', page: (@members[:page_info][:page] + 1), path: @pagination_params,
+                         disabled: (@members[:page_info][:page] >= @members[:page_info][:total])) %>
+      <% pager.with_last(title: 'Last', page: @members[:page_info][:total], path: @pagination_params) %>
+    <% end %>
   <% end %>
 <% end %>
