@@ -14,13 +14,9 @@
         <% table.with_row do |row| %>
           <% row.with_column do %>
             <div class="d-flex align-items-center">
-              <% if user.avatar.attached? %>
-                <img src="<%= url_for(user.avatar) %>"
-                     alt="Avatar for <%= user.name %>"
-                     class="rounded-circle avatar-sm" />
-              <% else %>
-                <%= render Icon::Component.new(icon: 'circle-user', classes: 'default-avatar-sm') %>
-              <% end %>
+              <%= render Avatar::Component.new(
+                src: user.avatar, name: user.name,
+                default: default_user_icon) %>
 
               <div class="ms-3">
                 <p class="fw-bold mb-1"><%= link_to user.name, admin_user_path(user) %></p>

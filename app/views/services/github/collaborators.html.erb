@@ -5,7 +5,9 @@
     <% @collaborators[:data].each do |collaborator| %>
       <%= table.with_row do |row| %>
         <%= row.with_column do %>
-          <%= image_tag collaborator.avatar_url, class: 'rounded-circle avatar-sm', alt: "Avatar for #{collaborator.login}" %>
+          <%= render Avatar::Component.new(
+            src: collaborator.avatar_url, name: collaborator.login,
+            default: default_user_icon) %>
           <%= link_to collaborator.login, collaborator.html_url, data: { turbo_frame: '_top' } %>
         <% end %>
       <% end %>

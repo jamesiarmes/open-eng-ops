@@ -10,13 +10,9 @@
       <% table.with_row do |row| %>
         <% row.with_column do %>
           <div class="d-flex align-items-center">
-            <% if user.thumbnail_photo_url %>
-              <img src="<%= url_for(user.thumbnail_photo_url) %>"
-                   alt="Avatar for <%= user.name.full_name %>"
-                   class="rounded-circle avatar-sm" />
-            <% else %>
-              <i class="fas fa-user-circle default-avatar-sm"></i>
-            <% end %>
+            <%= render Avatar::Component.new(
+              src: user.thumbnail_photo_url, name: user.name.full_name,
+              default: default_user_icon) %>
 
             <div class="ms-3">
               <p class="fw-bold mb-1"><%= user.name.full_name %></p>
