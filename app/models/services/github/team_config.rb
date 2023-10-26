@@ -17,6 +17,23 @@ class Services::Github::TeamConfig < ApplicationRecord
     @github_team_children ||= service.client.child_teams(github_team_id)
   end
 
+  def team_member_added(user)
+    return if user.services_github_user_config.blank? || user.services_github_user_config.username.blank?
+
+    Services::Github::AddUserToTeamJob.perform_later(
+      config: user.services_github_user_config, service:, github_team_id:
+    )
+  end
+
+  def team_member_removed(user)
+    return if user.services_github_user_config.blank? || user.services_github_user_config.username.blank?
+
+    Services::Github::RemoveUserFromTeamJob.perform_later(
+      config: user.services_github_user_config, service:, team_id:,
+      github_team_id:
+    )
+  end
+
   private
 
   def queue_add_members

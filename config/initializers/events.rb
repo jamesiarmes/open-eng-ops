@@ -1,26 +1,16 @@
 # frozen_string_literal: true
 
 # TODO: Determine what other events we need to subscribe to.
-# TODO: Decouple service specific logic.
 ActiveSupport::Notifications.subscribe(/team/) do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
-  next unless ['team.member_added', 'team.member_removed'].include?(event.name)
+  method_name = event.name.tr('.', '_')
+  Team.reflect_on_all_associations.each do |assoc|
+    next unless /^services_/.match?(assoc.name)
 
-  config = event.payload[:user].services_github_user_config
-  next unless config&.username
+    event.payload[:team].send(assoc.name).each do |relation|
+      break unless relation.respond_to?(method_name)
 
-  relations = event.payload[:team].services_github_team_configs
-  next unless relations.count.positive?
-
-  relations.each do |relation|
-    payload = {
-      config:,
-      service: relation.service,
-      github_team_id: relation.github_team_id
-    }
-    payload[:team_id] = relation.team_id if event.name == 'team.member_removed'
-
-    job = event.name == 'team.member_added' ? 'AddUserToTeamJob' : 'RemoveUserFromTeamJob'
-    Object.const_get("Services::Github::#{job}").perform_later **payload
+      relation.send(method_name, event.payload[:user])
+    end
   end
 end
