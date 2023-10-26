@@ -1,0 +1,15 @@
+<%= form_with(model: @relation, id: 'team-google-group', url: admin_team_google_workspace_groups_path(team_id: @relation.team_id, id: 1), data: { controller: 'form' }, class: 'contents') do |form| %>
+  <%= form.hidden_field :team_id %>
+
+  <%= render 'shared/form/select', form: form,
+             field: :service_id,
+             options: options_for_select(
+               Service.where(type: 'Services::GoogleWorkspace').map { |s| [s.name, s.id]},
+               @relation.service&.id
+             ),
+             required: true %>
+
+<!--  TODO: Build an interface that uses the Google Workspace API to select a group (groups?).-->
+  <%= render 'shared/form/text_field', form: form,
+      field: :group_id, required: true %>
+<% end %>

@@ -1,7 +1,10 @@
-# require 'googleauth'
 require 'google/api_client/client_secrets'
 
 class Services::GoogleWorkspace < Service
+  def self.table_name_prefix
+    'services_google_workspace_'
+  end
+
   def self.service_type
     'Google Workspace'
   end
@@ -32,6 +35,10 @@ class Services::GoogleWorkspace < Service
         next_page: response&.next_page_token || nil
       }
     }
+  end
+
+  def group(id)
+    client.get_group(id)
   end
 
   def users

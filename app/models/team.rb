@@ -7,6 +7,8 @@ class Team < ApplicationRecord
   has_one_attached :logo
   has_many :services_github_team_configs, class_name: 'Services::Github::TeamConfig',
                                           dependent: :destroy
+  has_many :services_google_workspace_team_group_configs, class_name: 'Services::GoogleWorkspace::TeamGroupConfig',
+                                                          dependent: :destroy
 
   scope :with_github_team, lambda { |team|
     joins(:services_github_team_configs)

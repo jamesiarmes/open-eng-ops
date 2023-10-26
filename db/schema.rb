@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_08_014118) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_25_230551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,10 +29,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_08_014118) do
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
-    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
     t.datetime "created_at", null: false
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -121,6 +121,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_08_014118) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_services_github_user_configs_on_user_id"
+  end
+
+  create_table "services_google_workspace_team_group_configs", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "service_id"
+    t.string "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "idx_on_service_id_bef7eeab36"
+    t.index ["team_id"], name: "index_services_google_workspace_team_group_configs_on_team_id"
   end
 
   create_table "team_members", force: :cascade do |t|

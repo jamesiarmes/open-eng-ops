@@ -111,6 +111,20 @@ en:
             delete: "Remove GitHub Team"
           new:
             create: "Add GitHub Team"
+      google_workspace:
+        groups:
+          create:
+            success: "Google Group added"
+          destroy:
+            success: "Google Group sucesfully removed."
+          index:
+            confirm-delete: |
+              Are you sure you want to remove this Google Group? Members of this
+              team will be removed from the group unless they belong to another
+              associated team.
+            delete: "Remove Google Group"
+          new:
+            create: "Add Google Group"
       form:
         create: "Create Team"
         cancel: "Cancel"

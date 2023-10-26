@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     resources :users
     resources :roles
     resources :teams, param: :id do
+      namespace :google_workspace, path: 'google-workspace', module: 'teams/google_workspace' do
+        resources :groups
+      end
+
       namespace :github, module: 'teams/github' do
         resources :teams
       end

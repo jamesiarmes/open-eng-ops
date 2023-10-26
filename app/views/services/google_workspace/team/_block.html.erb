@@ -1,0 +1,17 @@
+<div class="col-4">
+  <div class="card shadow mb-4">
+    <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center justify-content-center align-middle">
+      <h2 class="mb-0"><i class="fa-brands fa-google fa-fw me-2"></i> Google groups</h2>
+      <!--            TODO: Fix the positioning of the add button. -->
+      <%= link_to new_admin_team_google_workspace_group_path(team_id: @team.id), data: { turbo_frame: 'modal' } do %>
+        <i class="fa-regular fa-square-plus fa-fw h-auto me-2"></i>
+      <% end %>
+    </div>
+
+    <div class="card-body p-0">
+      <%= turbo_frame_tag 'team-google-workspace-groups', loading: :lazy, src: admin_team_google_workspace_groups_path(team_id: @team.id) do %>
+        <%= render Spinner::Component.new %>
+      <% end %>
+    </div>
+  </div>
+</div>
