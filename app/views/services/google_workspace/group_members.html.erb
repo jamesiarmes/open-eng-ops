@@ -1,0 +1,56 @@
+<%= turbo_frame_tag 'google-group-members' do %>
+  <%= render Table::Component.new do |table| %>
+    <% table.with_header(title: 'Name') %>
+    <% table.with_header(title: 'Email') %>
+    <% table.with_header(title: 'Member Since') %>
+    <% table.with_header(title: 'Roles') %>
+    <% table.with_header(title: 'User') %>
+
+    <% @members[:data].each do |member| %>
+      <% table.with_row do |row| %>
+        <% member_info = @service.user(member.preferred_member_key.id) %>
+        <% row.with_column do %>
+          <%= render Avatar::Component.new(
+            src: member_info.thumbnail_photo_url, name: member_info.name.full_name,
+            default: default_user_icon) %>
+          <%= member_info.name.full_name %>
+        <% end %>
+
+        <% row.with_column do %>
+          <%= mail_to member_info.primary_email, member_info.primary_email %>
+        <% end %>
+
+        <% row.with_column do %>
+          <span title="<%= member.create_time.to_datetime.to_formatted_s(:db) %>">
+            <%= member.create_time.to_datetime.to_formatted_s(:date) %>
+          </span>
+        <% end %>
+
+        <% row.with_column do %>
+          <ul>
+            <% member.roles.each do |role| %>
+              <li><%= role.name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <%= row.with_column do %>
+          <% user = User.find_by(email: member_info.primary_email) %>
+          <% if user %>
+            <%= render Avatar::Component.new(
+              src: user.avatar, name: user.name,
+              default: default_user_icon) %>
+            <%= link_to user.name, user, data: { turbo_frame: '_top' } %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% table.with_pagination(label: 'Google Group members', frame: 'google-group-members') do |pager| %>
+      <% pager.with_first(title: 'First', page: nil, path: @pagination_params) %>
+      <% pager.with_next(title: 'Next', page: @members[:page_info][:next_page],
+                         path: @pagination_params,
+                         disabled: @members[:page_info][:next_page].blank?) %>
+    <% end %>
+  <% end %>
+<% end %>

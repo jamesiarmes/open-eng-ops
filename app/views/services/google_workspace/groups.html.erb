@@ -7,7 +7,9 @@
 
     <% @groups[:data].each do |group| %>
       <% table.with_row do |row| %>
-        <% row.with_column.with_content(group.name) %>
+        <% row.with_column do  %>
+          <%= link_to group.name, services_google_workspace_group_path(@service, group.id), data: { turbo_frame: '_top'} %>
+        <% end %>
         <% row.with_column.with_content(group.email) %>
         <% row.with_column.with_content(group.description) %>
         <% row.with_column.with_content(group.direct_members_count) %>

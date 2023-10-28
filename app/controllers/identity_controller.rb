@@ -7,7 +7,6 @@ class IdentityController < ApplicationController
     render :new
   end
 
-  # @todo Do we need a refresh token?
   def create
     request_params = request.env['omniauth.params']
     user_info = request.env['omniauth.auth']

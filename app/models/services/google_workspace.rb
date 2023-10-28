@@ -25,7 +25,7 @@ class Services::GoogleWorkspace < Service
     @customer ||= client.get_customer('my_customer')
   end
 
-  def groups(page: nil, per_page: 1)
+  def groups(page: nil, per_page: 10)
     response = client.list_groups(customer: 'my_customer',
                                   max_results: per_page, page_token: page)
 
@@ -38,7 +38,19 @@ class Services::GoogleWorkspace < Service
   end
 
   def group(id)
-    client.get_group(id)
+    idclient.get_group("groups/#{id}")
+  end
+
+  def group_members(id, page: nil, per_page: 10)
+    response = idclient.list_group_memberships("groups/#{id}", page_token: page,
+                                               page_size: per_page, view: 'FULL')
+
+    {
+      data: response&.memberships || [],
+      page_info: {
+        next_page: response&.next_page_token || nil
+      }
+    }
   end
 
   def users
@@ -52,6 +64,10 @@ class Services::GoogleWorkspace < Service
     }
   end
 
+  def user(id)
+    client.get_user(id)
+  end
+
   private
 
   def client
@@ -63,6 +79,17 @@ class Services::GoogleWorkspace < Service
     @client.authorization.refresh!
 
     @client
+  end
+
+  def idclient
+    return @idclient if @idclient
+
+    creds = Google::APIClient::ClientSecrets.new(client_credentials)
+    @idclient = Google::Apis::CloudidentityV1::CloudIdentityService.new
+    @idclient.authorization = creds.to_authorization
+    @idclient.authorization.refresh!
+
+    @idclient
   end
 
   def client_credentials

@@ -57,6 +57,8 @@ Rails.application.routes.draw do
 
     resources :google_workspace, path: 'google-workspace', param: :id do
       get 'groups'
+      get 'groups/:group', action: :group, as: 'group'
+      get 'groups/:group/members', action: :group_members, as: 'group_members'
       get 'users'
     end
 

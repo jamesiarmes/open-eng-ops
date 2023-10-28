@@ -1,0 +1,25 @@
+<div class="m-2">
+  <h1>
+    <%= @group.display_name %>
+  </h1>
+
+  <section>
+    <nav>
+      <ul class="nav nav-tabs mb-3" id="services-google-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link pe-3 ps-3 active" id="services-google-tab-members" data-mdb-toggle="tab" href="#services-google-content-members" role="tab"
+             aria-controls="services-google-content-members" aria-selected="true"><i class="fa-solid fa-users-rectangle fa-fw me-2"></i>Members</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="tab-content me-3 ms-3" id="services-google-content">
+      <div class="tab-pane fade show active" id="services-google-content-members" role="tabpanel" aria-labelledby="services-google-tab-member">
+        <%= turbo_frame_tag 'google-group-members', loading: :lazy, src: services_google_workspace_group_members_path(@service, group: @group.name.sub(/^groups\//, '')) do %>
+          <%= render Spinner::Component.new %>
+        <% end %>
+      </div>
+
+    </div>
+  </section>
+</div>
