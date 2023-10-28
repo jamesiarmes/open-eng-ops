@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Job to remove a user toa GitHub team.
+# Job to remove a user from a GitHub team.
 class Services::Github::RemoveUserFromTeamJob < ApplicationJob
   queue_as :default
 

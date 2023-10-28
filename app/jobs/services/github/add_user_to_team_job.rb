@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Job to add a user toa GitHub organization and team.
+# Job to add a user to a GitHub organization and team.
 class Services::Github::AddUserToTeamJob < ApplicationJob
   queue_as :default
 

@@ -53,6 +53,28 @@ class Services::GoogleWorkspace < Service
     }
   end
 
+  def add_group_member(group_id, user)
+    membership = Google::Apis::CloudidentityV1::Membership.new
+    membership.roles = [Google::Apis::CloudidentityV1::MembershipRole.new(name: 'MEMBER')]
+    membership.preferred_member_key = Google::Apis::CloudidentityV1::EntityKey.new(id: user.email)
+
+    idclient.create_group_membership("groups/#{group_id}", membership)
+  rescue Google::Apis::ClientError => e
+    # 409 is a conflict, which means the user is already a member of the group.
+    raise e unless e.status_code == 409
+  end
+
+  def remove_group_member(group_id, user)
+    membership = lookup_group_membership(group_id, user)
+    return unless membership
+
+    idclient.delete_group_membership(membership.name)
+  end
+
+  def lookup_group_membership(group_id, user)
+    idclient.lookup_group_membership("groups/#{group_id}", member_key_id: user.email)
+  end
+
   def users
     response = client.list_users(customer: 'my_customer')
 

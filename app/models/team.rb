@@ -15,6 +15,11 @@ class Team < ApplicationRecord
       .merge(Services::Github::TeamConfig.where(github_team_id: team))
       .uniq
   }
+  scope :with_google_group, lambda { |group|
+    joins(:services_google_workspace_team_group_configs)
+      .merge(Services::GoogleWorkspace::TeamGroupConfig.where(group_id: group))
+      .uniq
+  }
 
   validates :human_name, presence: true
   validates :name, presence: true
