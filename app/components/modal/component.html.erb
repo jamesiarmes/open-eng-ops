@@ -1,0 +1,28 @@
+<%= tag.turbo_frame id: frame do %>
+  <div class="modal fade" id="exampleModal" data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <% if icon %>
+            <%= icon %>
+          <% end %>
+          <% if title %>
+            <h5 class="modal-title" id="exampleModalLabel"><%= title %></h5>
+          <% end %>
+          <button type="button" class="btn-close" aria-label="Close" data-action="turbo-modal#hideModal"></button>
+        </div>
+
+        <div class="modal-body">
+          <%= content %>
+        </div>
+
+        <div class="modal-footer">
+          <% if footer? %>
+            <%= footer %>
+          <% end %>
+          <button class="btn btn-link" data-action="turbo-modal#hideModal"><%= t('common.cancel') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

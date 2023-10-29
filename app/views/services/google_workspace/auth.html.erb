@@ -1,23 +1,10 @@
-<%= turbo_frame_tag 'modal' do %>
-  <div class="modal fade" id="exampleModal" data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd" tabindex="-1" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Google Workspace Authorization</h5>
-          <button type="button" class="btn-close" aria-label="Close" data-action="turbo-modal#hideModal"></button>
-        </div>
+<%= render Modal::Component.new title: 'Google Workspace Authorization' do |modal| %>
+  <% modal.with_icon icon: 'lock', classes: 'default-avatar-xs me-2' %>
 
-        <div class="modal-body">
-          <%= form_tag(auth_path(:google_oauth2, user_id: params[:user_id], service_id: params[:service_id]), method: 'post', data: { turbo: false }) do %>
-            <button type='submit'>Login with Google</button>
-          <% end %>
-        </div>
-
-        <div class="modal-footer">
-          <%#= submit_tag t('.create'), class: 'btn btn-primary', form: 'team-github-team' %>
-          <%= link_to t('common.cancel'), '#', class: 'button-cancel', data: { action: 'turbo-modal#hideModal' } %>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= form_tag(auth_path(:google_oauth2, user_id: params[:user_id], service_id: params[:service_id]), method: 'post', data: { turbo: false }) do %>
+    <button class="btn btn-primary" type='submit'>
+      <%= render Icon::Component.new(icon: 'google', type: :brand, classes: 'me-1') %>
+      Login with Google
+    </button>
+  <% end %>
 <% end %>
