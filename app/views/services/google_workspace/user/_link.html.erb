@@ -1,0 +1,8 @@
+<% if @user.services_google_workspace_user_config.present? %>
+  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+    <i class="fa-brands fa-google fa-lg"></i>
+    <p class="mb-0">
+      <%= mail_to @user.services_google_workspace_user_config.email %>
+    </p>
+  </li>
+<% end %>

@@ -4,6 +4,8 @@ class Services::GoogleWorkspace::TeamGroupConfig < ApplicationRecord
   belongs_to :team
   belongs_to :service
 
+  validates :group_id, presence: true
+
   after_create :queue_add_members
   after_destroy :queue_remove_members
 

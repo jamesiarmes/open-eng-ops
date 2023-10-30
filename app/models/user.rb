@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :permissions, through: :roles
   has_one :services_github_user_config, class_name: 'Services::Github::UserConfig',
                                         dependent: :destroy
+  has_one :services_google_workspace_user_config, class_name: 'Services::GoogleWorkspace::UserConfig',
+                                                  dependent: :destroy
   belongs_to :address, optional: true, dependent: :destroy
   has_one_attached :avatar
   has_and_belongs_to_many :teams, join_table: :team_members

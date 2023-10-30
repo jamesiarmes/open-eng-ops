@@ -18,10 +18,15 @@ class Services::GoogleWorkspace::Users::InvitationsController < Admin::Users::In
     super do |user|
       break if user.errors.present? || @google_user.thumbnail_photo_url.blank?
 
+      # Attach the avatar from Google Workspace and link the user to the
+      # service.
       user.avatar.attach(
         io: URI.parse(@google_user.thumbnail_photo_url).open,
         filename: File.basename(@google_user.thumbnail_photo_url)
       )
+      user.build_services_google_workspace_user_config(
+        service: @service, google_user_id: @google_user.id)
+      user.save
     end
   end
 
