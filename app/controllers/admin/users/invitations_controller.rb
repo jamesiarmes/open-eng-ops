@@ -18,13 +18,17 @@ class Admin::Users::InvitationsController < Devise::InvitationsController
     yield resource if block_given?
 
     if resource_invited
-      render turbo_stream: turbo_visit(admin_users_path, frame: '_top')
+      render turbo_stream: turbo_visit(after_create_path_for(resource), frame: '_top')
     else
       respond_with(resource)
     end
   end
 
-  protected
+  private
+
+  def after_create_path_for(_resource)
+    admin_users_path
+  end
 
   def set_roles
     @roles = Role.all

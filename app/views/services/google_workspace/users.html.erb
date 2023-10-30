@@ -5,6 +5,7 @@
     <% table.with_header(title: t('.created')) %>
     <% table.with_header(title: t('.login')) %>
     <% table.with_header(title: t('.mfa')) %>
+    <% table.with_header(title: t('.user')) %>
 
     <% @users[:data].each do |user| %>
       <% table.with_row do |row| %>
@@ -37,6 +38,22 @@
             <input class="form-check-input" type="checkbox" role="switch"
                    <%= 'checked' if user.is_enrolled_in2_sv %> disabled />
           </div>
+        <% end %>
+
+        <% row.with_column do %>
+          <% app_user = User.find_by(email: user.primary_email) %>
+          <% if app_user %>
+            <%= render Avatar::Component.new(
+              src: app_user.avatar, name: app_user.name,
+              default: default_user_icon) %>
+            <%= link_to app_user.name, app_user, data: { turbo_frame: '_top' } %>
+          <% elsif policy(:user).new? %>
+            <%= link_to services_google_workspace_user_invite_path(@service, user.id),
+                        data: { turbo_frame: 'modal' } do %>
+              <%= render Icon::Component.new(icon: 'user-plus') %>
+              Invite User
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

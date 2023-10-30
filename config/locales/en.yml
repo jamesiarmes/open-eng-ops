@@ -36,7 +36,7 @@ en:
         human_name: "Name"
     errors:
       messages:
-        taken: "pooper"
+        taken: "taken"
       models:
         team:
           attributes:
@@ -162,6 +162,11 @@ en:
       home: "Home"
       services: "Services"
   services:
+    google_workspace:
+      users:
+        invitations:
+          new:
+            create: "Invite User"
     create:
       success: "Service successfully created"
     destroy:
@@ -174,8 +179,6 @@ en:
     form:
       create: "Create Service"
       update: "Update Service"
-    update:
-      success: "Service updated"
     show:
       confirm-delete: |
         Are you sure you want to delete this service? It will no longer be

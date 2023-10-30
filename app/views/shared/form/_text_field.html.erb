@@ -4,6 +4,7 @@
                       type: defined?(type) ? type : 'text',
                       disabled: defined?(disabled) ? disabled : false,
                       autofocus: defined?(autofocus) ? autofocus : false,
+                      readonly: defined?(readonly) ? readonly : false,
                       required: defined?(required) ? required : false }.merge(defined?(extras) ? extras : {}) %>
   <%= form.label field,
                  class: "form-label #{form.object.errors[field].any? ? 'is-invalid' : ''} #{defined?(required) ? 'required' : ''}" %>

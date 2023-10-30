@@ -1,0 +1,7 @@
+<%= render Modal::Component.new title: 'Invite Google User' do |modal| %>
+  <% modal.with_icon icon: 'user-plus', classes: 'default-avatar-xs me-2' %>
+  <%= render 'form', user: @user %>
+  <% modal.with_footer do %>
+    <%= submit_tag t('.create'), class: 'btn btn-primary', form: 'user-invitation' %>
+  <% end %>
+<% end %>

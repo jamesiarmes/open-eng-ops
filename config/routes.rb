@@ -60,6 +60,13 @@ Rails.application.routes.draw do
       get 'groups/:group', action: :group, as: 'group'
       get 'groups/:group/members', action: :group_members, as: 'group_members'
       get 'users'
+
+      resources :users, controller: 'google_workspace/users', param: :google_id do
+        as :user do
+          get 'invite', to: 'google_workspace/users/invitations#new'
+          post 'invite', to: 'google_workspace/users/invitations#create'
+        end
+      end
     end
 
     resources :sample

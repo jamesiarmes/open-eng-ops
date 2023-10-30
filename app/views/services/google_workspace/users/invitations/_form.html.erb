@@ -1,0 +1,26 @@
+<%= form_with(model: user, id: 'user-invitation', method: :post, url: services_google_workspace_user_invite_path(@service, @google_user.id), data: { controller: 'form' }, class: "contents #{user.errors.empty? ? 'needs-validation' : 'was_validated'}") do |form| %>
+  <div class="container-fluid row g-4">
+    <div class="col-12">
+      <%= render 'shared/form/text_field', form: form,
+                 field: :name,
+                 required: true %>
+    </div>
+    <div class="col-12">
+      <%= render 'shared/form/text_field', form: form,
+                 field: :pronouns %>
+    </div>
+    <div class="col-12">
+      <%= render 'shared/form/text_field', form: form,
+                 field: :email,
+                 readonly: true %>
+    </div>
+
+    <% if action_name == 'edit' %>
+      <div class="col-12">
+        <%= render 'shared/form/password', form: form,
+                   field: :password, required: true %>
+      </div>
+      <%= form.hidden_field :invitation_token, readonly: true %>
+    <% end %>
+  </div>
+<% end %>

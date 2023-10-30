@@ -20,7 +20,6 @@ class User < ApplicationRecord
 
   validates :email, presence: true
   validates :name, presence: true
-  validates :pronouns, presence: true
 
   before_validation :assign_user_default_role, on: [:create]
 

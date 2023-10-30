@@ -5,7 +5,7 @@ module Services::GithubHelper
     @default_github_icon ||= Icon::Component.new(
       type: :brand,
       icon: 'github',
-      classes: "rounded-circle avatar-#{size}"
+      classes: "rounded-circle default-avatar-#{size}"
     )
   end
 end
