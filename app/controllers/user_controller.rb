@@ -3,7 +3,7 @@ class UserController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_user, only: %i[edit show update]
-  before_action :set_enabled_service_types, only: %i[show edit]
+  before_action :set_enabled_service_types, only: %i[show edit update]
 
   def show
     authorize @user
@@ -42,9 +42,9 @@ class UserController < ApplicationController
       :id, :avatar, :name, :email, :phone, :pronouns, :password, role_ids: [],
       address_attributes: [
         :administrative_area, :country, :locality, :postal_code, :street1,
-        :street2
+        :street2, :id
       ],
-      services_github_user_config_attributes: [:username]
+      services_github_user_config_attributes: [:id, :username]
     )
   end
 end
