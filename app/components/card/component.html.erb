@@ -1,0 +1,13 @@
+<div class="card shadow mb-4">
+  <% if header? %>
+    <%= header %>
+  <% end %>
+
+  <div class="card-body <%= body_classes %>">
+    <%= content %>
+  </div>
+
+  <% if footer? %>
+    <%= footer %>
+  <% end %>
+</div>

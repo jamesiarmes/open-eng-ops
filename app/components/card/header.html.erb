@@ -1,0 +1,16 @@
+<div class="card-header bg-transparent border-0 align-middle">
+  <div class="d-flex align-middle align-items-center">
+    <% if icon? || title.present? %>
+      <div class="flex-fill">
+        <h2 class="mb-0 card-title d-inline"><%= icon %> <%= title %></h2>
+      </div>
+    <% end %>
+
+    <!-- TODO: Add a way to add buttons to the header -->
+    <%= content %>
+  </div>
+
+  <% if subtitle.present? %>
+    <p class="card-text text-muted"><%= subtitle %></p>
+  <% end %>
+</div>

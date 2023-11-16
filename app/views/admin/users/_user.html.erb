@@ -2,8 +2,8 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-4">
-        <div class="card shadow mb-4">
-          <div class="card-body text-center">
+        <%= render Card::Component.new do |card| %>
+          <div class="text-center">
             <%= render Avatar::Component.new(
               src: @user.avatar, name: @user.name, size: :lg,
               default: default_user_icon(size: :lg)) %>
@@ -11,7 +11,9 @@
             <h5 class="mt-3"><%= @user.name %></h5>
             <p class="text-muted mb-3"><%= @user.pronouns %></p>
             <p class="text-muted mb-4"><%= @user.address&.combined_locality %></p>
+          </div>
 
+          <% card.with_footer do %>
             <div class="d-flex justify-content-center mb-2">
               <%= link_to t('.edit'), edit_admin_user_path, class: 'btn btn-primary mx-1' %>
 
@@ -21,73 +23,69 @@
                             data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } %>
               <% end %>
             </div>
-          </div>
-        </div>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="col-8">
-        <div class="card shadow mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-3">
-                <p class="mb-0"><%= t('.name') %></p>
-              </div>
-              <div class="col-9">
-                <p class="text-muted mb-0"><%= @user.name %></p>
-              </div>
+        <%= render Card::Component.new do |card| %>
+          <div class="row">
+            <div class="col-3">
+              <p class="mb-0"><%= t('.name') %></p>
             </div>
-            <hr>
-            <div class="row">
-              <div class="col-3">
-                <p class="mb-0"><%= t('.pronouns') %></p>
-              </div>
-              <div class="col-9">
-                <p class="text-muted mb-0"><%= @user.pronouns %></p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-3">
-                <p class="mb-0"><%= t('.email') %></p>
-              </div>
-              <div class="col-9">
-                <p class="text-muted mb-0"><%= @user.email %></p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-3">
-                <p class="mb-0"><%= t('.phone') %></p>
-              </div>
-              <div class="col-9">
-                <p class="text-muted mb-0"><%= @user.formatted_phone %></p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-3">
-                <p class="mb-0"><%= t('.location') %></p>
-              </div>
-              <div class="col-9">
-                <p class="text-muted mb-0"><%= @user.address&.combined_locality %></p>
-              </div>
+            <div class="col-9">
+              <p class="text-muted mb-0"><%= @user.name %></p>
             </div>
           </div>
-        </div>
+          <hr>
+          <div class="row">
+            <div class="col-3">
+              <p class="mb-0"><%= t('.pronouns') %></p>
+            </div>
+            <div class="col-9">
+              <p class="text-muted mb-0"><%= @user.pronouns %></p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-3">
+              <p class="mb-0"><%= t('.email') %></p>
+            </div>
+            <div class="col-9">
+              <p class="text-muted mb-0"><%= @user.email %></p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-3">
+              <p class="mb-0"><%= t('.phone') %></p>
+            </div>
+            <div class="col-9">
+              <p class="text-muted mb-0"><%= @user.formatted_phone %></p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-3">
+              <p class="mb-0"><%= t('.location') %></p>
+            </div>
+            <div class="col-9">
+              <p class="text-muted mb-0"><%= @user.address&.combined_locality %></p>
+            </div>
+          </div>
+        <% end %>
       </div>
 
       <div class="col-4">
-        <div class="card shadow mb-4 mb-0">
-          <div class="card-body p-0">
-            <ul class="list-group list-group-flush rounded-3">
-              <% @service_types.each do |type| %>
-                <% if lookup_context.find_all("services/#{type.partial_path}/user/_link").any? %>
-                  <%= render "services/#{type.partial_path}/user/link" %>
-                <% end %>
+        <%= render Card::Component.new(body_classes: 'p-0') do |card| %>
+          <ul class="list-group list-group-flush rounded-3">
+            <% @service_types.each do |type| %>
+              <% if lookup_context.find_all("services/#{type.partial_path}/user/_link").any? %>
+                <%= render "services/#{type.partial_path}/user/link" %>
               <% end %>
-            </ul>
-          </div>
-        </div>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
 
       <% @service_types.each do |type| %>
