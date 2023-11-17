@@ -3,9 +3,10 @@
     <% card.with_header(title: 'Google Groups') do |header| %>
       <% header.with_icon type: :brand, icon: 'google' %>
 
-      <%= link_to new_admin_team_google_workspace_group_path(team_id: @team.id), data: { turbo_frame: 'modal' } do %>
-        <i class="fa-regular fa-square-plus fa-fw h-auto me-2"></i>
-      <% end %>
+      <% header.with_button_icon(
+        path: new_admin_team_google_workspace_group_path(team_id: @team.id), frame: 'modal',
+        icon: Icon::Component.new(icon: 'square-plus', type: :regular, classes: 'fa-fw h-auto me-2')
+      ) %>
     <% end %>
 
     <%= turbo_frame_tag 'team-google-workspace-groups', loading: :lazy, src: admin_team_google_workspace_groups_path(team_id: @team.id) do %>

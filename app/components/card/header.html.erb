@@ -6,8 +6,9 @@
       </div>
     <% end %>
 
-    <!-- TODO: Add a way to add buttons to the header -->
-    <%= content %>
+    <% buttons.each do |button| %>
+      <%= button %>
+    <% end %>
   </div>
 
   <% if subtitle.present? %>

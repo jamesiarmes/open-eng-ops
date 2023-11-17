@@ -13,16 +13,13 @@
             <p class="text-muted mb-4"><%= @user.address&.combined_locality %></p>
           </div>
 
-          <% card.with_footer do %>
-            <div class="d-flex justify-content-center mb-2">
-              <%= link_to t('.edit'), edit_admin_user_path, class: 'btn btn-primary mx-1' %>
-
-              <% if policy(@user).destroy? %>
-                <%= link_to t('.delete'), admin_user_path(@user),
-                            class: 'btn btn-danger mx-1',
-                            data: { turbo_method: :delete, turbo_confirm: t('.confirm-delete') } %>
-              <% end %>
-            </div>
+          <% card.with_footer do |footer| %>
+            <% footer.with_button_text(text: t('common.edit'), path: edit_admin_user_path(@user)) %>
+            <% footer.with_button_text(text: t('common.delete'), path: admin_user_path(@user),
+                                       type: :danger, data: {
+                                         turbo_method: :delete,
+                                         turbo_confirm: t('.confirm-delete')
+                                       }) %>
           <% end %>
         <% end %>
       </div>

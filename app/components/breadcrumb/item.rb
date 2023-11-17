@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Views component for rendering the sidebar menu.
+# Views component for rendering an item in a breadcrumb trail.
 class Breadcrumb::Item < ApplicationComponent
   def initialize(name:, path:)
     @name = name

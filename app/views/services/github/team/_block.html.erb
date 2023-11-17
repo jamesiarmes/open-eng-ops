@@ -2,10 +2,10 @@
   <%= render Card::Component.new(body_classes: 'p-0') do |card| %>
     <% card.with_header(title: 'Github Teams') do |header| %>
       <% header.with_icon type: :brand, icon: 'github' %>
-
-      <%= link_to new_admin_team_github_team_path(team_id: @team.id), data: { turbo_frame: 'modal' } do %>
-        <i class="fa-regular fa-square-plus fa-fw h-auto me-2"></i>
-      <% end %>
+      <% header.with_button_icon(
+        path: new_admin_team_github_team_path(team_id: @team.id), frame: 'modal',
+        icon: Icon::Component.new(icon: 'square-plus', type: :regular, classes: 'fa-fw h-auto me-2')
+      ) %>
     <% end %>
 
     <%= turbo_frame_tag 'team-github-teams', loading: :lazy, src: admin_team_github_teams_path(team_id: @team.id) do %>

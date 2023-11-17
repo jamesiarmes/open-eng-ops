@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Views component for rendering a card layout.
 class Card::Component < ApplicationComponent
   renders_one :header, Card::Header
   renders_one :footer, Card::Footer
