@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import * as Popper from 'popper';
+import 'popper';
 import {
   defineJQueryPlugin,
   getElement,
