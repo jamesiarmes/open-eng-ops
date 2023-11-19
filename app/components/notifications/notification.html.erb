@@ -1,0 +1,6 @@
+<div class="alert alert-<%= notification.type %> m-2 p-2" role="alert">
+  <%= link_to notification.url, class: 'dropdown-item link-unstyled' do %>
+    <%= render notification.avatar %>
+    <%= notification.message %>
+  <% end %>
+</div>

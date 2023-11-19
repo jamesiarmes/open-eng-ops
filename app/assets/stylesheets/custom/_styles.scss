@@ -26,6 +26,15 @@
   left: auto !important;
 }
 
+.link-unstyled {
+  color: inherit;
+  &:link { color: inherit; }
+  &:visited { color: inherit; }
+  &:hover { color: inherit; background-color: inherit; }
+  &:active { color: inherit; }
+}
+
+img.disabled, svg.disabled { filter: grayscale(100%); }
 
 @import 'mdb-ui-kit/src/scss/free/variables';
 

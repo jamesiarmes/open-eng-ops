@@ -8,11 +8,14 @@ class Icon::Component < ApplicationComponent
     solid: 'fas',
   }.freeze
 
-  def initialize(icon:, type: :solid, title: '', classes: '')
+  attr_writer :disabled
+
+  def initialize(icon:, type: :solid, title: '', classes: '', disabled: false)
     @icon = icon
     @type = type
     @title = title
     @classes = classes
+    @disabled = disabled
 
     super
   end
@@ -22,7 +25,7 @@ class Icon::Component < ApplicationComponent
   attr_reader :title
 
   def classes
-    "#{type_class} fa-#{@icon} #{@classes}"
+    "#{type_class} fa-#{@icon} #{@classes}#{@disabled ? ' disabled' : ''}"
   end
 
   def type_class

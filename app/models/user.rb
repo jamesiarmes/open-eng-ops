@@ -3,6 +3,7 @@ class User < ApplicationRecord
   rolify
 
   has_many :identities
+  has_many :notifications, as: :recipient, dependent: :destroy
   has_many :permissions, through: :roles
   has_one :services_github_user_config, class_name: 'Services::Github::UserConfig',
                                         dependent: :destroy

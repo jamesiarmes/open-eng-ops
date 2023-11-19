@@ -28,10 +28,12 @@ class Team < ApplicationRecord
   private
 
   def member_added(user)
+    UserTeamMembershipNotification.with(state: :added, team: self).deliver_later(user)
     ActiveSupport::Notifications.instrument 'team.member_added', team: self, user: user
   end
 
   def member_removed(user)
+    UserTeamMembershipNotification.with(state: :removed, team: self).deliver_later(user)
     ActiveSupport::Notifications.instrument 'team.member_removed', team: self, user: user
   end
 end

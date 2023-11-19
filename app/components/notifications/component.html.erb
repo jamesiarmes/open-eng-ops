@@ -1,0 +1,7 @@
+<ul class="dropdown-menu dropdown-menu-end">
+  <% notifications do |notification| %>
+    <li>
+      <%= render Notifications::Notification.new(notification:) %>
+    </li>
+  <% end %>
+</ul>

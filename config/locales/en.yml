@@ -62,6 +62,7 @@ en:
 
   common:
     cancel: "Cancel"
+    edit: "Edit"
     delete: "Delete"
 
   identity:

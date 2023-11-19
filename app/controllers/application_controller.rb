@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :set_default_breadcrumbs
   before_action :set_config
   before_action :all_services
+  before_action :notification_read
 
   private
 
@@ -29,6 +30,13 @@ class ApplicationController < ActionController::Base
 
   def set_config
     @config = Rails.application.config&.engops ||= {}
+  end
+
+  def notification_read
+    return if params[:notification].blank?
+
+    notification = current_user.notifications.find(params[:notification])
+    notification.mark_as_read!
   end
 
   def ensure_frame_response

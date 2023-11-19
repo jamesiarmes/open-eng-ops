@@ -21,32 +21,17 @@
     <div class="d-flex align-items-center">
       <!-- Notifications -->
       <div class="dropdown">
-        <a
-          class="text-reset me-3 dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
+        <a class="text-reset me-3 dropdown-toggle hidden-arrow"
+           href="#" role="button" data-mdb-toggle="dropdown"
+           aria-expanded="false">
           <i class="fas fa-bell"></i>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+          <% if unread_notifications? %>
+            <span class="badge rounded-pill badge-notification bg-danger"><%= unread_notifications %></span>
+          <% end %>
         </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuLink"
-        >
-          <li>
-            <a class="dropdown-item" href="#">Some news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Another news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </li>
-        </ul>
+        <%= render Notifications::Component.new(record: current_user, state: :unread) %>
       </div>
+
       <!-- Avatar -->
       <div class="dropdown">
         <a

@@ -1,5 +1,5 @@
 <% if src.present? %>
-  <img src="<%= src %>" alt="Avatar for <%= name %>" class="rounded-circle avatar-<%= size %>" />
+  <img src="<%= src %>" alt="Avatar for <%= name %>" class="<%= classes %>" />
 <% elsif default %>
   <%= render default %>
 <% end %>
