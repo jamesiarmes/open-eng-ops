@@ -15,14 +15,16 @@
       <% end %>
     </div>
 
-    <div class="ms-2">
-      <!--     TODO: Add actions -->
+    <div class="ms-2 text-center">
       <div class="mx-1">
-        <% if notification.unread? %>
-          <%= render Icon::Component.new(icon: 'book', title: 'Mark as read') %>
-        <% else %>
-          <%= render Icon::Component.new(icon: 'book-open', title: 'Mark as unread') %>
-        <% end %>
+        <%= link_to user_notification_path(id: notification.record.id, read_at: notification.unread? ? 'now': ''),
+                    data: { turbo_method: :patch }, class: 'text-info' do %>
+          <% if notification.unread? %>
+            <%= render Icon::Component.new(icon: 'eye', title: 'Mark as read') %>
+          <% else %>
+            <%= render Icon::Component.new(icon: 'eye-slash', title: 'Mark as unread') %>
+          <% end %>
+      <% end %>
       </div>
 
       <div class="mx-1">

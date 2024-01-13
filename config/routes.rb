@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     get 'user/notifications', to: 'user/notifications#index', as: :user_notifications
     delete 'user/notifications/:id', to: 'user/notifications#destroy', as: :user_notification
+    patch 'user/notifications/:id', to: 'user/notifications#update'
 
     get 'admin/users/invitations', to: 'admin/users/invitations#new'
     post 'admin/users/invitations', to: 'admin/users/invitations#create'
