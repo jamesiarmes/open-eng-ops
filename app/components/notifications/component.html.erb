@@ -1,7 +1,12 @@
-<ul class="dropdown-menu dropdown-menu-end">
+<ul class="<%= classes %> notifications">
   <% notifications do |notification| %>
     <li>
       <%= render Notifications::Notification.new(notification:) %>
     </li>
   <% end %>
+
+  <!-- TODO: Only display in the dropdown. -->
+  <div class="text-center mb-1">
+    <%= link_to 'View all', user_notifications_path %>
+  </div>
 </ul>

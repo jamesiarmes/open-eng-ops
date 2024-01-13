@@ -1,6 +1,35 @@
-<div class="alert alert-<%= notification.type %> m-2 p-2" role="alert">
-  <%= link_to notification.url, class: 'dropdown-item link-unstyled' do %>
-    <%= render notification.avatar %>
-    <%= notification.message %>
-  <% end %>
+<div class="alert <%= notification.read? ? 'alert-light border border-' : 'alert-' %><%= notification.type %> m-2 p-2" role="alert">
+
+  <div class="d-flex">
+    <div class="flex-grow-1">
+      <%= link_to notification.url, class: 'dropdown-item link-unstyled d-flex align-items-start p-0' do %>
+          <div class="me-1"><%= render notification.avatar %></div>
+          <div class="text pl-3 flex-fill">
+            <p class="m-0 text-wrap"><%= notification.message %></p>
+            <div class="text-end">
+              <span title="<%= notification.date.to_datetime.to_formatted_s(:db) %>">
+                <%= notification.date.to_datetime.to_formatted_s(:datetime) %>
+              </span>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+    <div class="ms-2">
+      <!--     TODO: Add actions -->
+      <div class="mx-1">
+        <% if notification.unread? %>
+          <%= render Icon::Component.new(icon: 'book', title: 'Mark as read') %>
+        <% else %>
+          <%= render Icon::Component.new(icon: 'book-open', title: 'Mark as unread') %>
+        <% end %>
+      </div>
+
+      <div class="mx-1">
+        <%= link_to user_notification_path(id: notification.record.id), data: { turbo_method: :delete }, class: 'text-danger' do %>
+          <%= render Icon::Component.new(icon: 'trash-can', title: 'Delete notification') %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

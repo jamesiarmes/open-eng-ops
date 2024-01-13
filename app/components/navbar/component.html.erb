@@ -29,7 +29,8 @@
             <span class="badge rounded-pill badge-notification bg-danger"><%= unread_notifications %></span>
           <% end %>
         </a>
-        <%= render Notifications::Component.new(record: current_user, state: :unread) %>
+        <%= render Notifications::Component.new(record: current_user, state: :unread,
+                                                classes: 'dropdown-menu dropdown-menu-end') %>
       </div>
 
       <!-- Avatar -->

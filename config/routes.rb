@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     post 'login', to: 'devise/sessions#create', as: :user_session
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
 
+    get 'user/notifications', to: 'user/notifications#index', as: :user_notifications
+    delete 'user/notifications/:id', to: 'user/notifications#destroy', as: :user_notification
+
     get 'admin/users/invitations', to: 'admin/users/invitations#new'
     post 'admin/users/invitations', to: 'admin/users/invitations#create'
     get 'user/invitation/:id/accept', to: 'admin/users/invitations#edit', as: :user_invitation_accept

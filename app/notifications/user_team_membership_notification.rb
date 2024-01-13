@@ -28,6 +28,10 @@ class UserTeamMembershipNotification < Noticed::Base
     end
   end
 
+  def date
+    record.created_at
+  end
+
   def type
     case params[:state]
     when :added
