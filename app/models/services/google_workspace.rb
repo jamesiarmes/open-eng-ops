@@ -37,7 +37,7 @@ class Services::GoogleWorkspace < Service
     }
   end
 
-  def group(id)
+  def google_group(id)
     idclient.get_group("groups/#{id}")
   end
 

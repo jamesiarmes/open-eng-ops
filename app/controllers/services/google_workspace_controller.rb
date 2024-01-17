@@ -14,7 +14,7 @@ class Services::GoogleWorkspaceController < ServicesController
     authorize @service, :show?
     add_breadcrumb(@service.name, services_google_workspace_path(@service))
 
-    @group = @service.group(params[:group])
+    @group = @service.google_group(params[:group])
     add_breadcrumb(@group.display_name,
                    services_google_workspace_group_path(@service, group: params[:group]))
   end

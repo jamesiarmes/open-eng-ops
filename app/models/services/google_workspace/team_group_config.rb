@@ -14,7 +14,7 @@ class Services::GoogleWorkspace::TeamGroupConfig < ApplicationRecord
   end
 
   def google_group
-    service.group(group_id)
+    service.google_group(group_id)
   end
 
   def team_member_added(user)
