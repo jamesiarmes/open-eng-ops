@@ -350,7 +350,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     retriable (3.1.2)
-    rexml (3.3.3)
+    rexml (3.3.6)
       strscan
     rolify (6.0.1)
     rspec-core (3.12.2)
